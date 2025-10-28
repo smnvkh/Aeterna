@@ -1,0 +1,11 @@
+<% content_for :title, "New memory" %>
+
+<h1>New memory</h1>
+
+<%= render "form", memory: @memory %>
+
+<br>
+
+<div>
+  <%= link_to "Back to memories", memories_path %>
+</div>
