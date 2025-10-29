@@ -1,84 +1,71 @@
-# ---- Исходные данные ----
-@texts = 'Каждая деталь хранит в себе память. Иногда это запах кофе, иногда свет утреннего окна.
-Мы вспоминаем не даты, а чувства. Главное — уметь хранить это бережно.
-'.downcase.gsub(/[—.—,«»:()]/, '').split(' ')
-
-MEMORY_TOPICS = [
-  'Детство на даче',
-  'Первый снег',
-  'Утро перед поездкой',
-  'Письмо из прошлого',
-  'Ночной город',
-  'Голос в трубке',
-  'Старое фото в альбоме',
-  'Запах сирени',
-  'Звук моря',
-  'Праздничный стол'
-]
-
-COMMENT_TEMPLATES = [
-  'Очень атмосферно!',
-  'Это будто про меня.',
-  'Как живо описано.',
-  'Сразу вспоминается детство.',
-  'Пронзительно и красиво.'
-]
-
-# ---- Методы ----
+@raw_text = 'Моя тётя часто рассказывала о летних каникулах в деревне, куда она ездили ещё ребёнком в 1950-е годы. Она вспоминала, как каждое утро просыпалась от криков петуха и запаха свежего хлеба, который пекла бабушка в старой печи. По её словам, дни проходили в простых, но запоминающихся делах: сбор ягод в лесу, купание в речке и прогулки по полям, где она впервые научилась различать дикие цветы. Тётя особенно любила летние вечера, когда все собирались на веранде и рассказывали истории о своих детских шалостях, а взрослые пели песни под гитару. Она говорила, что именно эти моменты дали ей ощущение настоящей свободы и счастья, которое осталось с ней на всю жизнь. Даже спустя десятилетия, вспоминая те деревенские летние дни, она улыбается и говорит, что такого ощущения простого, искреннего радостного детства больше нигде не испытывала.'
+@words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
 
 def seed
   reset_db
-  users = create_users(5)
-  memories = create_memories(users, 15)
-  create_comments(users, memories, 2..4)
-  puts "Seeding complete!"
+  create_posts(10)
+  create_comments(2..8)
 end
 
 def reset_db
-  Comment.destroy_all
-  Memory.destroy_all
-  User.destroy_all
-  puts "🧹 Database cleaned"
+  Rake::Task['db:drop'].invoke
+  Rake::Task['db:create'].invoke
+  Rake::Task['db:migrate'].invoke
 end
 
-def random_sentence
-  Array.new(rand(8..14)) { @texts.sample }.join(' ').capitalize + '.'
+def create_sentence
+  sentence_words = []
+
+  (10..20).to_a.sample.times do
+    sentence_words << @words.sample
+  end
+
+  sentence_words.join(' ').capitalize + '.'
 end
 
-def create_users(quantity)
-  puts "Создаём пользователей..."
-  quantity.times.map do |i|
-    User.create!(
-      email: "user#{i+1}@example.com",
-      password: "123456"
-    )
+def create_author
+  sentence_words = []
+
+  (1..2).to_a.sample.times do
+    sentence_words << @words.sample
+  end
+
+  sentence_words.join(' ').capitalize
+end
+
+def create_paragraph(sentences_count = 5)
+  paragraphs = []
+  sentences_count.times do
+    paragraphs << create_sentence
+  end
+  paragraphs.join(' ')
+end
+
+def upload_random_image
+  uploader = PostCoverUploader.new(Post.new, :cover)
+  uploader.cache!(File.open(Dir.glob(File.join(Rails.root, 'public/autoupload/post_covers', '*')).sample))
+  uploader
+end
+
+def create_posts(quantity)
+  quantity.times do
+  post = Post.create!(
+    title: create_sentence,
+    author: create_author,
+    body: create_paragraph(5),
+    cover: upload_random_image
+)
+    puts "Post with id #{post.id} just created"
   end
 end
 
-def create_memories(users, quantity)
-  puts "Создаём воспоминания..."
-  quantity.times.map do
-    Memory.create!(
-      user: users.sample,
-      title: MEMORY_TOPICS.sample,
-      body: random_sentence
-    )
-  end
-end
-
-def create_comments(users, memories, quantity_range)
-  puts "Добавляем комментарии..."
-  memories.each do |memory|
-    rand(quantity_range).times do
-      available_users = users.reject { |u| u.id == memory.user_id }
-      Comment.create!(
-        memory: memory,
-        user: available_users.sample,
-        body: COMMENT_TEMPLATES.sample
-      )
+def create_comments(quantity)
+  Post.all.each do |post|
+    quantity.to_a.sample.times do
+      comment = post.comments.create!(body: create_sentence)
+      puts "Comment with id #{comment.id} for post with id #{comment.post.id} just created"
     end
   end
 end
 
-# ---- Запуск ----
 seed
