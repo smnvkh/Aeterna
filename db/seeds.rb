@@ -46,7 +46,7 @@ def random_sentence
 end
 
 def create_users(quantity)
-  puts "👤 Создаём пользователей..."
+  puts "Создаём пользователей..."
   quantity.times.map do |i|
     User.create!(
       email: "user#{i+1}@example.com",
@@ -56,7 +56,7 @@ def create_users(quantity)
 end
 
 def create_memories(users, quantity)
-  puts "🧠 Создаём воспоминания..."
+  puts "Создаём воспоминания..."
   quantity.times.map do
     Memory.create!(
       user: users.sample,
@@ -67,7 +67,7 @@ def create_memories(users, quantity)
 end
 
 def create_comments(users, memories, quantity_range)
-  puts "💬 Добавляем комментарии..."
+  puts "Добавляем комментарии..."
   memories.each do |memory|
     rand(quantity_range).times do
       available_users = users.reject { |u| u.id == memory.user_id }

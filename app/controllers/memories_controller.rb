@@ -21,9 +21,8 @@ class MemoriesController < ApplicationController
 
   # POST /memories or /memories.json
   def create
-    @memory = Memory.new(memory_params)
-
     respond_to do |format|
+      @memory = Memory.new(memory_params)
       if @memory.save
         format.html { redirect_to @memory, notice: "Memory was successfully created." }
         format.json { render :show, status: :created, location: @memory }

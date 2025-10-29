@@ -24,6 +24,14 @@
   </head>
 
   <body>
+    <nav class="S_MenuBar">
+      <%= link_to "Главная", root_url %>
+      <%= link_to "О нас", welcome_about_url %>
+      <%= link_to "Лента времени", welcome_time_strip_url %>
+      <%= link_to "Сеть", welcome_net_url %>
+      <%= link_to "Профиль", welcome_account_url %>
+    </nav>
+
     <%= yield %>
   </body>
 </html>
