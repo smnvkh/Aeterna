@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_06_151401) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_18_162324) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -19,14 +19,24 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_151401) do
     t.index ["memory_id"], name: "index_comments_on_memory_id"
   end
 
-  create_table "memories", force: :cascade do |t|
-    t.string "author"
-    t.text "body"
+  create_table "family_members", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.date "date"
-    t.string "title"
+    t.string "name"
+    t.string "relation"
     t.datetime "updated_at", null: false
   end
 
+  create_table "memories", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.integer "family_member_id"
+    t.string "image"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["family_member_id"], name: "index_memories_on_family_member_id"
+  end
+
   add_foreign_key "comments", "memories"
+  add_foreign_key "memories", "family_members"
 end

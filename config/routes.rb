@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "pages/home"
+  get "pages/about"
+
+  get "timeline", to: "memories#timeline"
+  get "family_tree", to: "memories#family_tree"
 resources :memories do
     resources :comments
   end
@@ -13,5 +18,5 @@ resources :memories do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "memories#index"
+  root "pages#home"
 end

@@ -1,6 +1,15 @@
 class MemoriesController < ApplicationController
   before_action :set_memory, only: %i[ show edit update destroy ]
 
+  def timeline
+    # все воспоминания, отсортированные по дате
+    @memories_by_year = Memory.all.order(:date).group_by { |m| m.date.year }
+  end
+
+  def family_tree
+    @memories = Memory.all
+  end
+
   # GET /memories or /memories.json
   def index
     @memories = Memory.all
@@ -65,6 +74,6 @@ class MemoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def memory_params
-      params.expect(memory: [ :title, :author, :body, :date ])
+      params.expect(memory: [ :title, :family_member, :body, :date, :image ])
     end
 end
