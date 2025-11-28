@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "pages/about"
 
   get "timeline", to: "memories#timeline"
+  get "family_web", to: "memories#family_web"
   get "family_tree", to: "memories#family_tree"
 resources :memories do
     resources :comments

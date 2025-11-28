@@ -6,9 +6,13 @@ class MemoriesController < ApplicationController
     @memories_by_year = Memory.all.order(:date).group_by { |m| m.date.year }
   end
 
-  def family_tree
+  def family_web
     @memories = Memory.all
   end
+
+  def family_tree
+  end
+
 
   # GET /memories or /memories.json
   def index
