@@ -4,4 +4,5 @@ class Memory < ApplicationRecord
   mount_uploader :image, MemoryImageUploader
 
   belongs_to :family_member, optional: true
+  belongs_to :user
 end

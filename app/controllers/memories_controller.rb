@@ -1,13 +1,14 @@
 class MemoriesController < ApplicationController
   before_action :set_memory, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   def timeline
     # все воспоминания, отсортированные по дате
-    @memories_by_year = Memory.all.order(:date).group_by { |m| m.date.year }
+    @memories_by_year = current_user.memories.order(:date).group_by { |m| m.date.year }
   end
 
   def family_web
-    @memories = Memory.all
+    @memories = current_user.memories
   end
 
   def family_tree

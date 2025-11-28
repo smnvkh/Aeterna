@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_memory, only: %i[ create destroy ]
+  before_action :authenticate_user!
 
   def create
     @comment = @memory.comments.create(params[:comment].permit(:body))

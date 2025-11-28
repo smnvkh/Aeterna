@@ -3,8 +3,9 @@
 
 def seed
   reset_db
+  create_users(3)
   create_family_members
-  create_memories(10)
+  create_memories(30)
   create_comments(2..8)
 end
 
@@ -28,7 +29,6 @@ def create_sentence
   sentence_words.join(' ').capitalize + '.'
 end
 
-
 # ---------- Фото ----------
 def upload_random_image
   uploader = MemoryImageUploader.new(Memory.new, :image)
@@ -37,6 +37,21 @@ def upload_random_image
 end
 
 # ---------- Семья ----------
+# def create_family_members
+#   list = [
+#     { name: 'Анна', relation: 'мама' },
+#     { name: 'Иван', relation: 'папа' },
+#     { name: 'Ольга', relation: 'сестра' },
+#     { name: 'Пётр', relation: 'брат' },
+#     { name: 'Мария', relation: 'бабушка' },
+#     { name: 'Алексей', relation: 'дедушка' }
+#   ]
+
+#   list.each do |attrs|
+#     FamilyMember.create!(attrs)
+#   end
+# end
+
 def create_family_members
   list = [
     { name: 'Анна', relation: 'мама' },
@@ -47,42 +62,100 @@ def create_family_members
     { name: 'Алексей', relation: 'дедушка' }
   ]
 
-  list.each do |attrs|
-    FamilyMember.create!(attrs)
+  User.find_each do |user|
+    list.each do |attrs|
+      FamilyMember.create!(attrs.merge(user: user))
+    end
+    puts "Family members created for user #{user.id}"
   end
 end
 
-# ---------- Воспоминания ----------
+
+def create_users(quantity)
+  i = 0
+
+  quantity.times do
+    user_data = {
+      email: "user_#{i}@email.com",
+      password: "testtest"
+    }
+
+    user = User.create!(user_data)
+    puts "User created with id #{user.id}"
+
+    i += 1
+  end
+end
+
+
+# def create_memories(quantity)
+#   years = (1950..2020).to_a.sample(5)  # выбираем 5 случайных лет
+
+#   years.each do |year|
+#     rand(1..5).times do  # от 1 до 5 воспоминаний в выбранном году
+#       date = Date.new(year, rand(1..12), rand(1..28))
+
+#       Memory.create!(
+#         title: create_title,
+#         body: create_sentence,
+#         date: date,
+#         family_member: FamilyMember.all.sample,
+#         image: upload_random_image
+#       )
+
+#       puts "Memory created for year #{year}"
+#     end
+#   end
+# end
+
 def create_memories(quantity)
-  years = (1950..2020).to_a.sample(5)  # выбираем 5 случайных лет
+  years = (1950..2020).to_a.sample(5)
 
   years.each do |year|
-    rand(1..5).times do  # от 1 до 5 воспоминаний в выбранном году
+    rand(1..5).times do
+      user = User.all.sample
+      family_member = user.family_members.sample   # берём родственника ЭТОГО пользователя
+
       date = Date.new(year, rand(1..12), rand(1..28))
 
-      Memory.create!(
+      user.memories.create!(
         title: create_title,
         body: create_sentence,
         date: date,
-        family_member: FamilyMember.all.sample,
+        family_member: family_member,
         image: upload_random_image
       )
 
-      puts "Memory created for year #{year}"
+      puts "Memory created for year #{year} (user #{user.id})"
     end
   end
 end
+
 
 
 
 # ---------- Комменты ----------
+# def create_comments(range)
+#   Memory.all.each do |memory|
+#     range.to_a.sample.times do
+#       comment = memory.comments.create!(body: create_sentence)
+#       puts "Comment #{comment.id} -> memory #{memory.id}"
+#     end
+#   end
+# end
+
 def create_comments(range)
-  Memory.all.each do |memory|
+  Memory.find_each do |memory|
     range.to_a.sample.times do
-      comment = memory.comments.create!(body: create_sentence)
+      user = memory.user
+      comment = memory.comments.create!(
+        body: create_sentence,
+        user: user
+      )
       puts "Comment #{comment.id} -> memory #{memory.id}"
     end
   end
 end
+
 
 seed
