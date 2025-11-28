@@ -14,12 +14,20 @@ def reset_db
   Rake::Task['db:migrate'].invoke
 end
 
+# ---------- Генерация заголовка ----------
+def create_title
+  title_words = []
+  (2..10).to_a.sample.times { title_words << @words.sample }
+  title_words.join(' ').capitalize + '.'
+end
+
 # ---------- Генерация текста ----------
 def create_sentence
   sentence_words = []
   (10..20).to_a.sample.times { sentence_words << @words.sample }
   sentence_words.join(' ').capitalize + '.'
 end
+
 
 # ---------- Фото ----------
 def upload_random_image
@@ -53,7 +61,7 @@ def create_memories(quantity)
       date = Date.new(year, rand(1..12), rand(1..28))
 
       Memory.create!(
-        title: create_sentence,
+        title: create_title,
         body: create_sentence,
         date: date,
         family_member: FamilyMember.all.sample,
