@@ -16,9 +16,9 @@
     <%= form.text_field :title %>
   </div>
 
-  <div>
+<div>
     <%= form.label :family_member_id, "Family member" %>
-  <%= form.collection_select :family_member_id, FamilyMember.all, :id, ->(member) { "#{member.relation.capitalize} #{member.name}" } %>
+    <%= form.collection_select :family_member_id, current_user.family_members.order(:name), :id, :to_s %>
   </div>
 
   <div>

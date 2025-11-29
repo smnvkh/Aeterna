@@ -3,10 +3,10 @@
 
 def seed
   reset_db
-  create_users(3)
+  create_users(5)
   create_family_members
-  create_memories(30)
-  create_comments(2..8)
+  create_memories(35)
+  create_comments(1..3)
 end
 
 def reset_db

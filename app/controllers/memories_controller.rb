@@ -36,6 +36,7 @@ class MemoriesController < ApplicationController
   # POST /memories or /memories.json
   def create
     @memory = Memory.new(memory_params)
+    @memory.user = current_user
 
     respond_to do |format|
       if @memory.save
@@ -79,6 +80,6 @@ class MemoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def memory_params
-      params.expect(memory: [ :title, :family_member, :body, :date, :image ])
+      params.expect(memory: [ :title, :family_member_id, :body, :date, :image ])
     end
 end

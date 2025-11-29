@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    @memory.user = current_user
     @comment = @memory.comments.create(params[:comment].permit(:body))
     redirect_to memory_path(@memory)
   end
