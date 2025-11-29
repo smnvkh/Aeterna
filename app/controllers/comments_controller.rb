@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_memory, only: %i[ create destroy ]
-  before_action :authenticate_user!
 
   def create
     @memory.user = current_user
