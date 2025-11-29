@@ -3,12 +3,15 @@ Rails.application.routes.draw do
   get "pages/home"
   get "pages/about"
 
-  get "timeline", to: "memories#timeline"
-  get "family_web", to: "memories#family_web"
-  get "family_tree", to: "memories#family_tree"
-resources :memories do
-    resources :comments
+  namespace :admin do
+    get "timeline", to: "memories#timeline"
+    get "family_web", to: "memories#family_web"
+    get "family_tree", to: "memories#family_tree"
+    resources :memories do
+      resources :comments
+    end
   end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

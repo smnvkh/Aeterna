@@ -1,4 +1,4 @@
-<%= form_with model: Comment.new, url: memory_comments_path(@memory) do |form| %>
+<%= form_with model: Comment.new, url: admin_memory_comments_path(@memory) do |form| %>
   <div>
     <%= form.label :body, style: "display: block" %>
     <%= form.text_area :body %>

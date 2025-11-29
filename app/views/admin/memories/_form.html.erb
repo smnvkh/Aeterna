@@ -1,4 +1,4 @@
-<%= form_with(model: memory) do |form| %>
+<%= form_with(model: [:admin, @memory]) do |form| %>
   <% if memory.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(memory.errors.count, "error") %> prohibited this memory from being saved:</h2>
@@ -33,7 +33,7 @@
 
   <div>
     <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+    <%= form.date_field :date, required: true %>
   </div>
 
   <div>

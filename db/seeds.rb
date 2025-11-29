@@ -3,9 +3,10 @@
 
 def seed
   reset_db
-  create_users(5)
+  # create_users(5)
+  create_admin_user
   create_family_members
-  create_memories(35)
+  create_memories(30)
   create_comments(1..3)
 end
 
@@ -85,6 +86,17 @@ def create_users(quantity)
 
     i += 1
   end
+end
+
+def create_admin_user
+  user_data = {
+    email: "admin@email.com",
+    password: "testtest",
+    admin: true
+  }
+
+  user = User.create!(user_data)
+  puts "User created with id #{user.id}"
 end
 
 

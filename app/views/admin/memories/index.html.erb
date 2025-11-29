@@ -8,9 +8,9 @@
   <% @memories.each do |memory| %>
     <%= render memory %>
     <p>
-      <%= link_to "Show this memory", memory %>
+      <%= link_to "Show this memory", [:admin, memory] %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New memory", new_memory_path %>
+<%= link_to "New memory", new_admin_memory_path %>

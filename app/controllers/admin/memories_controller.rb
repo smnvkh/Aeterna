@@ -1,4 +1,4 @@
-class MemoriesController < ApplicationController
+class Admin::MemoriesController < ApplicationController
   load_and_authorize_resource
   before_action :set_memory, only: %i[ show edit update destroy ]
 
@@ -40,7 +40,7 @@ class MemoriesController < ApplicationController
 
     respond_to do |format|
       if @memory.save
-        format.html { redirect_to @memory, notice: "Memory was successfully created." }
+        format.html { redirect_to [ :admin, @memory ], notice: "Memory was successfully created." }
         format.json { render :show, status: :created, location: @memory }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class MemoriesController < ApplicationController
   def update
     respond_to do |format|
       if @memory.update(memory_params)
-        format.html { redirect_to @memory, notice: "Memory was successfully updated.", status: :see_other }
+        format.html { redirect_to [ :admin, @memory ], notice: "Memory was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @memory }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class MemoriesController < ApplicationController
     @memory.destroy!
 
     respond_to do |format|
-      format.html { redirect_to memories_path, notice: "Memory was successfully destroyed.", status: :see_other }
+      format.html { redirect_to admin_timeline_path, notice: "Memory was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
