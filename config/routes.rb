@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
+
   get "pages/home"
   get "pages/about"
+
+  resources :subscriptions, only: :create
 
   namespace :admin do
     get "timeline", to: "memories#timeline"
     get "family_web", to: "memories#family_web"
     get "family_tree", to: "memories#family_tree"
+    resources :subscriptions
     resources :memories do
       resources :comments
     end
