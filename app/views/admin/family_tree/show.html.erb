@@ -1,0 +1,34 @@
+<h1><%= @member.name %></h1>
+
+<h2>Родители:</h2>
+<ul>
+  <li>Мама: <%= @member.mother&.name || "-" %></li>
+  <li>Папа: <%= @member.father&.name || "-" %></li>
+</ul>
+
+<h2>Супруг/супруга:</h2>
+<p>
+  <%= @member.spouse&.name || "-" %>
+</p>
+
+<h2>Дети:</h2>
+<ul>
+  <% @member.children.each do |child| %>
+    <li><%= child.name %></li>
+  <% end %>
+</ul>
+
+<h2>Братья/сёстры:</h2>
+<ul>
+  <% @member.siblings.each do |sibling| %>
+    <li><%= sibling.name %></li>
+  <% end %>
+</ul>
+
+<hr>
+
+<div>
+  <%#= link_to "Edit this family member", edit_admin_family_member_path(@family_member) %> |
+  <%= link_to "Back to family tree", admin_family_tree_path %>
+  <%#= link_to "Destroy this family member", [:admin, @family_member], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+</div>

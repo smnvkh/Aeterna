@@ -1,0 +1,12 @@
+<% content_for :title, "New family member" %>
+
+<h1>New family member</h1>
+
+<%= render "form", family_member: @family_member %>
+
+<br>
+
+<div>
+  <%= link_to "Back to family tree", admin_family_tree_path %>
+</div>
+

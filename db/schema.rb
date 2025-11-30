@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_29_154833) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_30_164957) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -23,8 +23,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_29_154833) do
 
   create_table "family_members", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "father_id"
+    t.string "gender"
+    t.integer "mother_id"
     t.string "name"
     t.string "relation"
+    t.integer "spouse_id"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_family_members_on_user_id"

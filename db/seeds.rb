@@ -54,20 +54,71 @@ end
 # end
 
 def create_family_members
-  list = [
-    { name: 'Анна', relation: 'мама' },
-    { name: 'Иван', relation: 'папа' },
-    { name: 'Ольга', relation: 'сестра' },
-    { name: 'Пётр', relation: 'брат' },
-    { name: 'Мария', relation: 'бабушка' },
-    { name: 'Алексей', relation: 'дедушка' }
-  ]
-
   User.find_each do |user|
-    list.each do |attrs|
-      FamilyMember.create!(attrs.merge(user: user))
-    end
-    puts "Family members created for user #{user.id}"
+    puts "Generating family for user #{user.id}..."
+
+    # --- 1. Создаём членов семьи ---
+    father = FamilyMember.create!(
+      name: "Иван",
+      gender: "m",
+      user: user,
+      relation: "папа"
+    )
+
+    mother = FamilyMember.create!(
+      name: "Анна",
+      gender: "f",
+      user: user,
+      relation: "мама"
+    )
+
+    # Супружество (взаимная связь)
+    father.update!(spouse: mother)
+    mother.update!(spouse: father)
+
+    sister = FamilyMember.create!(
+      name: "Ольга",
+      gender: "f",
+      user: user,
+      mother: mother,
+      father: father,
+      relation: "сестра"
+    )
+
+    brother = FamilyMember.create!(
+      name: "Пётр",
+      gender: "m",
+      user: user,
+      mother: mother,
+      father: father,
+      relation: "брат"
+    )
+
+    grandmother = FamilyMember.create!(
+      name: "Мария",
+      gender: "f",
+      user: user,
+      relation: "бабушка"
+    )
+
+    grandfather = FamilyMember.create!(
+      name: "Алексей",
+      gender: "m",
+      user: user,
+      relation: "дедушка"
+    )
+
+    # Брак бабушки и дедушки
+    grandfather.update!(spouse: grandmother)
+    grandmother.update!(spouse: grandfather)
+
+    # Устанавливаем бабушку/дедушку родителями матери
+    mother.update!(
+      mother: grandmother,
+      father: grandfather
+    )
+
+    puts "Family members created with relations for user #{user.id}"
   end
 end
 

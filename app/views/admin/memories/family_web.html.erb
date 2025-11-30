@@ -1,5 +1,7 @@
 <h1>Сеть воспоминаний</h1>
 
+<%= link_to 'Создать воспоминание', new_admin_memory_path %>
+
 <div class="family_tree">
   <% @memories.each do |memory| %>
     <div class="family_tree-item">

@@ -4,6 +4,8 @@
 
 <h1>Memories</h1>
 
+<%= link_to 'Создать воспоминание', new_admin_memory_path %>
+
 <div id="memories">
   <% @memories.each do |memory| %>
     <%= render memory %>
