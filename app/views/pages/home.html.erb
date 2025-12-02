@@ -1,6 +1,39 @@
-<h1>AETERNA</h1>
-<p>Цифровой семейный архив воспоминаний</p>
+<section class="Cover">
+    <div class="HeadingAndCTA">
+        <div class="Heading">
+            <h1>Цифровой семейный архив воспоминаний</h1>
+            <%= image_tag 'home/Aeterna.svg', class: 'StrokeText' %>
+            <p>Мы скоро откроемся. Подпишитесь, чтобы первыми узнать о запуске</p>
+        </div>
+        <div class="CTA" id='new_subscription'>
+            <%= render "subscriptions/form" %>
+        </div>
+    </div>
+    <div class="MemoryExamples" id="home">
+        <div class="TextMemory">
+            <p class="MemoryDescription">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</p>
+            <p class="MemoryAuthor">Валентина</p>
+        </div>
+        <div class="ImageMemory">
+            <%= image_tag 'home/HomeImageFamily.jpg', class: 'ImageMemoryItem' %>
+            <p class="MemoryDate">20 июля 2023</p>
+        </div>
+        <div class="TextMemory">
+            <p class="MemoryDescription">Наш первый дом стоял у реки, где росла старая ива</p>
+            <p class="MemoryAuthor">Бабушка Мая</p>
+        </div>
+        <div class="ImageMemory">
+            <%= image_tag 'home/HomeImageGrandma.jpg', class: 'ImageMemoryItem' %>
+            <p class="MemoryDate">25 мая 2019</p>
+        </div>
+        <div class="TextMemory">
+            <p class="MemoryDescription">Мама смеялась, когда я включал её любимую песню</p>
+            <p class="MemoryAuthor">Папа</p>
+        </div>
+        <div class="TextMemory">
+            <p class="MemoryDescription">Наш кот прожил с нами 19 лет. На фото он всегда посередине</p>
+            <p class="MemoryAuthor">Бабушка Тамара</p>
+        </div>
+    </div>
+</section>
 
-<div id='new_subscription'>
-    <%= render "subscriptions/form" %>
-</div>

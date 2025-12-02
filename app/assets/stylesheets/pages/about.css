@@ -1,0 +1,358 @@
+section.About {
+  margin-bottom: 4.38rem;
+  margin-top: 5rem;
+}
+.Cover.About {
+  margin-top: 0;
+}
+.AboutInfo {
+  padding: 0 0 0 6.25rem;
+  width: 100%;
+}
+.CTA > a {
+  all: unset;
+  border: 1px solid var(--dark-grey-20);
+  font-family: 'Neue Montreal';
+  font-size: 0.875rem;
+  line-height: 100%;
+  cursor: pointer;
+  display: flex;
+  width: 18.3125rem;
+  padding: 1rem 1.25rem;
+  justify-content: center;
+  border-radius: 0.125rem;
+  background: var(--light-blue);
+}
+
+.Heading#About > p {
+  width: 23rem;
+}
+
+.Heading#About .StrokeText {
+  margin-top: -3.5rem;
+  width: 16rem;
+}
+
+.AudioMemory {
+  display: flex;
+  width: 14.3125rem;
+  height: 9.875rem;
+  padding: 0.625rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-radius: 0.125rem;
+  background-color: var(--light-grey);
+  box-shadow: 0 2px 6px 0 rgba(24, 27, 22, 0.08);
+  position: absolute;
+}
+
+.AudioMemoryController {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  color: var(--dark-grey);
+  font-size: 0.625rem;
+  line-height: 100%;
+  letter-spacing: -0.0125rem;
+}
+
+.AudioTime {
+  margin-right: 5.5rem;
+}
+
+.AudioImage {
+  margin-top: 0.8rem;
+}
+
+#About.MemoryExamples > .TextMemory:first-child {
+  right: -1rem;
+  top: 2rem;
+  width: 12rem;
+}
+
+#About.MemoryExamples > .ImageMemory:nth-child(2) {
+  left: 19rem;
+  top: 7rem;
+}
+
+#About.MemoryExamples > .TextMemory:nth-child(3) {
+  left: -3rem;
+  top: 12rem;
+  width: 13.875rem;
+}
+
+#About.MemoryExamples > .TextMemory:nth-child(4) {
+  top: 16rem;
+  left: -9rem;
+  width: 10rem;
+}
+
+#About.MemoryExamples > .ImageMemory:nth-child(5) {
+  top: 17rem;
+  left: 28rem;
+}
+
+#About.MemoryExamples > .AudioMemory:nth-child(6) {
+  top: 19rem;
+  left: 6rem;
+  width: 14.3125rem;
+}
+
+.AboutNavigation {
+  display: flex;
+  width: 11rem;
+  padding: 0.5rem 1.5rem;
+  gap: 0.5rem;
+  align-items: baseline;
+  width: 12rem;
+}
+
+.AboutNavigation p {
+  font-family: 'Geist Mono';
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 110%;
+  text-transform: uppercase;
+}
+
+.AboutRightArrow {
+  width: 3rem;
+  height: 100%;
+}
+
+.WhatDoesAeternaDo {
+  display: flex;
+  align-items: flex-start;
+}
+
+H2 {
+  font-size: 3rem;
+  line-height: 100%;
+  letter-spacing: -0.06rem;
+  font-weight: 300;
+  font-family: 'Geist Mono';
+  width: 36rem;
+  padding-top: 0.5rem;
+  margin: 0 0 4rem;
+}
+
+p {
+  font-family: 'PP Neue Montreal';
+  font-weight: 400;
+  line-height: 110%;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.WhatDoesAeternaDoBlock {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.AboutUpArrow {
+  height: 19rem;
+}
+
+.BlockContent {
+  display: flex;
+  flex-direction: column;
+  width: 27rem;
+  gap: 1.5rem;
+}
+
+.BlockContent h3 {
+  font-family: 'PP Neue Montreal';
+  font-weight: 400;
+  line-height: 110%;
+  margin: 0;
+}
+
+.BlockContent h3 {
+  font-size: 1.75rem;
+}
+
+.BlockContent img {
+  width: 100%;
+  height: 12rem;
+  padding-top: 0.5rem;
+}
+
+.WhatDoesAeternaDo > .AboutInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.WhatDoesAeternaDo > .AboutInfo h2 {
+  margin: 0 0 3rem;
+}
+
+.WhatDoesAeternaDoBlock {
+  align-items: end;
+}
+
+.WhatDoesAeternaDoBlock:nth-child(3) {
+  align-self: end;
+  margin-right: 1.5rem;
+}
+
+.WhatCanWeDo {
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.WhatCanWeDo h2 {
+  width: 50rem;
+  padding: 0 0 0 6.25rem;
+}
+
+.WhatCanWeDo > .AboutInfo {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+.Feature {
+  border: 1px solid var(--light-grey);
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Feature img {
+  width: 100%;
+}
+
+.Feature > p,
+.Feature > h4 {
+  font-family: 'PP Neue Montreal';
+  line-height: 110%;
+}
+
+.Feature > h4 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 1.5rem;
+}
+
+.Feature > p {
+  margin: 0 1.5rem;
+}
+
+.Feature:nth-child(1) h4 {
+  margin: 1.5rem 1.5rem -0.8rem;
+}
+
+.Feature:nth-child(4) h4 {
+  margin: 1.5rem 1.5rem -2.6rem;
+}
+
+.DisplayOfMemories {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.DisplayOfMemories > .AboutInfo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.5rem;
+}
+
+.DisplayOfMemories > .AboutInfo h2 {
+  margin: 0 0 2.5rem;
+}
+
+.DisplayOfMemories > .AboutInfo p {
+  width: 18.4rem;
+}
+
+.StructuredMemories {
+  margin: 0 1.5rem;
+  position: relative;
+}
+
+.StructuredMemories img {
+  width: 100%;
+}
+
+.Memories {
+  position: absolute;
+  top: 0;
+}
+
+.MemoryBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  position: absolute;
+}
+
+.TextMemory,
+.ImageMemory {
+  position: initial;
+  top: 0;
+  left: 0;
+}
+
+.MemoryBlock:nth-child(1) > .TextMemory,
+.MemoryBlock:nth-child(3) > .TextMemory {
+  width: 14rem;
+}
+
+.MemoryBlock:nth-child(4) > .TextMemory {
+  width: 12rem;
+}
+
+.MemoryBlock:nth-child(1) {
+  top: 5.37rem;
+}
+
+.MemoryBlock:nth-child(2) {
+  left: 20.19rem;
+  top: 8.44rem;
+}
+
+.MemoryBlock:nth-child(3) {
+  left: 37.38rem;
+  top: 1.69rem;
+}
+
+.MemoryBlock:nth-child(4) {
+  left: 50.44rem;
+  top: 12.06rem;
+}
+
+.MemoryBlock:nth-child(5) {
+  left: 70.12rem;
+  top: -7rem;
+}
+
+.HeadingAndCTA.About {
+  padding: 0 0 0 17.81rem;
+}
+
+.HeadingAndCTA.About > .Heading > .StrokeText {
+  width: 11.5rem;
+  height: 3.1875rem;
+  padding-right: 0rem;
+  margin-top: -3.5rem;
+  margin-right: 11rem;
+}
+
+.HeadingAndCTA.About > .Heading > p {
+  width: 18.5rem;
+}
+
+.HeadingAndCTA.About > .Heading {
+  margin-bottom: 4rem;
+}

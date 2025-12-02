@@ -1,15 +1,43 @@
 <nav class="S_MenuBar">
     <div>
         <%= link_to 'AETERNA', root_url %>
-        <%= link_to 'О нас', pages_about_path %>
+        <div class="Pages">
+
+        <%= link_to pages_about_path, class: "PageLink" do %>
+            О нас
+            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+        <% end %>
 
         <% if user_signed_in? %>
-            <%= link_to 'Лента времени', admin_timeline_path %>
-            <%= link_to 'Сеть', admin_family_web_path %>
-            <%= link_to 'Cемейное древо', admin_family_tree_path %>
-            <%= link_to 'Члены семьи', admin_family_members_path %>
-            <%= link_to 'Подписки', admin_subscriptions_path %>
+
+            <%= link_to admin_timeline_path, class: "PageLink" do %>
+            Лента времени
+            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+            <% end %>
+
+            <%= link_to admin_family_web_path, class: "PageLink" do %>
+            Сеть
+            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+            <% end %>
+
+            <%= link_to admin_family_tree_path, class: "PageLink" do %>
+            Семейное древо
+            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+            <% end %>
+
+            <%= link_to admin_family_members_path, class: "PageLink" do %>
+            Члены семьи
+            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+            <% end %>
+
+            <%= link_to admin_subscriptions_path, class: "PageLink" do %>
+            Подписки
+            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+            <% end %>
+
         <% end %>
+
+        </div>
     </div>
 
     <div>

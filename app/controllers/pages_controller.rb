@@ -4,5 +4,6 @@ class PagesController < ApplicationController
   end
 
   def about
+    @subscription = Subscription.new
   end
 end

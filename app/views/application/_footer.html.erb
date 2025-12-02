@@ -1,0 +1,39 @@
+<nav class="Footer">
+        <%= link_to 'AETERNA', root_url, id: 'Name' %>
+        <div class="LinksAndDate">
+            <div class="Pages Footer">
+                <div class="PageLink">
+                    <%= link_to 'О нас', pages_about_path %>
+                    <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                </div>
+                <% if user_signed_in? %>
+                    <div class="PageLink">
+                        <%= link_to 'Лента времени', admin_timeline_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                    <div class="PageLink">
+                        <%= link_to 'Сеть', admin_family_web_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                    <div class="PageLink">
+                        <%= link_to 'Cемейное древо', admin_family_tree_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                    <div class="PageLink">
+                        <%= link_to 'Члены семьи', admin_family_members_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                    <div class="PageLink">
+                        <%= link_to 'Подписки', admin_subscriptions_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                <% end %>
+            </div>
+            <p>©Aeterna, 2025</p>
+        </div>
+        <div class="Authors">
+            <p>Чибичик Алёна</p>
+            <p>Семеновых Мария</p>
+            <p>Ямщикова Виктория</p>
+        </div>
+</nav>

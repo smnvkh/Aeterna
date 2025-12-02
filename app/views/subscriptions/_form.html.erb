@@ -1,6 +1,6 @@
-<%= form_with(model: @subscription) do |form| %>
+<%= form_with(model: @subscription, html: { class: "Form" }) do |form| %>
   <% if @subscription.errors.any? %>
-    <div style="color: red">
+    <div class="FormErrors">
       <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
 
       <ul>
@@ -11,12 +11,14 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.email_field :email %>
+  <div class="FormField">
+    <%= form.email_field :email, class: "FormInput", placeholder: "Введите e-mail" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="FormActions">
+    <%= form.submit "Подписаться", class: "FormButton" %>
   </div>
 <% end %>
+
+
+

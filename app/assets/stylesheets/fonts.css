@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('GeistMono-Light.woff2') format('woff2'),
+    url('GeistMono-Light.woff') format('woff'),
+    url('GeistMono-Light.ttf') format('truetype'),
+    url('GeistMono-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('GeistMono-Medium.woff2') format('woff2'),
+    url('GeistMono-Medium.woff') format('woff'),
+    url('GeistMono-Medium.ttf') format('truetype'),
+    url('GeistMono-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('NeueMontreal-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Mono';
+  src: url('SFMono-Light.woff2') format('woff2'),
+    url('SFMono-Light.woff') format('woff'),
+    url('SFMono-Light.ttf') format('truetype'),
+    url('SFMono-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}

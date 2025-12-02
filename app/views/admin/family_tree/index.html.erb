@@ -1,12 +1,14 @@
-<h1>Семейное древо — список всех членов</h1>
-
-<%= link_to 'Создать новую связь', new_admin_family_member_path %>
-
-<ul>
-  <% @members.each do |member| %>
-    <li>
-      <%= link_to member.name, admin_family_tree_member_path(member) %>
-      (<%= member.gender %>)
-    </li>
-  <% end %>
-</ul>
+<div class="AdminPage">
+  <h1>Семейное древо — список всех членов</h1>
+  
+  <%= link_to 'Создать новую связь', new_admin_family_member_path %>
+  
+  <ul>
+    <% @members.each do |member| %>
+      <li>
+        <%= link_to member.name, admin_family_tree_member_path(member) %>
+        (<%= member.gender %>)
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,4 +1,7 @@
-.S_MenuBar {
-  display: flex;
-  justify-content: space-between;
-}
+/*
+ *= require vars
+ *= require fonts
+ *= require basics
+ *= require pages/home
+ *= require pages/about
+ */

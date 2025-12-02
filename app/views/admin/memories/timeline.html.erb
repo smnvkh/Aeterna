@@ -1,26 +1,28 @@
-<h1>Лента времени</h1>
-
-<%= link_to 'Создать воспоминание', new_admin_memory_path %>
-
-<div class="timeline">
-  <% @memories_by_year.each do |year, memories| %>
-    <div class="timeline-year">
-      <h2><%= year %></h2>
-
-      <% memories.each do |memory| %>
-        <div class="timeline-item">
-          <h3><%= memory.family_member.name %> (<%= memory.family_member.relation %>)</h3>
-          
-          <div class="memory-image">
-            <%= link_to [:admin, memory] do %>
-              <%= image_tag memory.image.url, width: 300 %>
-            <% end %>
+<div class="AdminPage">
+  <h1>Лента времени</h1>
+  
+  <%= link_to 'Создать воспоминание', new_admin_memory_path %>
+  
+  <div class="timeline">
+    <% @memories_by_year.each do |year, memories| %>
+      <div class="timeline-year">
+        <h2><%= year %></h2>
+  
+        <% memories.each do |memory| %>
+          <div class="timeline-item">
+            <h3><%= memory.family_member.name %> (<%= memory.family_member.relation %>)</h3>
+  
+            <div class="memory-image">
+              <%= link_to [:admin, memory] do %>
+                <%= image_tag memory.image.url, width: 300 %>
+              <% end %>
+            </div>
+  
+            <p><%= l(memory.date, format: :long) %></p>
+            <p><%= memory.body %></p>
           </div>
-
-          <p><%= l(memory.date, format: :long) %></p>
-          <p><%= memory.body %></p>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

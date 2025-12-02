@@ -1,28 +1,30 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @family_member %> 
-
-<hr>
-
-<h2>Детальная информация</h2>
-<p>Имя: <%= @family_member.name %></p>
-<p>Пол: <%= @family_member.gender %></p>
-<p>Мама: <%= @family_member.mother&.name || "-" %></p>
-<p>Папа: <%= @family_member.father&.name || "-" %></p>
-<p>Супруг(а): <%= @family_member.spouse&.name || "-" %></p>
-
-<h3>Дети</h3>
-<ul>
-  <% @family_member.children.each do |c| %>
-    <li><%= link_to c.name, admin_family_member_path(c) %></li>
-  <% end %>
-</ul>
-
-<h3>Братья / сёстры</h3>
-<ul>
-  <% @family_member.siblings.each do |s| %>
-    <li><%= link_to s.name, admin_family_member_path(s) %></li>
-  <% end %>
-</ul>
-
-<%= link_to "Back to family tree", admin_family_tree_path %>
+<section class="AdminPage">
+  <p style="color: green"><%= notice %></p>
+  
+  <%= render @family_member %>
+  
+  <hr>
+  
+  <h2>Детальная информация</h2>
+  <p>Имя: <%= @family_member.name %></p>
+  <p>Пол: <%= @family_member.gender %></p>
+  <p>Мама: <%= @family_member.mother&.name || "-" %></p>
+  <p>Папа: <%= @family_member.father&.name || "-" %></p>
+  <p>Супруг(а): <%= @family_member.spouse&.name || "-" %></p>
+  
+  <h3>Дети</h3>
+  <ul>
+    <% @family_member.children.each do |c| %>
+      <li><%= link_to c.name, admin_family_member_path(c) %></li>
+    <% end %>
+  </ul>
+  
+  <h3>Братья / сёстры</h3>
+  <ul>
+    <% @family_member.siblings.each do |s| %>
+      <li><%= link_to s.name, admin_family_member_path(s) %></li>
+    <% end %>
+  </ul>
+  
+  <%= link_to "Back to family tree", admin_family_tree_path %>
+</section>

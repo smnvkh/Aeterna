@@ -1,12 +1,14 @@
-<% content_for :title, "Editing family member" %>
-
-<h1>Editing family member</h1>
-
-<%= render "form", family_member: @family_member %>
-
-<br>
-
-<div>
-  <%= link_to "Show this family member", [:admin, @family_member] %> |
-  <%= link_to "Back to family members", admin_family_members_path %>
-</div>
+<section class="AdminPage">
+  <% content_for :title, "Editing family member" %>
+  
+  <h1>Editing family member</h1>
+  
+  <%= render "form", family_member: @family_member %>
+  
+  <br>
+  
+  <div>
+    <%= link_to "Show this family member", [:admin, @family_member] %> |
+    <%= link_to "Back to family members", admin_family_members_path %>
+  </div>
+</section>

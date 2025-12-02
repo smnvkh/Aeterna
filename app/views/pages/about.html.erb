@@ -1,2 +1,174 @@
-<h1>О проекте</h1>
-<p>Aeterna помогает сохранить голоса, фото и истории семьи в одном месте — чтобы память жила дольше</p>
+<section class="Cover About">
+    <div class="HeadingAndCTA">
+        <div class="Heading" id="About">
+            <h1>Каждый из нас хранит часть большой</h1>
+            <%= image_tag 'about/Histories.svg', class: 'StrokeText' %>
+            <p>Aeterna помогает сохранить голоса, фото и истории семьи в одном месте — чтобы память жила дольше</p>
+        </div>
+        <div class="CTA">
+        <%= link_to "Начать сохранять", root_url %>
+        </div>
+    </div>
+    <div class="MemoryExamples" id="About">
+        <div class="TextMemory">
+            <p class="MemoryDescription">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</p>
+            <p class="MemoryAuthor">Валентина</p>
+        </div>
+        <div class="ImageMemory">
+            <%= image_tag 'about/AboutImageFather.jpg', class: 'ImageMemoryItem' %>
+            <p class="MemoryDate">12 июля 2023</p>
+        </div>
+        <div class="TextMemory">
+            <p class="MemoryDescription">История семьи — это не даты. Это запахи, голоса, привычки</p>
+            <p class="MemoryAuthor">Андрей</p>
+        </div>
+        <div class="TextMemory">
+            <p class="MemoryDescription">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</p>
+            <p class="MemoryAuthor">Антошка</p>
+        </div>
+        <div class="ImageMemory">
+            <%= image_tag 'about/AboutImageGrandpa.jpg', class: 'ImageMemoryItem' %>
+            <p class="MemoryDate">25 мая 2019</p>
+        </div>
+        <div class="AudioMemory">
+            <p class="MemoryDescription">История семьи — это не даты. Это запахи, голоса, привычки</p>
+            <%= image_tag 'about/Audio.svg', class: 'AudioImage' %>
+            <div class="AudioMemoryController">
+               <%= image_tag 'about/PlayButton.svg', class: 'PlayButton' %>
+               <p class="AudioTime">00:07:12</p>
+               <p class="MemoryAuthor">Андрей</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="WhatDoesAeternaDo About">
+    <div class="AboutNavigation">
+        <p>что делает Aeterna?</p>
+        <%= image_tag 'icons/AboutRightArrow.svg', class: 'AboutRightArrow' %>
+    </div>
+    <div class="AboutInfo">
+        <h2>Сохрани то, что нельзя повторить</h2>
+        <div class="WhatDoesAeternaDoBlock">
+            <%= image_tag 'icons/AboutUpArrow.svg', class: 'AboutUpArrow' %>
+            <div class="BlockContent">
+                <h3>Всё начинается с тебя</h3>
+                <p>Добавь первую историю, фото или воспоминание — пусть семейный архив начинается с тебя</p>
+                <%= image_tag 'about/PhotoCollection.jpg', class: 'PhotoCollection' %>
+            </div>
+        </div>
+
+        <div class="WhatDoesAeternaDoBlock">
+            <%= image_tag 'icons/AboutUpArrow.svg', class: 'AboutUpArrow' %>
+            <div class="BlockContent">
+                <h3>Это важно для тех, кто рядом</h3>
+                <p>Родные хотят знать, как всё было. Твои воспоминания — часть их памяти</p>
+                <%= image_tag 'about/CatImportance.jpg', class: 'CatImportance' %>
+            </div>
+        </div>
+
+        <div class="WhatDoesAeternaDoBlock">
+            <%= image_tag 'icons/AboutUpArrow.svg', class: 'AboutUpArrow' %>
+            <div class="BlockContent">
+                <h3>Вместе вы — целая история</h3>
+                <p>Каждый добавляет свой фрагмент, и из множества голосов рождается общая история семьи</p>
+                <%= image_tag 'about/FamilyTree.jpg', class: 'FamilyTree' %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="WhatCanWeDo About">
+    <div class="AboutNavigation">
+        <p>Что мы можем?</p>
+        <%= image_tag 'icons/AboutRightArrow.svg', class: 'AboutRightArrow' %>
+    </div>
+    <h2>Всё, что действительно важно вашей семье</h2>
+    <div class="AboutInfo">
+        <div class="Feature">
+            <h4>Только ваша семья</h4>
+            <p>Только вы и ваши близкие имеете доступ. Всё хранится защищённо — приватность на первом месте</p>
+            <%= image_tag 'about/YourFamily.png', class: 'YourFamily' %>
+        </div>
+
+        <div class="Feature">
+            <h4>Много форматов</h4>
+            <p>Фото, видео, аудио и даже 3D-объекты — мы поможем сохранить любые воспоминания</p>
+            <%= image_tag 'about/ManyFormats.png', class: 'ManyFormats' %>
+        </div>
+
+        <div class="Feature">
+            <h4>Удобно пополнять</h4>
+            <p>С телефона через Telegram-бота, с компьютера или планшета. Интуитивно и быстро</p>
+            <%= image_tag 'about/Convenient.png', class: 'Convenient' %>
+        </div>
+
+        <div class="Feature">
+            <h4>Всё под рукой</h4>
+            <p>Воспоминания всегда доступны — в ленте времени, семейном древе или тематических папках</p>
+            <%= image_tag 'about/AtHand.png', class: 'AtHand' %>
+        </div>
+    </div>
+</section>
+
+<section class="DisplayOfMemories About">
+        <div class="AboutNavigation">
+            <p>отображение воспоминаний</p>
+            <%= image_tag 'icons/AboutRightArrow.svg', class: 'AboutRightArrow' %>
+        </div>
+        <div class="AboutInfo">
+            <h2>Все структурировано</h2>
+            <p>Мы отразим все истории в разном виде, удобном для вас — в виде ленты времени, семейного древа или просто альбомов</p>
+        </div>
+    <div class="StructuredMemories">
+        <%= image_tag 'about/Background.svg', class: 'MemoriesBackground' %>
+        <div class="Memories">
+            <div class="MemoryBlock">
+                <div class="TextMemory">
+                    <p class="MemoryDescription">Наш первый дом стоял у реки, где росла старая ива</p>
+                    <p class="MemoryAuthor">Бабушка Мая</p>
+                </div>
+                <%= image_tag 'icons/PointLine.svg', class: 'PointLine' %>
+            </div>
+            <div class="MemoryBlock">
+                <div class="ImageMemory">
+                        <%= image_tag 'about/AboutImageGrandpa.jpg', class: 'ImageMemoryItem' %>
+                    <p class="MemoryDate">25 мая 2019</p>
+                </div>
+                <%= image_tag 'icons/PointLine.svg', class: 'PointLine' %>
+            </div>
+            <div class="MemoryBlock">
+                <div class="TextMemory">
+                    <p class="MemoryDescription">Наш кот прожил с нами 19 лет. На фото он всегда посередине</p>
+                    <p class="MemoryAuthor">Бабушка Тамара</p>
+                </div>
+                <%= image_tag 'icons/PointLine.svg', class: 'PointLine' %>
+            </div>
+            <div class="MemoryBlock">
+                <div class="TextMemory">
+                    <p class="MemoryDescription">Мама смеялась, когда я включал её любимую песню</p>
+                    <p class="MemoryAuthor">Папа</p>
+                </div>
+                <%= image_tag 'icons/PointLine.svg', class: 'PointLine' %>
+            </div>
+            <div class="MemoryBlock">
+                <div class="ImageMemory">
+                        <%= image_tag 'about/AboutImageGrandma.jpg', class: 'ImageMemoryItem' %>
+                    <p class="MemoryDate">8 ноября 2015</p>
+                </div>
+                <%= image_tag 'icons/PointLine.svg', class: 'PointLine' %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="HeadingAndCTA About">
+    <div class="Heading">
+        <h1>Создай свой цифровой архив семьи</h1>
+        <%= image_tag 'about/begin.svg', class: 'StrokeText' %>
+        <p>Подпишитесь на новости Aeterna — будьте в числе первых, кто получит доступ к уникальному семейному архиву</p>
+    </div>
+    <div class="CTA" id='new_subscription'>
+        <%= render "subscriptions/form" %>
+    </div>
+</section>

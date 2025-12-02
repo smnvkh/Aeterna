@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--white);
+  color: var(--black);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.AdminPage {
+  padding: 3rem 0 0 17.81rem;
+  min-height: 46.5vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+/* HEADER */
+
+.S_MenuBar,
+.Footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Geist Mono';
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  line-height: 80%;
+  padding: 1rem;
+  width: 100%;
+}
+
+.S_MenuBar {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.S_MenuBar > div {
+  background-color: var(--white);
+  border-radius: 0.125rem;
+  padding: 0.5rem;
+}
+
+.S_MenuBar > div:last-child {
+  height: 100%;
+}
+
+.Pages {
+  display: flex;
+  justify-content: space-between;
+  width: 15rem;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+}
+
+.PageLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  border-image: repeating-linear-gradient(
+      to right,
+      var(--black) 0,
+      var(--black) 1px,
+      transparent 1px,
+      transparent 5px
+    )
+    100% 1;
+  padding: 6px 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.S_MenuBar a {
+  pointer-events: auto;
+}
+
+.RightIconArrow {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* FOOTER */
+
+.Footer {
+  background-color: var(--light-blue);
+  justify-self: flex-end;
+  margin-top: 3.88rem;
+  padding: 1.5rem;
+  min-height: 11rem;
+}
+
+#Name {
+  font-family: 'SF Mono';
+  font-size: 4rem;
+  line-height: 80%;
+}
+
+.LinksAndDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6rem;
+  padding-left: 31rem;
+}
+
+.LinksAndDate p {
+  font-family: 'SF Mono';
+}
+
+.Pages.Footer {
+  margin-top: 0;
+  padding: 0;
+}
+
+.Authors p {
+  padding: 0.65rem 0;
+  margin: 0;
+  padding-right: 4.81rem;
+}

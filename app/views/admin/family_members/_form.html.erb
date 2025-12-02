@@ -1,41 +1,43 @@
-<%= form_with(model: [:admin, family_member], local: true) do |f| %>
-  <% if family_member.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(family_member.errors.count, "error") %> prohibited this member from being saved:</h2>
-      <ul>
-        <% family_member.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<section class="AdminPage">
+  <%= form_with(model: [:admin, family_member], local: true) do |f| %>
+    <% if family_member.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(family_member.errors.count, "error") %> prohibited this member from being saved:</h2>
+        <ul>
+          <% family_member.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div>
+      <%= f.label :name, "Имя" %><br>
+      <%= f.text_field :name %>
+    </div>
+  
+    <div>
+      <%= f.label :gender, "Пол" %><br>
+      <%= f.select :gender, [["Мужской", "m"], ["Женский", "f"]], include_blank: true %>
+    </div>
+  
+    <div>
+      <%= f.label :mother_id, "Мать" %><br>
+      <%= f.collection_select :mother_id, FamilyMember.all, :id, :name, include_blank: true %>
+    </div>
+  
+    <div>
+      <%= f.label :father_id, "Отец" %><br>
+      <%= f.collection_select :father_id, FamilyMember.all, :id, :name, include_blank: true %>
+    </div>
+  
+    <div>
+      <%= f.label :spouse_id, "Супруг(а)" %><br>
+      <%= f.collection_select :spouse_id, FamilyMember.all, :id, :name, include_blank: true %>
+    </div>
+  
+    <div>
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= f.label :name, "Имя" %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div>
-    <%= f.label :gender, "Пол" %><br>
-    <%= f.select :gender, [["Мужской", "m"], ["Женский", "f"]], include_blank: true %>
-  </div>
-
-  <div>
-    <%= f.label :mother_id, "Мать" %><br>
-    <%= f.collection_select :mother_id, FamilyMember.all, :id, :name, include_blank: true %>
-  </div>
-
-  <div>
-    <%= f.label :father_id, "Отец" %><br>
-    <%= f.collection_select :father_id, FamilyMember.all, :id, :name, include_blank: true %>
-  </div>
-
-  <div>
-    <%= f.label :spouse_id, "Супруг(а)" %><br>
-    <%= f.collection_select :spouse_id, FamilyMember.all, :id, :name, include_blank: true %>
-  </div>
-
-  <div>
-    <%= f.submit %>
-  </div>
-<% end %>
+</section>

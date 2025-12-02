@@ -1,22 +1,24 @@
-<h1>Сеть воспоминаний</h1>
-
-<%= link_to 'Создать воспоминание', new_admin_memory_path %>
-
-<div class="family_tree">
-  <% @memories.each do |memory| %>
-    <div class="family_tree-item">
-
-      <% if memory.body.present? %>
-        <p class="memory-text"><%= memory.body %></p>
-        <b><%= memory.family_member.name %> (<%= memory.family_member.relation %>)</b>
-      <% end %>
-
-      <div class="memory-image">
-        <%= link_to [:admin, memory] do %>
-            <%= image_tag memory.image.url, width: 300 %>
+<div class="AdminPage">
+  <h1>Сеть воспоминаний</h1>
+  
+  <%= link_to 'Создать воспоминание', new_admin_memory_path %>
+  
+  <div class="family_tree">
+    <% @memories.each do |memory| %>
+      <div class="family_tree-item">
+  
+        <% if memory.body.present? %>
+          <p class="memory-text"><%= memory.body %></p>
+          <b><%= memory.family_member.name %> (<%= memory.family_member.relation %>)</b>
         <% end %>
-        </div>
-
-    </div>
-  <% end %>
+  
+        <div class="memory-image">
+          <%= link_to [:admin, memory] do %>
+              <%= image_tag memory.image.url, width: 300 %>
+          <% end %>
+          </div>
+  
+      </div>
+    <% end %>
+  </div>
 </div>
