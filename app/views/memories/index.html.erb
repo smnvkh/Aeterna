@@ -1,0 +1,20 @@
+<div class="AdminPage">
+  <p style="color: green"><%= notice %></p>
+  
+  <% content_for :title, "Memories" %>
+  
+  <h1>Memories</h1>
+  
+  <%= link_to 'Создать воспоминание', new_memory_path %>
+  
+  <div id="memories">
+    <% @memories.each do |memory| %>
+      <%= render memory %>
+      <p>
+        <%= link_to "Show this memory", memory %>
+      </p>
+    <% end %>
+  </div>
+  
+  <%= link_to "New memory", new_memory_path %>
+</div>

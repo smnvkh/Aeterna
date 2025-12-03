@@ -1,14 +1,17 @@
-@raw_text = "Свой первый в жизни рассказ я написал лет пять тому назад..." # твой большой текст
+@raw_text = "Свой первый в жизни рассказ я написал лет пять тому назад..."
 @words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
 
 def seed
   reset_db
-  # create_users(5)
   create_admin_user
+  create_family
+  create_users(5)
   create_family_members
-  create_memories(30)
-  create_comments(1..3)
+  create_memories(10)
+  create_comments(2..8)
 end
+
+# ------------------------------------------
 
 def reset_db
   Rake::Task['db:drop'].invoke
@@ -16,209 +19,118 @@ def reset_db
   Rake::Task['db:migrate'].invoke
 end
 
-# ---------- Генерация заголовка ----------
+# ---------- Генерация текста ----------
 def create_title
-  title_words = []
-  (2..10).to_a.sample.times { title_words << @words.sample }
-  title_words.join(' ').capitalize + '.'
+  Array.new((2..10).to_a.sample) { @words.sample }.join(' ').capitalize + '.'
 end
 
-# ---------- Генерация текста ----------
 def create_sentence
-  sentence_words = []
-  (10..20).to_a.sample.times { sentence_words << @words.sample }
-  sentence_words.join(' ').capitalize + '.'
+  Array.new((10..20).to_a.sample) { @words.sample }.join(' ').capitalize + '.'
 end
 
 # ---------- Фото ----------
 def upload_random_image
   uploader = MemoryImageUploader.new(Memory.new, :image)
-  uploader.cache!(File.open(Dir.glob(File.join(Rails.root, 'public/autoupload/memory_images', '*')).sample))
+  uploader.cache!(
+    File.open(
+      Dir.glob(File.join(Rails.root, 'public/autoupload/memory_images', '*')).sample
+    )
+  )
   uploader
 end
 
-# ---------- Семья ----------
-# def create_family_members
-#   list = [
-#     { name: 'Анна', relation: 'мама' },
-#     { name: 'Иван', relation: 'папа' },
-#     { name: 'Ольга', relation: 'сестра' },
-#     { name: 'Пётр', relation: 'брат' },
-#     { name: 'Мария', relation: 'бабушка' },
-#     { name: 'Алексей', relation: 'дедушка' }
-#   ]
-
-#   list.each do |attrs|
-#     FamilyMember.create!(attrs)
-#   end
-# end
-
-def create_family_members
-  User.find_each do |user|
-    puts "Generating family for user #{user.id}..."
-
-    # --- 1. Создаём членов семьи ---
-    father = FamilyMember.create!(
-      name: "Иван",
-      gender: "m",
-      user: user,
-      relation: "папа"
-    )
-
-    mother = FamilyMember.create!(
-      name: "Анна",
-      gender: "f",
-      user: user,
-      relation: "мама"
-    )
-
-    # Супружество (взаимная связь)
-    father.update!(spouse: mother)
-    mother.update!(spouse: father)
-
-    sister = FamilyMember.create!(
-      name: "Ольга",
-      gender: "f",
-      user: user,
-      mother: mother,
-      father: father,
-      relation: "сестра"
-    )
-
-    brother = FamilyMember.create!(
-      name: "Пётр",
-      gender: "m",
-      user: user,
-      mother: mother,
-      father: father,
-      relation: "брат"
-    )
-
-    grandmother = FamilyMember.create!(
-      name: "Мария",
-      gender: "f",
-      user: user,
-      relation: "бабушка"
-    )
-
-    grandfather = FamilyMember.create!(
-      name: "Алексей",
-      gender: "m",
-      user: user,
-      relation: "дедушка"
-    )
-
-    # Брак бабушки и дедушки
-    grandfather.update!(spouse: grandmother)
-    grandmother.update!(spouse: grandfather)
-
-    # Устанавливаем бабушку/дедушку родителями матери
-    mother.update!(
-      mother: grandmother,
-      father: grandfather
-    )
-
-    puts "Family members created with relations for user #{user.id}"
-  end
-end
-
-
-def create_users(quantity)
-  i = 0
-
-  quantity.times do
-    user_data = {
-      email: "user_#{i}@email.com",
-      password: "testtest"
-    }
-
-    user = User.create!(user_data)
-    puts "User created with id #{user.id}"
-
-    i += 1
-  end
-end
-
+# ---------- Пользователи ----------
 def create_admin_user
+  # сначала создаём семью для админа
+  family = Family.create!(name: "Семья админа")
+
   user_data = {
     email: "admin@email.com",
-    password: "testtest",
-    admin: true
+    password: "123123",  # минимум 6 символов
+    admin: true,
+    family: family
   }
 
   user = User.create!(user_data)
-  puts "User created with id #{user.id}"
+  puts "Admin user created with id #{user.id} and family #{family.name}"
 end
 
+# ---------- Семья ----------
+def create_family
+  @family = Family.create!(name: "Семья Ивановых")
+  puts "Family created: #{@family.name}"
+end
 
-# def create_memories(quantity)
-#   years = (1950..2020).to_a.sample(5)  # выбираем 5 случайных лет
+def create_users(quantity)
+  quantity.times do |i|
+    User.create!(
+      email: "user_#{i}@email.com",
+      password: "123123",
+      family: @family
+    )
+  end
+  puts "#{quantity} users created"
+end
 
-#   years.each do |year|
-#     rand(1..5).times do  # от 1 до 5 воспоминаний в выбранном году
-#       date = Date.new(year, rand(1..12), rand(1..28))
+# ---------- Родственники ----------
+def create_family_members
+  grandmother = FamilyMember.create!(name: "Мария", relation: "бабушка", family: @family)
+  grandfather = FamilyMember.create!(name: "Алексей", relation: "дедушка", family: @family)
 
-#       Memory.create!(
-#         title: create_title,
-#         body: create_sentence,
-#         date: date,
-#         family_member: FamilyMember.all.sample,
-#         image: upload_random_image
-#       )
+  grandmother.update!(spouse: grandfather)
+  grandfather.update!(spouse: grandmother)
 
-#       puts "Memory created for year #{year}"
-#     end
-#   end
-# end
+  mother = FamilyMember.create!(
+    name: "Анна",
+    relation: "мама",
+    family: @family,
+    mother: grandmother,
+    father: grandfather
+  )
 
+  father = FamilyMember.create!(name: "Иван", relation: "папа", family: @family)
+
+  father.update!(spouse: mother)
+  mother.update!(spouse: father)
+
+  sister = FamilyMember.create!(name: "Ольга", relation: "сестра", family: @family)
+  brother = FamilyMember.create!(name: "Пётр", relation: "брат", family: @family)
+
+  @family_members = [ grandmother, grandfather, mother, father, sister, brother ]
+
+  puts "Family members created: #{@family_members.count}"
+end
+
+# ---------- Воспоминания ----------
 def create_memories(quantity)
-  years = (1950..2020).to_a.sample(5)
-
-  years.each do |year|
-    rand(1..5).times do
-      user = User.all.sample
-      family_member = user.family_members.sample   # берём родственника ЭТОГО пользователя
-
-      date = Date.new(year, rand(1..12), rand(1..28))
-
-      user.memories.create!(
-        title: create_title,
-        body: create_sentence,
-        date: date,
-        family_member: family_member,
-        image: upload_random_image
-      )
-
-      puts "Memory created for year #{year} (user #{user.id})"
+  User.find_each do |user|
+    user.family.family_members.each do |member|
+      rand(1..3).times do
+        Memory.create!(
+          title: create_title,
+          body: create_sentence,
+          date: Date.new(rand(1950..2020), rand(1..12), rand(1..28)),
+          user: user,
+          family_member: member,
+          image: upload_random_image
+        )
+      end
     end
   end
 end
-
-
 
 
 # ---------- Комменты ----------
-# def create_comments(range)
-#   Memory.all.each do |memory|
-#     range.to_a.sample.times do
-#       comment = memory.comments.create!(body: create_sentence)
-#       puts "Comment #{comment.id} -> memory #{memory.id}"
-#     end
-#   end
-# end
-
 def create_comments(range)
   Memory.find_each do |memory|
     range.to_a.sample.times do
-      user = memory.user
       comment = memory.comments.create!(
         body: create_sentence,
-        user: user
+        user: memory.user
       )
-      puts "Comment #{comment.id} -> memory #{memory.id}"
+      puts "Comment #{comment.id} -> Memory #{memory.id}"
     end
   end
 end
-
 
 seed

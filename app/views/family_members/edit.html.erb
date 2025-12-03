@@ -1,0 +1,14 @@
+<section class="AdminPage">
+  <% content_for :title, "Editing family member" %>
+  
+  <h1>Editing family member</h1>
+  
+  <%= render "form", family_member: @family_member %>
+  
+  <br>
+  
+  <div>
+    <%= link_to "Show this family member", @family_member %> |
+    <%= link_to "Back to family members", family_members_path %>
+  </div>
+</section>

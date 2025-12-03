@@ -6,14 +6,27 @@ Rails.application.routes.draw do
   get "pages/about"
   resources :subscriptions, only: :create
 
+  # Страницы просмотра
+  get "timeline", to: "memories#timeline"
+  get "family_web", to: "memories#family_web"
+  get "family_tree", to: "family_tree#index"
+  get "family_tree/:id", to: "family_tree#show", as: :family_tree_member
+
+  # CRUD для родственников
+  resources :family_members
+
+  # CRUD для воспоминаний
+  resources :memories do
+    resources :comments
+  end
+
   # Админская часть
   namespace :admin do
     # Страницы просмотра
     get "timeline", to: "memories#timeline"
     get "family_web", to: "memories#family_web"
     get "family_tree", to: "family_tree#index"
-    get "family_tree/:id", to: "family_tree#show", as: :family_tree_member
-
+    get "family_tree/:id", to: "family_tree#show", as: :admin_family_tree_member
 
     # CRUD для родственников
     resources :family_members

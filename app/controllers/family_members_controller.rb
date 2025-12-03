@@ -1,10 +1,10 @@
-class Admin::FamilyMembersController < ApplicationController
+class FamilyMembersController < ApplicationController
   load_and_authorize_resource
   before_action :set_family_member, only: %i[ show edit update destroy ]
 
   # GET /family_members or /family_members.json
   def index
-    @family_members = FamilyMember.all
+    @family_members = current_user.family.family_members
   end
 
   # GET /family_members/1 or /family_members/1.json
@@ -28,8 +28,8 @@ class Admin::FamilyMembersController < ApplicationController
 
     respond_to do |format|
       if @family_member.save
-        format.html { redirect_to [ :admin, @family_member ], notice: "Family member was successfully created." }
-        format.json { render :show, status: :created, location: [ :admin, @family_member ] }
+        format.html { redirect_to @family_member, notice: "Family member was successfully created." }
+        format.json { render :show, status: :created, location: @family_member }
       else
         Rails.logger.debug "FamilyMember create failed: #{@family_member.errors.full_messages.inspect}"
         format.html { render :new, status: :unprocessable_entity }
@@ -43,8 +43,8 @@ class Admin::FamilyMembersController < ApplicationController
     respond_to do |format|
       # Не меняем владельца при update, если не передали user_id намеренно
       if @family_member.update(family_member_params)
-        format.html { redirect_to [ :admin, @family_member ], notice: "Family member was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: [ :admin, @family_member ] }
+        format.html { redirect_to @family_member, notice: "Family member was successfully updated.", status: :see_other }
+        format.json { render :show, status: :ok, location: @family_member }
       else
         Rails.logger.debug "FamilyMember update failed: #{@family_member.errors.full_messages.inspect}"
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class Admin::FamilyMembersController < ApplicationController
     @family_member.destroy!
 
     respond_to do |format|
-      format.html { redirect_to admin_family_members_path, notice: "Family member was successfully destroyed.", status: :see_other }
+      format.html { redirect_to family_tree_path, notice: "Family member was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end

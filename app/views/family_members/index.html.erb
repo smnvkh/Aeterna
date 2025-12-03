@@ -1,0 +1,15 @@
+<section class="AdminPage">
+  <p style="color: green"><%= notice %></p>
+  
+  <% content_for :title, "Family members" %>
+  
+  <h1>Family members</h1>
+  
+  <div id="family_members">
+    <% @family_members.each do |family_member| %>
+      <%= render family_member %>
+    <% end %>
+  </div>
+  
+  <%= link_to "New family member", new_family_member_path %>
+</section>

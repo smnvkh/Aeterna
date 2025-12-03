@@ -1,23 +1,36 @@
-class Admin::MemoriesController < ApplicationController
+class MemoriesController < ApplicationController
   load_and_authorize_resource
   before_action :set_memory, only: %i[ show edit update destroy ]
 
   def timeline
-    @memories_by_year = if current_user.admin?
-      Memory.all.order(:date).group_by { |m| m.date.year }
+    if current_user.family
+      @memories_by_year = Memory
+        .joins(:user)
+        .where(users: { family_id: current_user.family_id })
+        .order(:date)
+        .group_by { |m| m.date.year }
+    else
+      @memories = Memory.none
     end
   end
+
   def family_web
-    @memories =  Memory.all
+    if current_user.family
+      @memories = Memory.joins(:user)
+                        .where(users: { family_id: current_user.family.id })
+    else
+      @memories = Memory.none
+    end
   end
 
   def family_tree
+    @family_members = current_user.family_members
   end
 
   # GET /memories or /memories.json
-  def index
-    @memories = Memory.all
-  end
+  # def index
+  #   @memories = Memory.all
+  # end
 
   # GET /memories/1 or /memories/1.json
   def show
@@ -39,7 +52,7 @@ class Admin::MemoriesController < ApplicationController
 
     respond_to do |format|
       if @memory.save
-        format.html { redirect_to [ :admin, @memory ], notice: "Memory was successfully created." }
+        format.html { redirect_to @memory, notice: "Memory was successfully created." }
         format.json { render :show, status: :created, location: @memory }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +65,7 @@ class Admin::MemoriesController < ApplicationController
   def update
     respond_to do |format|
       if @memory.update(memory_params)
-        format.html { redirect_to [ :admin, @memory ], notice: "Memory was successfully updated.", status: :see_other }
+        format.html { redirect_to @memory, notice: "Memory was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @memory }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +79,7 @@ class Admin::MemoriesController < ApplicationController
     @memory.destroy!
 
     respond_to do |format|
-      format.html { redirect_to admin_timeline_path, notice: "Memory was successfully destroyed.", status: :see_other }
+      format.html { redirect_to timeline_path, notice: "Memory was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -74,11 +87,11 @@ class Admin::MemoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_memory
-      @memory = Memory.find(params.expect(:id))
+      @memory = Memory.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def memory_params
-      params.expect(memory: [ :title, :family_member_id, :body, :date, :image ])
+      params.require(:memory).permit(:title, :family_member_id, :body, :date, :image)
     end
 end

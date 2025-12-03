@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @memory %>
+
+<div>
+  <%= link_to "Edit this memory", edit_memory_path(@memory) %> |
+  <%= link_to "Back to memories", timeline_path %>
+
+  <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+</div>
+
+<h2>Add a comment:</h2>
+<%= render "comments/form" %>
+
+<h2>Comments</h2>
+<%= render @memory.comments %>

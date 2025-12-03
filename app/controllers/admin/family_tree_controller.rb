@@ -1,5 +1,5 @@
 class Admin::FamilyTreeController < ApplicationController
-  authorize_resource class: false
+  load_and_authorize_resource :family_member, only: [ :index, :show ]
   def index
     @members = FamilyMember.all
   end

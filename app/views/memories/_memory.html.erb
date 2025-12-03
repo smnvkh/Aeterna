@@ -1,0 +1,10 @@
+<div id="<%= dom_id memory %>">
+
+  <h2><%= memory.title %></h2>
+  <p><%= memory.body %></p>
+  <p><%= memory.family_member.to_s %></p>
+  <p><%= memory.date %></p>
+
+  <%= image_tag memory.image.url, width: 300 %>
+
+</div>

@@ -1,45 +1,47 @@
 class FamilyMember < ApplicationRecord
-  belongs_to :user
+  belongs_to :family
   has_many :memories, dependent: :destroy
 
-  def to_s
-    "#{relation.capitalize} #{name}"
-  end
-
-  # Родители
   belongs_to :mother, class_name: "FamilyMember", optional: true
   belongs_to :father, class_name: "FamilyMember", optional: true
-
-  # Супруг/супруга
   belongs_to :spouse, class_name: "FamilyMember", optional: true
 
-  # Дети
-  has_many :children_as_mother, class_name: "FamilyMember", foreign_key: :mother_id, dependent: :nullify
-  has_many :children_as_father, class_name: "FamilyMember", foreign_key: :father_id, dependent: :nullify
+  has_many :children_as_mother, class_name: "FamilyMember", foreign_key: "mother_id"
+  has_many :children_as_father, class_name: "FamilyMember", foreign_key: "father_id"
+
+  validates :name, presence: true
+
+  # --- Родственные методы ---
+  def parents
+    [ mother, father ].compact
+  end
 
   def children
     children_as_mother + children_as_father
   end
 
-  # Братья/сёстры
   def siblings
-    return [] unless mother || father
-
-    FamilyMember.where.not(id: id)
-                .where(
-                  "mother_id = ? OR father_id = ?",
-                  mother_id,
-                  father_id
-                )
+    return [] if parents.empty?
+    (mother&.children_as_mother.to_a + father&.children_as_father.to_a - [ self ]).uniq
   end
 
-  validates :name, presence: true
-  validates :gender, presence: true, inclusion: { in: %w[m f] }
+  def grandchildren
+    children.flat_map(&:children)
+  end
 
-  # validate :parents_not_self
+  def grandparents
+    parents.flat_map(&:parents)
+  end
 
-  # def parents_not_self
-  #   errors.add(:mother_id, "can't be yourself") if mother_id == id
-  #   errors.add(:father_id, "can't be yourself") if father_id == id
-  # end
+  def uncles_and_aunts
+    parents.flat_map(&:siblings)
+  end
+
+  def cousins
+    uncles_and_aunts.flat_map(&:children)
+  end
+
+  def to_s
+    "#{relation.to_s.capitalize} #{name}"
+  end
 end

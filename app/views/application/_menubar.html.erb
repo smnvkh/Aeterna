@@ -8,7 +8,7 @@
             <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
         <% end %>
 
-        <% if user_signed_in? %>
+        <% if user_signed_in? && current_user.admin? %>
 
             <%= link_to admin_timeline_path, class: "PageLink" do %>
             Лента времени
@@ -35,6 +35,21 @@
             <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
             <% end %>
 
+            <% elsif user_signed_in? %>
+                 <%= link_to timeline_path, class: "PageLink" do %>
+                Лента времени
+                <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+                <% end %>
+
+                <%= link_to family_web_path, class: "PageLink" do %>
+                Сеть
+                <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+                <% end %>
+
+                <%= link_to family_tree_path, class: "PageLink" do %>
+                Семейное древо
+                <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
+                <% end %>
         <% end %>
 
         </div>
@@ -44,8 +59,8 @@
         <% if user_signed_in? %>
             <%#= link_to current_user.email, edit_user_registration_path %>
             <%= link_to "Выйти", destroy_user_session_path, data: {"turbo_method": :delete } %>
-        <%# else %>
-            <%#= link_to "Войти", new_user_session_path %>
+        <% else %>
+            <%= link_to "Войти", new_user_session_path %>
             <%#= link_to "Зарегистрироваться", new_user_registration_path %>
         <% end %>
     </div>

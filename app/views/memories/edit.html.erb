@@ -1,0 +1,14 @@
+<div class="AdminPage">
+  <% content_for :title, "Editing memory" %>
+  
+  <h1>Editing memory</h1>
+  
+  <%= render "form", memory: @memory %>
+  
+  <br>
+  
+  <div>
+    <%= link_to "Show this memory", @memory%> |
+    <%= link_to "Back to memories", timeline_path %>
+  </div>
+</div>
