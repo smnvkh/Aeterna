@@ -6,7 +6,7 @@
   <ul>
     <% @members.each do |member| %>
       <li>
-         <%= link_to "#{member.relation} #{member.name}", family_tree_member_path(member) %>
+         <%= link_to "#{member.relation} #{member.name}", admin_family_member_path(member) %>
       </li>
     <% end %>
   </ul>

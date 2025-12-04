@@ -9,6 +9,7 @@ class Admin::FamilyMembersController < ApplicationController
 
   # GET /family_members/1 or /family_members/1.json
   def show
+    @memories = @family_member.memories.order(date: :desc)
   end
 
   # GET /family_members/new

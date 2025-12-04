@@ -33,4 +33,37 @@
     <%= link_to "Back to family tree", timeline_path %>
     <%= link_to "Destroy this family member", @member, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   </div>
+
+   <hr>
+
+  <h2>Воспоминания:</h2>
+
+  <% if @memories.any? %>
+    <ul style="list-style: none; padding: 0;">
+      <% @memories.each do |memory| %>
+        <li style="margin-bottom: 25px;">
+
+          <%= link_to memory_path(memory) do %>
+            <%= image_tag memory.image.url, width: 200, style: "display: block; margin-bottom: 8px;" %>
+          <% end %>
+
+          <div style="font-weight: bold; font-size: 18px; margin-bottom: 4px;">
+            <%= memory.title %>
+          </div>
+
+          <div style="margin-bottom: 6px;">
+            <%= memory.body %>
+          </div>
+
+          <div>
+            <%= memory.date.strftime("%d.%m.%Y") %>
+          </div>
+
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Пока нет воспоминаний.</p>
+  <% end %>
+
 </div>

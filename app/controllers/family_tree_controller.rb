@@ -7,5 +7,6 @@ class FamilyTreeController < ApplicationController
 
   def show
     @member = current_user.family.family_members.find(params[:id])
+    @memories = @member.memories.order(date: :desc)
   end
 end
