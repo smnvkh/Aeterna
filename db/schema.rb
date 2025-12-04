@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_03_120941) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_04_124259) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -44,13 +44,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_03_120941) do
     t.text "body"
     t.datetime "created_at", null: false
     t.date "date"
+    t.integer "family_id", null: false
     t.integer "family_member_id"
     t.string "image"
     t.string "title"
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.index ["family_id"], name: "index_memories_on_family_id"
     t.index ["family_member_id"], name: "index_memories_on_family_member_id"
-    t.index ["user_id"], name: "index_memories_on_user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -77,7 +77,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_03_120941) do
   add_foreign_key "comments", "memories"
   add_foreign_key "comments", "users"
   add_foreign_key "family_members", "families"
+  add_foreign_key "memories", "families"
   add_foreign_key "memories", "family_members"
-  add_foreign_key "memories", "users"
   add_foreign_key "users", "families"
 end

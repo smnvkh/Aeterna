@@ -7,7 +7,7 @@ def seed
   create_family
   create_users(5)
   create_family_members
-  create_memories(10)
+  create_memories
   create_comments(2..8)
 end
 
@@ -102,33 +102,36 @@ def create_family_members
 end
 
 # ---------- Воспоминания ----------
-def create_memories(quantity)
-  User.find_each do |user|
-    user.family.family_members.each do |member|
-      rand(1..3).times do
-        Memory.create!(
-          title: create_title,
-          body: create_sentence,
-          date: Date.new(rand(1950..2020), rand(1..12), rand(1..28)),
-          user: user,
-          family_member: member,
-          image: upload_random_image
-        )
-      end
+def create_memories
+  @family.family_members.find_each do |member|
+    rand(1..3).times do
+      Memory.create!(
+        title:         create_title,
+        body:          create_sentence,
+        date:          Date.new(rand(1950..2020), rand(1..12), rand(1..28)),
+        family:        @family,
+        family_member: member,
+        image:         upload_random_image
+      )
     end
   end
-end
 
+  puts "Created shared memories for family #{@family.name}"
+end
 
 # ---------- Комменты ----------
 def create_comments(range)
   Memory.find_each do |memory|
     range.to_a.sample.times do
+      # выбираем случайного юзера семьи, к которой принадлежит воспоминание
+      author = memory.family.users.sample
+
       comment = memory.comments.create!(
         body: create_sentence,
-        user: memory.user
+        user: author
       )
-      puts "Comment #{comment.id} -> Memory #{memory.id}"
+
+      puts "Comment #{comment.id} -> Memory #{memory.id} (user #{author.id})"
     end
   end
 end

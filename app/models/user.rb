@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   belongs_to :family
 
-  has_many :memories
-  has_many :comments
+  has_many :comments, dependent: :destroy
+
+  # Косвенный доступ:
+  has_many :memories, through: :family
 end

@@ -1,27 +1,43 @@
 class Ability
   include CanCan::Ability
 
-    def initialize(user)
+  def initialize(user)
     return unless user.present?
 
-    # Разрешаем пользователю управлять своими постами
-    can :manage, Memory, user: user
+    # MEMORY (посты семьи)
 
-    # Разрешаем членам одной семьи читать и редактировать посты друг друга
-    can :manage, Memory, user: { family_id: user.family_id }
+    # Пользователь может всё со всеми воспоминаниями своей семьи
+    can :manage, Memory, family_id: user.family_id
 
-    # Разрешаем читать только посты членов его семьи
-    can :read, Memory, user: { family_id: user.family_id }
+    # И также читать их
+    can :read, Memory, family_id: user.family_id
 
-    # Разрешаем управлять комментариями, если они принадлежат текущему пользователю
-    can :manage, Comment, user: user
-    can :read, Comment, memory: { user_id: user.id }
 
-    # Пользователь может редактировать информацию о членах своей семьи
+    # COMMENTS (комментарии)
+
+    # Пользователь создаёт комментарии к memories своей семьи
+    can :create, Comment, memory: { family_id: user.family_id }
+
+    # Пользователь может удалить свой комментарий
+    can :destroy, Comment, user_id: user.id
+
+    # Все члены семьи могут читать комментарии внутри своих memories
+    can :read, Comment, memory: { family_id: user.family_id }
+
+
+    # FAMILY + FAMILY MEMBERS
+
+    # Управлять членами своей семьи
     can :manage, FamilyMember, family_id: user.family_id
+
+    # Управлять своей семьёй (например название семьи)
     can :manage, Family, id: user.family_id
 
-    return unless user.admin?
-    can :manage, :all
+
+    # ADMIN
+
+    if user.admin?
+      can :manage, :all
     end
+  end
 end

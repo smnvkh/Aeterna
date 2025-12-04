@@ -35,7 +35,7 @@ class Admin::MemoriesController < ApplicationController
   # POST /memories or /memories.json
   def create
     @memory = Memory.new(memory_params)
-    @memory.user = current_user
+    @memory.family = current_user.family
 
     respond_to do |format|
       if @memory.save
@@ -74,11 +74,11 @@ class Admin::MemoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_memory
-      @memory = Memory.find(params.expect(:id))
+      @memory = Memory.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def memory_params
-      params.expect(memory: [ :title, :family_member_id, :body, :date, :image ])
+        params.require(:memory).permit(:title, :family_member_id, :body, :date, :image)
     end
 end
