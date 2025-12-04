@@ -9,7 +9,9 @@
   
         <% if memory.body.present? %>
           <p class="memory-text"><%= memory.body %></p>
-          <b><%= memory.family_member.name %> (<%= memory.family_member.relation %>)</b>
+            <b>
+              <%= link_to "#{memory.family_member.name} (#{memory.family_member.relation})", admin_family_member_path(memory.family_member) %>
+            </b>
         <% end %>
   
         <div class="memory-image">

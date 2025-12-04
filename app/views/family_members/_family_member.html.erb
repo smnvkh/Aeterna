@@ -1,6 +1,5 @@
 <li id="<%= dom_id(family_member) %>">
 <strong><%= family_member.name.presence || "(без имени)" %></strong>
-(<%= family_member.gender %>)
   &nbsp;—&nbsp;
   <%= link_to "Show", family_member_path(family_member) %> |
   <%= link_to "Edit", edit_family_member_path(family_member) %> |

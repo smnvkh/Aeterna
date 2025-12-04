@@ -10,8 +10,9 @@
   
         <% memories.each do |memory| %>
           <div class="timeline-item">
-            <h3><%= memory.family_member.name %> (<%= memory.family_member.relation %>)</h3>
-  
+            <h3>
+              <%= link_to "#{memory.family_member.name} (#{memory.family_member.relation})", admin_family_member_path(memory.family_member) %>
+            </h3>
             <div class="memory-image">
               <%= link_to [:admin, memory] do %>
                 <%= image_tag memory.image.url, width: 300 %>
