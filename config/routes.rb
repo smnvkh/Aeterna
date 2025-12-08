@@ -1,13 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  # Профиль
-  get "profile", to: "profile#my", as: "my_profile"
-  get "profile/edit", to: "profile#edit", as: "edit_profile"
-  patch "profile/update", to: "profile#update", as: "update_profile"
-
-  resources :profile, only: [ :show ]
-
   # Публичные страницы
   get "pages/home"
   get "pages/about"
@@ -18,6 +11,12 @@ Rails.application.routes.draw do
   get "family_web", to: "memories#family_web"
   get "family_tree", to: "family_tree#index"
   get "family_tree/:id", to: "family_tree#show", as: :family_tree_member
+
+  get "profile", to: "profile#my", as: "my_profile"
+  get "profile/edit", to: "profile#edit", as: "edit_profile"
+  patch "profile/update", to: "profile#update", as: "update_profile"
+
+  resources :profile, only: [ :show ]
 
   # CRUD для родственников
   resources :family_members
@@ -48,6 +47,15 @@ Rails.application.routes.draw do
 
     # Подписки
     resources :subscriptions
+  end
+
+  # API
+  namespace :api, format: "json" do
+    namespace :v1 do
+      resources :subscriptions
+      get "welcome/index"
+      get "welcome/preview"
+    end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
