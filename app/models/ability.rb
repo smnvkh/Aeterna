@@ -4,6 +4,11 @@ class Ability
   def initialize(user)
     return unless user.present?
 
+    # PROFILE
+
+    can :manage, Profile, user: user
+    can :read, Profile
+
     # MEMORY (посты семьи)
 
     # Пользователь может всё со всеми воспоминаниями своей семьи

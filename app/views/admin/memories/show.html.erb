@@ -1,16 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @memory %>
-
-<div>
-  <%= link_to "Edit this memory", edit_admin_memory_path(@memory) %> |
-  <%= link_to "Back to memories", admin_timeline_path %>
-
-  <%= link_to "Destroy this memory", [:admin, @memory], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<div class="AdminPage">
+  <p style="color: green"><%= notice %></p>
+  
+  <%= render @memory %>
+  
+  <div>
+    <%= link_to "Edit this memory", edit_admin_memory_path(@memory) %> |
+    <%= link_to "Back to memories", admin_timeline_path %>
+  
+    <%= link_to "Destroy this memory", [:admin, @memory], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  </div>
+  
+  <h2>Add a comment:</h2>
+  <%= render "admin/comments/form" %>
+  
+  <h2>Comments</h2>
+  <%= render @memory.comments %>
 </div>
-
-<h2>Add a comment:</h2>
-<%= render "admin/comments/form" %>
-
-<h2>Comments</h2>
-<%= render @memory.comments %>

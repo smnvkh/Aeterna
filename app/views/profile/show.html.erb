@@ -1,0 +1,10 @@
+<div class="AdminPage">
+    <h1>Profile</h1>
+    
+    <p>Name</p>
+    <p><%= @profile.name %></p>
+    
+    <% if can? :manage, @profile%>
+        <p><%= link_to "Edit Profile", edit_profile_path %></p>
+    <% end %>
+</div>

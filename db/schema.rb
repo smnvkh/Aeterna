@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_04_124259) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_08_060225) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -53,6 +53,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_124259) do
     t.index ["family_member_id"], name: "index_memories_on_family_member_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "avatar"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -60,7 +69,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_124259) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.boolean "admin"
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -79,5 +88,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_04_124259) do
   add_foreign_key "family_members", "families"
   add_foreign_key "memories", "families"
   add_foreign_key "memories", "family_members"
+  add_foreign_key "profiles", "users"
   add_foreign_key "users", "families"
 end

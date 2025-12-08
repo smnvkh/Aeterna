@@ -58,6 +58,8 @@
     <div>
         <% if user_signed_in? %>
             <%#= link_to current_user.email, edit_user_registration_path %>
+            <%= link_to "Мои воспоминания", my_memories_path %>
+            <%= link_to "Профиль", my_profile_path %>
             <%= link_to "Выйти", destroy_user_session_path, data: {"turbo_method": :delete } %>
         <% else %>
             <%= link_to "Войти", new_user_session_path %>

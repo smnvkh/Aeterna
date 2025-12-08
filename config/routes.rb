@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  # Профиль
+  get "profile", to: "profile#my", as: "my_profile"
+  get "profile/edit", to: "profile#edit", as: "edit_profile"
+  patch "profile/update", to: "profile#update", as: "update_profile"
+
+  resources :profile, only: [ :show ]
+
   # Публичные страницы
   get "pages/home"
   get "pages/about"
@@ -18,6 +25,9 @@ Rails.application.routes.draw do
   # CRUD для воспоминаний
   resources :memories do
     resources :comments
+    collection do
+      get "my"
+    end
   end
 
   # Админская часть

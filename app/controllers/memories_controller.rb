@@ -20,6 +20,12 @@ class MemoriesController < ApplicationController
     end
   end
 
+  def my
+    @memories = current_user.memories
+    render :index
+  end
+
+
   def new
     @memory = Memory.new
   end
