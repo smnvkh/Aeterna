@@ -61,7 +61,7 @@ a {
   justify-content: space-between;
   width: 15rem;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.25rem;
   margin-top: 2rem;
 }
@@ -79,7 +79,7 @@ a {
       transparent 5px
     )
     100% 1;
-  padding: 6px 0;
+  padding: 0.65rem 0 0.375rem;
   pointer-events: auto;
   cursor: pointer;
 }
@@ -127,7 +127,6 @@ a {
 }
 
 .Authors p {
-  padding: 0.65rem 0;
-  margin: 0;
-  padding-right: 4.81rem;
+  padding: 0.65rem 4.81rem 0 0;
+  font-size: 0.875rem;
 }

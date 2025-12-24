@@ -6,7 +6,7 @@
                     <%= link_to 'О нас', pages_about_path %>
                     <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
                 </div>
-                <% if user_signed_in? %>
+                <% if user_signed_in? && current_user.admin? %>
                     <div class="PageLink">
                         <%= link_to 'Лента времени', admin_timeline_path %>
                         <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
@@ -25,6 +25,20 @@
                     </div>
                     <div class="PageLink">
                         <%= link_to 'Подписки', admin_subscriptions_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+
+                    <% elsif user_signed_in? %>
+                     <div class="PageLink">
+                        <%= link_to 'Лента времени', admin_timeline_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                    <div class="PageLink">
+                        <%= link_to 'Сеть', admin_family_web_path %>
+                        <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
+                    </div>
+                    <div class="PageLink">
+                        <%= link_to 'Cемейное древо', admin_family_tree_path %>
                         <%= image_tag 'icons/RightIconArrow.svg', class: 'RightIconArrow' %>
                     </div>
                 <% end %>
