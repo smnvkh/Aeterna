@@ -1,4 +1,4 @@
-<div class="AdminPage">
+<section class="ShiftLeft">
   <%= form_with(model: [:admin, subscription]) do |form| %>
     <% if subscription.errors.any? %>
       <div style="color: red">
@@ -17,8 +17,8 @@
       <%= form.text_field :email %>
     </div>
   
-    <div>
+    <section>
       <%= form.submit %>
     </div>
   <% end %>
-</div>
+</section>

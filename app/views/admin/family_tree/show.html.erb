@@ -1,4 +1,4 @@
-<div class="AdminPage">
+<section class="ShiftLeft">
   <h1><%= @member.name %></h1>
   
   <h2>Родители:</h2>
@@ -33,4 +33,4 @@
     <%= link_to "Back to family tree", admin_timeline_path %>
     <%= link_to "Destroy this family member", [:admin, @member], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   </div>
-</div>
+</section>

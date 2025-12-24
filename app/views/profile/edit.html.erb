@@ -1,4 +1,4 @@
-<div class="AdminPage">
+<section class="ShiftLeft">
     <%= form_for(@profile, url: update_profile_path) do |form| %>
       <% if @profile.errors.any? %>
         <div style="color: red">
@@ -17,8 +17,8 @@
         <%= form.text_field :name %>
       </div>
     
-      <div>
+      <section>
         <%= form.submit %>
       </div>
     <% end %>
-</div>
+</section>

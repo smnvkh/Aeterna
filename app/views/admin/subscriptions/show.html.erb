@@ -1,4 +1,4 @@
-<div class="AdminPage">
+<section class="ShiftLeft">
   <p style="color: green"><%= notice %></p>
   
   <%= render @subscription %>
@@ -8,4 +8,4 @@
     <%= link_to "Back to subscriptions", admin_subscriptions_path %>
     <%= link_to "Destroy this subscription", [:admin, @subscription], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   </div>
-</div>
+</section>
