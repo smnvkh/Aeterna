@@ -1,0 +1,24 @@
+ru:
+  hello: 'Привет, мир'
+
+  activerecord:
+    models:
+      user: 'Пользователь'
+    attributes:
+      user:
+        email: 'Почта'
+
+  comment:
+    zero: 'комментариев'
+    one: 'комментарий'
+    few: 'комментария'
+    other: 'комментариев'
+
+  ago: 'назад'
+
+  date:
+    formats:
+      long: '%-d %B %Y'
+  time:
+    formats:
+      long: '%-d %B %Y'

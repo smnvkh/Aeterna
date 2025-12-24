@@ -1,5 +1,4 @@
 <section class="ShiftLeft">
-  
   <h2>Log in to Aeterna</h2>
   
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -21,7 +20,7 @@
     <% end %>
   
     <div class="actions">
-      <%= f.submit "Log in" %>
+      <%= f.submit t("devise.sessions.new.sign_in") %>
     </div>
   <% end %>
   

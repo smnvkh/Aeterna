@@ -13,6 +13,9 @@
   <h2>Add a comment:</h2>
   <%= render "comments/form" %>
   
-  <h2>Comments</h2>
+  <h2>
+    <%= @memory.comments.count %>
+    <%= I18n.translate 'comment', count: @memory.comments.count %>
+  </h2>
   <%= render @memory.comments %>
 </section>
