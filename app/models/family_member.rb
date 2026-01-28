@@ -1,5 +1,6 @@
 class FamilyMember < ApplicationRecord
   belongs_to :family
+  belongs_to :user, optional: true
   has_many :memories, dependent: :destroy
 
   belongs_to :mother, class_name: "FamilyMember", optional: true

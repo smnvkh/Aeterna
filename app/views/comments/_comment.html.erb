@@ -1,4 +1,4 @@
-<p><%= comment.user %></p>
+<p><%= comment.user.profile&.name || comment.user.email %></p>
 <p><%= time_ago_in_words(comment.created_at) %>
     <%= t("ago") %> 
 </p>
@@ -7,3 +7,5 @@
   <div><% if comment.user == current_user %>
     <%= link_to "Destroy Comment", [comment.memory, comment], data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   <% end %></div>
+
+

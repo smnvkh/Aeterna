@@ -2,7 +2,16 @@
 
   <h2><%= memory.title %></h2>
   <p><%= memory.body %></p>
-  <p><%= memory.family_member.to_s %></p>
+  <p>
+  <% if memory.family_member.user&.profile %>
+    <%= link_to \
+      "#{memory.family_member.to_s}",
+      profile_path(memory.family_member.user.profile)
+    %>
+  <% else %>
+    <%= memory.family_member.name %>
+  <% end %>
+</p>
   <p><%= memory.date %></p>
 
   <%= image_tag memory.image.url, width: 300 %>

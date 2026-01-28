@@ -9,6 +9,7 @@ class User < ApplicationRecord
   # Косвенный доступ:
   has_many :memories, through: :family
 
+  has_one :family_member
   has_one :profile
   after_create :create_profile
 end

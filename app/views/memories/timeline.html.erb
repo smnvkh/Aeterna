@@ -11,7 +11,14 @@
         <% memories.each do |memory| %>
           <div class="timeline-item">
             <h3>
-              <%= link_to "#{memory.family_member.name} (#{memory.family_member.relation})", family_member_path(memory.family_member) %>
+              <% if memory.family_member.user&.profile %>
+                <%= link_to \
+                  "#{memory.family_member.to_s}",
+                  profile_path(memory.family_member.user.profile)
+                %>
+              <% else %>
+                <%= memory.family_member.name %>
+              <% end %>
             </h3>
   
             <div class="memory-image">

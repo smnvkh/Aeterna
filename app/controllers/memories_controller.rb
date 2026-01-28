@@ -21,7 +21,7 @@ class MemoriesController < ApplicationController
   end
 
   def my
-    @memories = current_user.memories
+    @memories = current_user.memories.order(created_at: :desc)
     render :index
   end
 

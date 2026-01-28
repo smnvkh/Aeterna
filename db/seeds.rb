@@ -62,8 +62,9 @@ def create_family
 end
 
 def create_users(quantity)
+  @users = []
   quantity.times do |i|
-    User.create!(
+    @users << User.create!(
       email: "user_#{i}@email.com",
       password: "123123",
       family: @family
@@ -98,8 +99,15 @@ def create_family_members
 
   @family_members = [ grandmother, grandfather, mother, father, sister, brother ]
 
+  # связываем users и family_members
+  @family_members.zip(@users).each do |member, user|
+    break unless user
+    member.update!(user: user)
+  end
+
   puts "Family members created: #{@family_members.count}"
 end
+
 
 # ---------- Воспоминания ----------
 def create_memories
