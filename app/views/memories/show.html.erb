@@ -1,3 +1,16 @@
+<%
+  set_meta_tags(
+    title: @memory_name,
+    description: "Воспоминание твоей семьи",
+    keywords: "family, memory",
+    og: {
+      title: @memory_name,
+      type: "website",
+      url: memory_url(@memory)
+    }
+  )
+%>
+
 <section class="ShiftLeft">
   <p style="color: green"><%= notice %></p>
   

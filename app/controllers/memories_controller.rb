@@ -10,6 +10,18 @@ class MemoriesController < ApplicationController
     else
       @memories_by_year = {}
     end
+
+    # Мета-теги для страницы «Лента времени»
+    set_meta_tags(
+      title: "Лента времени",
+      description: "Просмотр всех воспоминаний вашей семьи в хронологическом порядке",
+      keywords: "family, memories, timeline",
+      og: {
+        title: "Лента времени",
+        type: "website",
+        url: timeline_url
+      }
+    )
   end
 
   def family_web
@@ -18,13 +30,34 @@ class MemoriesController < ApplicationController
     else
       @memories = Memory.none
     end
+
+    set_meta_tags(
+      title: "Сеть семейных воспоминаний",
+      description: "Просмотр всех воспомианий вашей семьи",
+      keywords: "family, web, relatives, memories",
+      og: {
+        title: "Сеть семейных воспоминаний",
+        type: "website",
+        url: family_web_url
+      }
+  )
   end
 
   def my
     @memories = current_user.memories.order(created_at: :desc)
     render :index
-  end
 
+    set_meta_tags(
+      title: "Мои воспоминания",
+      description: "Просмотр всех воспоминаний, созданных вами",
+      keywords: "family, memories",
+      og: {
+        title: "Мои воспоминания",
+        type: "website",
+        url: my_memories_url
+      }
+  )
+  end
 
   def new
     @memory = Memory.new

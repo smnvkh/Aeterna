@@ -7,6 +7,17 @@ class ProfileController < ApplicationController
   end
   def show
     @profile = Profile.find(params[:id])
+
+    set_meta_tags(
+      title: @profile.name,
+      description: "Профиль пользователя #{@profile.name}",
+      keywords: "profile, user, #{@profile.name}",
+      og: {
+        title: @profile.name,
+        type: "profile",
+        url: profile_url(@profile)
+      }
+    )
   end
 
   def edit
