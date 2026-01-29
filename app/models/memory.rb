@@ -5,6 +5,8 @@ class Memory < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   mount_uploader :image, MemoryImageUploader
+  acts_as_taggable_on :tags
+  acts_as_taggable_on :categories
 
   validates :title, :image, :date, presence: true
 

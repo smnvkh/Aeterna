@@ -1,5 +1,15 @@
 <section class="ShiftLeft">
   <h1>Лента времени</h1>
+
+  <div>
+    <%= link_to "All memories", memories_path %>
+    
+    <% Memory.tag_counts_on(:categories).each do |tag| %>
+      <%= link_to tag.name, by_tag_memories_path(tag.name) %>
+    <% end %>
+  </div>
+
+  <hr>
   
   <%= link_to 'Создать воспоминание', new_memory_path %>
   
@@ -23,7 +33,7 @@
   
             <div class="memory-image">
               <%= link_to memory do %>
-                <%= image_tag memory.image.url, width: 300 %>
+                <%= image_tag memory.image.q70.url, width: 300 %>
               <% end %>
             </div>
   

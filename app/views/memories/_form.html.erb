@@ -22,8 +22,18 @@
   </div>
 
   <div>
+    <%= form.label :category_list, style: "display: block" %>
+    <%= form.select :category_list, [["Summer", "Summer"], ["Childhood", "Childhood"], ["Pets", "Pets"], ["Holidays", "Holidays"]] %>
+  </div>
+
+  <div>
     <%= form.label :body, style: "display: block" %>
     <%= form.textarea :body %>
+  </div>
+
+  <div>
+    <%= form.label :tag_list, style: "display: block" %>
+    <%= form.text_field :tag_list %>
   </div>
 
   <div>

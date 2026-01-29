@@ -3,6 +3,7 @@
 
 def seed
   reset_db
+  clean_uploads_folder
   create_admin_user
   create_family
   create_users(5)
@@ -17,6 +18,11 @@ def reset_db
   Rake::Task['db:drop'].invoke
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
+end
+
+def clean_uploads_folder
+  FileUtils.rm_rf('public/uploads')
+  puts "Uploads folder just cleaned"
 end
 
 # ---------- Генерация текста ----------

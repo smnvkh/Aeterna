@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :comments
     collection do
       get "my"
+      get "by_tag/:tag", to: "by_tag", as: "by_tag"
     end
   end
 

@@ -59,6 +59,11 @@ class MemoriesController < ApplicationController
   )
   end
 
+  def by_tag
+    @memories = Memory.tagged_with(params[:tag])
+    render :index
+  end
+
   def new
     @memory = Memory.new
   end
@@ -96,6 +101,6 @@ class MemoriesController < ApplicationController
   end
 
   def memory_params
-    params.require(:memory).permit(:title, :family_member_id, :body, :date, :image)
+    params.require(:memory).permit(:title, :family_member_id, :body, :date, :image, :tag_list, :category_list)
   end
 end

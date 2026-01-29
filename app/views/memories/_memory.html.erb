@@ -12,8 +12,14 @@
     <%= memory.family_member.name %>
   <% end %>
 </p>
-  <p><%= memory.date %></p>
+<p><%= memory.date %></p>
 
-  <%= image_tag memory.image.url, width: 300 %>
+  <p>
+    <% memory.tag_list.each do |tag| %>
+      <%= link_to tag, by_tag_memories_path(tag) %>
+    <% end %>
+  </p>
+
+<%= image_tag memory.image.q70.url, width: 300 %>
 
 </div>
