@@ -56,6 +56,13 @@ Rails.application.routes.draw do
       resources :subscriptions
       get "welcome/index"
       get "welcome/preview"
+
+      devise_scope :user do
+        post "sign_up",          to: "registrations#create"
+        post "sign_in",          to: "sessions#create"
+        get  "authorize_by_jwt", to: "sessions#authorize_by_jwt"
+        get  "sign_out",         to: "sessions#destroy"
+      end
     end
   end
 
