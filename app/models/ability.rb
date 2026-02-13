@@ -20,14 +20,20 @@ class Ability
 
     # COMMENTS (комментарии)
 
-    # Пользователь создаёт комментарии к memories своей семьи
-    can :create, Comment, memory: { family_id: user.family_id }
+    # Создание комментариев к memories своей семьи
+    can :create, Comment do |comment|
+      comment.commentable.is_a?(Memory) &&
+        comment.commentable.family_id == user.family_id
+    end
 
-    # Пользователь может удалить свой комментарий
-    can :destroy, Comment, user_id: user.id
+    # Обновление и удаление только своих комментариев
+    can [ :update, :destroy ], Comment, user_id: user.id
 
-    # Все члены семьи могут читать комментарии внутри своих memories
-    can :read, Comment, memory: { family_id: user.family_id }
+    # Чтение комментариев внутри family memories
+    can :read, Comment do |comment|
+      comment.commentable.is_a?(Memory) &&
+        comment.commentable.family_id == user.family_id
+    end
 
 
     # FAMILY + FAMILY MEMBERS

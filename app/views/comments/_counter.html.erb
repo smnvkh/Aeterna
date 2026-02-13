@@ -1,0 +1,6 @@
+<%= turbo_stream_from "comments_counter" %>
+
+<h2 id="comments_counter">
+  <%= commentable.comments.count %>
+  <%= I18n.translate 'comment', count: commentable.comments.count %>
+</h2>

@@ -1,4 +1,7 @@
-<%= form_with model: Comment.new, url: memory_comments_path(@memory) do |form| %>
+<%= form_with(model: comment) do |form| %>
+  <%= form.hidden_field :commentable_type, value: commentable.class.name %>
+  <%= form.hidden_field :commentable_id, value: commentable.id %>
+
   <div>
     <%= form.label :body, style: "display: block" %>
     <%= form.text_area :body %>

@@ -23,12 +23,14 @@ Rails.application.routes.draw do
 
   # CRUD для воспоминаний
   resources :memories do
-    resources :comments
     collection do
       get "my"
       get "by_tag/:tag", to: "by_tag", as: "by_tag"
     end
   end
+
+  # Комментарии
+  resources :comments, only: [ :show, :create, :edit, :update, :destroy ]
 
   # Админская часть
   namespace :admin do

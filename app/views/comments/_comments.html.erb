@@ -1,0 +1,10 @@
+<%= turbo_stream_from "comments" %>
+
+<section id="comments_section">
+  <%= render "comments/counter", commentable: commentable %>
+  <%= render "comments/form", comment: Comment.new, commentable: commentable %>
+
+  <div id="comments">
+    <%= render commentable.comments %>
+  </div>
+</section>

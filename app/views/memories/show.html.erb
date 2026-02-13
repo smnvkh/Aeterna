@@ -23,12 +23,5 @@
     <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
   </div>
   
-  <h2>Add a comment:</h2>
-  <%= render "comments/form" %>
-  
-  <h2>
-    <%= @memory.comments.count %>
-    <%= I18n.translate 'comment', count: @memory.comments.count %>
-  </h2>
-  <%= render @memory.comments %>
+  <%= render "comments/comments", commentable: @memory %> 
 </section>
