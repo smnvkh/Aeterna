@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_13_143249) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_17_100551) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "commentable_id", null: false
@@ -24,8 +24,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_13_143249) do
 
   create_table "families", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "invite_code"
     t.string "name"
     t.datetime "updated_at", null: false
+    t.index ["invite_code"], name: "index_families_on_invite_code", unique: true
   end
 
   create_table "family_members", force: :cascade do |t|
@@ -112,6 +114,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_13_143249) do
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
+    t.integer "role", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["family_id"], name: "index_users_on_family_id"

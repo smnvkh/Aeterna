@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   belongs_to :family
+  enum :role, { member: 0, owner: 1 }
 
   has_many :comments, dependent: :destroy
 
