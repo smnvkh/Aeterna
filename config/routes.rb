@@ -55,9 +55,8 @@ Rails.application.routes.draw do
   # API
   namespace :api, format: "json" do
     namespace :v1 do
+      resources :memories, only: [ :index, :show ]
       resources :subscriptions
-      get "welcome/index"
-      get "welcome/preview"
 
       devise_scope :user do
         post "sign_up",          to: "registrations#create"
