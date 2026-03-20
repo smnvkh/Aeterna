@@ -2,7 +2,7 @@ class Api::V1::MemoriesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :create ]
   before_action :load_user_by_jti, only: [ :create ]
   def index
-    @memories = Memory.all
+    @memories = Memory.order(created_at: :desc)
   end
 
   def show
