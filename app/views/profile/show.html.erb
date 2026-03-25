@@ -1,10 +1,102 @@
-<section class="ShiftLeft">
-    <h1>Profile</h1>
-    
-    <p>Name</p>
-    <p><%= @profile.name %></p>
-    
-    <% if can? :manage, @profile%>
-        <p><%= link_to "Edit Profile", edit_profile_path %></p>
-    <% end %>
+<section class="UserInfo">
+    <div class="UserPhoto">
+      <% if @profile.avatar.attached? %>
+        <%= image_tag @profile.avatar, class: "ProfileImage" %>
+      <% else %>
+        <div class="ProfilePlaceholder"></div>
+      <% end %>
+    </div>
+    <div class="UserBio">
+        <div class="UserBioName">
+          <%= (@profile.name || "Без имени").split(' ').join('<br>').html_safe %>
+        </div>
+        <div class="UserBioBirthday"><%= l(@profile.birthday, format: "%d %B, %Y") if @profile.birthday %></div>
+    </div>
+    <div class="UserActionButtons">
+        <%= image_tag 'icons/ShareButton.svg', class: 'ShareButton' %>
+        <% if can? :manage, @profile %>
+        <div>
+            <%= link_to edit_profile_path, class: 'EditButton' do %>
+            Редактировать
+            <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
+            <% end %>
+        </div>
+        <% else %>
+        <div>
+            <%= link_to "Пригласить в семью", edit_profile_path %>
+        </div>
+        <% end %>
+    </div>
 </section>
+
+<div class="TabsContainer">
+  <!-- Скрытые переключатели -->
+  <input type="radio" name="profile_tabs" id="tab1" checked class="tab-logic">
+  <input type="radio" name="profile_tabs" id="tab2" class="tab-logic">
+
+  <section class="ProfileNavBar">
+    <label for="tab1" class="ProfileMemoriesButton">
+      Воспоминания <span class="MemoriesCount"><%= @memories.count %></span>
+    </label>
+    <label for="tab2" class="ProfileSelectionsButton">
+      Подборки <span class="MemoriesCount"><%= Memory.category_counts&.count || 0 %></span>
+    </label>
+  </section>
+
+  <div class="ContentSection">
+    <div id="memories-list" class="tab-panel">
+      <div class="ProfileMemories">
+        <% 
+          pattern = ["CardWide", "CardWide", "CardNarrow", "CardNarrow", "CardNarrow", 
+                    "CardNarrow", "CardNarrow", "CardWide", "CardWide", "CardNarrow"]
+          
+          offset = 0 
+        %>
+
+        <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
+
+        <% if can? :manage, @profile %>
+          <div class="AddMemorySpace MemoryItem <%= pattern[0] %>">
+              <h3 class="AddMemorySpaceText">Добавить новое воспоминание</h3>
+              <%= link_to new_memory_path, class: "AddMemoryButton" do %>
+                  Добавить <span class="PlusIcon"></span>
+              <% end %>
+          </div>
+          <% offset = 1 %>
+        <% end %>
+
+        <% @memories.each_with_index do |memory, index| %>
+          <% card_class = pattern[(index + offset) % pattern.length] %>
+
+          <div class="MemoryItem <%= card_class %>">
+            <div class="CardContent">
+              <% if memory.image.present? %>
+                <%= image_tag memory.image.url, class: "MemoryImg" %>
+              <% else %> 
+                <div class="MemoryText">
+                  <p><%= truncate(memory.body, length: 150) %></p>
+                </div>
+              <% end %>
+              <div class="tags">
+                <% memory.tags.each do |tag| %>
+                  <%# Выбираем цвет на основе ID тега %>
+                  <% color = tag_colors[tag.id % tag_colors.length] %>
+                  
+                  <span class="tag">
+                    <span class="tag-circle" style="background-color: <%= color %>;"></span>
+                    <%= tag.name %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div id="selections-list" class="tab-panel">
+       <!-- Подборки -->
+    </div>
+  </div>
+</div>
+
+

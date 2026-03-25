@@ -3,10 +3,20 @@ class ProfileController < ApplicationController
   before_action :set_my_profile, only: [ :my, :edit, :update ]
 
   def my
+    @profile = current_user.profile
+    @memories = current_user.memories
     render :show
   end
+
   def show
     @profile = Profile.find(params[:id])
+
+    # Инициализация воспоминаний
+    if @profile.user.present?
+      @memories = @profile.user.memories.order(date: :desc)
+    else
+      @memories = Memory.none
+    end
 
     set_meta_tags(
       title: @profile.name,
@@ -34,11 +44,11 @@ class ProfileController < ApplicationController
 
   private
 
-    def set_my_profile
-      @profile = current_user.profile
-    end
+  def set_my_profile
+    @profile = current_user.profile
+  end
 
-    def profile_params
-      params.expect(profile: [ :name, :avatar ])
-    end
+  def profile_params
+    params.expect(profile: [ :name, :birthday, :avatar ])
+  end
 end

@@ -4,14 +4,16 @@
 
 html,
 body {
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--White);
+  color: var(--Dark-Grey);
   margin: 0;
   overflow-x: hidden;
+  font-family: 'JetBrains Mono';
+  font-weight: 300;
 }
 
 .ShiftLeft {
-  padding: 3rem 0 0 17.81rem;
+  padding: 5rem 0 0 1.5rem;
   min-height: 46.5vh;
 }
 
@@ -22,111 +24,254 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--black);
+  color: var(--Dark-Grey);
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 100%; /* 3.5rem */
+  letter-spacing: -0.07rem;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 100%; /* 2.5rem */
+  letter-spacing: -0.05rem;
+  text-transform: uppercase;
+}
+
+/* title M */
+h3 {
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%; /* 1.375rem */
+}
+
+p {
+  font-family: 'PP Neue Montreal';
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 110%; /* 1.1rem */
+}
+
+p.Subtitle {
+  font-family: 'JetBrains Mono';
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 110%; /* 0.9625rem */
+}
+
+.ImageS {
+  width: 14.0625rem;
+  height: 13.625rem;
+}
+
+.ImageM {
+  width: 15.5625rem;
+  height: 13.375rem;
+  border-radius: 0.125rem;
+}
+
+.ImageL {
+  width: 14.0625rem;
+  height: 18.375rem;
+  border-radius: 0.125rem;
+}
+
+.ImageXL {
+  width: 28.625rem;
+  height: 35.25rem;
+  border-radius: 0.125rem;
+}
+
+.ImageXXL {
+  width: 35.9375rem;
+  height: 33.4375rem;
+  border-radius: 0.125rem;
 }
 
 /* HEADER */
 
-.S_MenuBar,
-.Footer {
+.S_MenuBar {
   display: flex;
   justify-content: space-between;
-  font-family: 'Geist Mono';
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  line-height: 80%;
-  padding: 1rem;
+  align-items: center;
+  padding: 1.5rem;
   width: 100%;
+  font-size: 1rem;
+  line-height: 100%;
+  letter-spacing: -0.02rem;
 }
 
 .S_MenuBar {
   position: fixed;
-  pointer-events: none;
   z-index: 1;
 }
 
 .S_MenuBar > div {
-  background-color: var(--white);
-  border-radius: 0.125rem;
-  padding: 0.5rem;
-}
-
-.S_MenuBar > div:last-child {
-  height: 100%;
-}
-
-.Pages {
   display: flex;
-  justify-content: space-between;
-  width: 15rem;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 0.25rem;
-  margin-top: 2rem;
+  gap: 4rem;
 }
 
-.PageLink {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid transparent;
-  border-image: repeating-linear-gradient(
-      to right,
-      var(--black) 0,
-      var(--black) 1px,
-      transparent 1px,
-      transparent 5px
-    )
-    100% 1;
-  padding: 0.65rem 0 0.375rem;
+.S_MenuBar > a {
   pointer-events: auto;
   cursor: pointer;
 }
 
-.S_MenuBar a {
-  pointer-events: auto;
+.Pages {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
-.RightIconArrow {
-  width: 1rem;
-  height: 1rem;
+.PageLinkPublic {
+  width: fit-content;
+}
+
+.PageLink {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.PageLink::after {
+  content: '';
+  margin-left: 1rem;
+  width: 1px;
+  height: 0.875rem;
+  background-color: var(--Light-Grey);
+}
+
+.SignInButton,
+.AddMemoryButton,
+.ProfilePlaceholder {
+  display: flex;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.125rem;
+  background: var(--Light-Blue);
+  color: var(--Dark-Grey);
+}
+
+.AddMemoryButton {
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.125rem;
+}
+
+.PlusIcon {
+  position: relative;
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.PlusIcon::before,
+.PlusIcon::after {
+  content: '';
+  position: absolute;
+  background-color: var(--Dark-Grey);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.PlusIcon::before {
+  width: 100%;
+  height: 1.5px;
+}
+
+.PlusIcon::after {
+  width: 1.5px;
+  height: 100%;
+}
+
+.S_MenuBar > div:nth-child(2) {
+  gap: 0.25rem;
+}
+
+.ProfileImageButton {
+  display: flex;
+  width: 2.125rem;
+  height: 2.125rem;
+  justify-content: center;
+  border-radius: 0.125rem;
+  object-fit: cover;
+  object-position: top;
+}
+
+.ProfilePlaceholder {
+  height: 2.125rem;
+  background: var(--White);
 }
 
 /* FOOTER */
 
 .Footer {
-  background-color: var(--light-blue);
-  justify-self: flex-end;
-  margin-top: 3.88rem;
-  padding: 1.5rem;
-  min-height: 11rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--Blue-Halftone);
+  padding: 1.5rem 6.62rem 1.5rem 1.5rem;
+  height: 17.44rem;
 }
 
 #Name {
-  font-family: 'SF Mono';
+  font-family: 'JetBrains Mono';
   font-size: 4rem;
   line-height: 80%;
+  color: var(--Dark-Grey);
+  font-size: 5.09rem;
+  line-height: 110%;
 }
 
 .LinksAndDate {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 6rem;
-  padding-left: 31rem;
+  padding-left: 32rem;
 }
 
 .LinksAndDate p {
-  font-family: 'SF Mono';
+  color: var(--Grey);
+  font-family: 'JetBrains Mono';
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 110%;
+  margin: 0;
 }
 
 .Pages.Footer {
   margin-top: 0;
   padding: 0;
+  flex-direction: column;
+  height: auto;
+  gap: 0.75rem;
+}
+
+.Pages.Footer {
+  font-family: 'JetBrains Mono';
+  color: var(--Dark-Grey);
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 110%;
 }
 
 .Authors p {
-  padding: 0.65rem 4.81rem 0 0;
-  font-size: 0.875rem;
+  margin: 0;
+  font-family: 'JetBrains Mono';
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.Authors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.Authors .Creators {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
 }

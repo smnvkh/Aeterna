@@ -16,4 +16,6 @@ class User < ApplicationRecord
   has_one :family_member
   has_one :profile
   after_create :create_profile
+
+  delegate :avatar, to: :profile, allow_nil: true
 end

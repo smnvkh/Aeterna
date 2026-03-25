@@ -1,0 +1,189 @@
+.UserInfo {
+  margin: 6.38rem 1.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background: #f2efe8;
+  padding: 1rem;
+  gap: 1.5rem;
+  border-radius: 0.125rem;
+}
+
+.ProfileImage,
+.UserPhoto > .ProfilePlaceholder {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+}
+
+.UserBio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.UserBioName {
+  font-size: 2rem;
+  line-height: 100%;
+  letter-spacing: -0.04rem;
+  text-transform: uppercase;
+}
+
+.UserBioBirthday {
+  font-size: 0.75rem;
+  line-height: 100%;
+  letter-spacing: -0.015rem;
+}
+
+.UserActionButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.ShareButton {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.EditIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.EditButton {
+  display: flex;
+  padding: 0.625rem 0.75rem;
+  gap: 0.5rem;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: #ece8df;
+  color: var(--Grey);
+  font-size: 0.875rem;
+  line-height: 100%;
+  letter-spacing: -0.0175rem;
+}
+
+.ProfileNavBar {
+  margin-top: 2.5rem;
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  line-height: 100%;
+  letter-spacing: -0.02rem;
+}
+
+.ProfileNavBar > div {
+  padding: 0.62rem 0.38rem;
+}
+
+.MemoriesCount {
+  color: var(--Light-Grey);
+}
+
+.ProfileMemories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 0.5rem;
+  padding: 1.5rem;
+}
+
+.AddMemorySpace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  padding: 10.7212rem 1rem;
+}
+
+.AddMemorySpaceText {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.AddMemorySpace > .AddMemoryButton {
+  background: #ece8df;
+}
+
+.MemoryItem {
+  height: fit-content;
+}
+
+.MemoryItem.CardNarrow {
+  flex: 0 1 16.568%;
+  max-width: 16.568%;
+}
+
+.MemoryItem.CardWide {
+  flex: 0 1 24%;
+  max-width: 24%;
+}
+
+.CardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.MemoryImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.MemoryText > p {
+  margin: 0;
+}
+
+.MemoryText {
+  padding: 1rem;
+  border-radius: 0.125rem;
+  background: #f2efe8;
+}
+
+.tags {
+  padding: 0 0.375rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  letter-spacing: -0.015rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.tag-circle {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 100%;
+}
+
+.tab-logic {
+  display: none;
+}
+
+.tab-panel {
+  display: none;
+}
+
+#tab1:checked ~ .ContentSection #memories-list {
+  display: block;
+}
+#tab2:checked ~ .ContentSection #collections-list {
+  display: block;
+}
+
+#tab1:checked ~ .ProfileNavBar .ProfileMemoriesButton,
+#tab2:checked ~ .ProfileNavBar .ProfileCollectionsButton {
+  padding-bottom: 0.62rem;
+  border-bottom: 1px solid var(--Dark-Grey);
+}

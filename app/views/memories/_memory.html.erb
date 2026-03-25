@@ -20,6 +20,8 @@
     <% end %>
   </p>
 
-<%= image_tag memory.image.q70.url, width: 300 %>
+<% if memory.image.present? %>
+  <%= image_tag memory.image.q70.url, width: 300 %>
+<% end %>
 
 </div>

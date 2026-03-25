@@ -16,7 +16,9 @@
   </div>
 
   <div class="FormActions">
-    <%= form.submit "Подписаться", class: "FormButton" %>
+    <%= button_tag type: 'submit', class: "FormButton" do %>
+      <span class="ArrowBox"></span>
+    <% end %>
   </div>
 <% end %>
 

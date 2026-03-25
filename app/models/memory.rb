@@ -8,7 +8,16 @@ class Memory < ApplicationRecord
   acts_as_taggable_on :tags
   acts_as_taggable_on :categories
 
-  validates :title, :image, :date, presence: true
+  validates :title, :date, presence: true
+  validate :body_or_image_present
+
+  private
+
+  def body_or_image_present
+    if body.blank? && image.blank?
+      errors.add(:base, "Нужно указать текст или загрузить изображение")
+    end
+  end
 
   # def as_json
   #   {

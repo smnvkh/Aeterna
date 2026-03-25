@@ -25,7 +25,9 @@
 
   <body>
     <%= render 'menubar' %>
-    <p style="color: red"><%= alert %></p>
+    <% if alert.present? %>
+      <p style="color: red"><%= alert %></p>
+    <% end %>
 	  <%= yield %>
     <%= render 'footer' %>
   </body>
