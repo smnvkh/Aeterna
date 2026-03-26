@@ -11,17 +11,46 @@
   )
 %>
 
-<section class="ShiftLeft">
-  <p style="color: green"><%= notice %></p>
-  
-  <%= render @memory %>
-  
-  <div>
-    <%= link_to "Edit this memory", edit_memory_path(@memory) %> |
-    <%= link_to "Back to memories", timeline_path %>
-  
-    <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<section class="MemoryShow">
+
+  <div class="MainPart">
+    <div class="breadcrumbs">
+      <%= link_to 'Профиль', profile_path(@profile) %> /
+      <%= link_to 'Воспоминания', profile_memories_path(@profile) %> /
+      <%= @memory.title %>
+    </div>
+    
+    <div class="MemoryInfo">
+      <h1><%= @memory.title %></h1>
+        <%= image_tag 'about/HorizontalDivider.svg', class: 'HorizontalDivider' %>
+
+        <% if @memory.image? %>
+          <div class="MemoryImage">
+            <%= image_tag @memory.image.url %>
+          </div>
+        <% end %>
+
+        <% if @memory.body? %>
+          <div class="MemoryBody">
+            <%= @memory.body %>
+          </div>
+        <% end %>
+    </div>
+
+    <div class="EditButtons">
+      <%= link_to "Edit this memory", edit_memory_path(@memory) %> |
+      <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </div>
   </div>
-  
-  <%= render "comments/comments", commentable: @memory %> 
+
+  <div class="AuthorInfo">
+    <%= (@profile.name || "Без имени") %>
+    <p><%= @memory.date %></p>
+    <p>
+      <% @memory.tag_list.each do |tag| %>
+        <%= link_to tag, by_tag_memories_path(tag) %>
+      <% end %>
+    </p>
+  </div>
 </section>
+<%# <%= render "comments/comments", commentable: @memory %> 

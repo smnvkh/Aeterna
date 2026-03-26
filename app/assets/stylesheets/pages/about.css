@@ -1,4 +1,7 @@
-.Cover,
+.Cover {
+  background: var(--White);
+}
+
 .ImportantMoments,
 .ConvenientTools {
   background: #f4f1eb;
@@ -19,11 +22,107 @@
 
 .Cover {
   height: 46.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.CoverMemories {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.CoverMemories > * {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.CoverMemories > .ImportantMoments1 {
+  width: 11.8125rem;
+  height: 14.1875rem;
+  top: -1rem;
+  left: 23rem;
+  object-fit: cover;
+}
+
+.CoverMemories > .ImportantMoments2 {
+  width: 9.1875rem;
+  height: 11rem;
+  top: 17rem;
+  left: 9rem;
+  object-fit: cover;
+}
+
+.CoverMemories > .ImportantMoments3 {
+  width: 11.8125rem;
+  height: 14.1875rem;
+  object-fit: cover;
+  top: 33rem;
+  left: 18rem;
+}
+
+.CoverMemories > .CoverImg4 {
+  bottom: -8rem;
+  right: 30rem;
+  width: 9.1875rem;
+  height: 11rem;
+  object-fit: cover;
+}
+
+.CoverMemories > .CoverImg5 {
+  object-fit: cover;
+  width: 6.8125rem;
+  height: 7.625rem;
+  object-position: top;
+  top: 29rem;
+  right: 19rem;
+}
+
+.CoverMemories > .whatDoesAeternaDo {
+  top: 10%;
+  right: 15%;
+  width: 180px;
+  object-fit: cover;
+  width: 11.8125rem;
+  height: 14.25rem;
+  right: -1rem;
+  top: 12rem;
+}
+
+.TextMemory {
+  padding: 1rem;
+  overflow: hidden;
+  font-family: 'PP Neue Montreal';
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 110%;
+  background: #f4f1eb;
+}
+
+#TextMemory1 {
+  top: 31.63rem;
+  left: -5rem;
+  width: 14.125rem;
+}
+
+#TextMemory2 {
+  width: 17rem;
+  top: 3rem;
+  right: 29rem;
+}
+
+#TextMemory3 {
+  width: 16rem;
+  right: -1rem;
+  top: 36rem;
 }
 
 .Heading > h1 {
-  width: 38rem;
-  margin-bottom: 11rem;
+  width: 40rem;
+  margin-bottom: 3rem;
   margin-left: 36.5rem;
 }
 
@@ -33,11 +132,12 @@
 }
 
 .Heading {
-  margin: 13rem 1.5rem 2.5rem 1.5rem;
+  margin: 13rem 1.5rem 1.5rem 1.5rem;
 }
 
 .CTA {
   margin-left: 38rem;
+  margin-bottom: 16rem;
 }
 
 .CTA a {
@@ -51,6 +151,14 @@
   letter-spacing: -0.0175rem;
   width: 12rem;
   height: 2.125rem;
+}
+
+.CoverText > .CTA a {
+  background-color: #f4f1eb;
+}
+
+.EmailForm > .CTA {
+  margin-bottom: 0;
 }
 
 .ArrowBox {

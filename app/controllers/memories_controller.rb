@@ -2,6 +2,15 @@ class MemoriesController < ApplicationController
   load_and_authorize_resource
   before_action :set_memory, only: %i[ show edit update destroy ]
 
+  def show
+    @memory = Memory.find(params[:id])
+      if @memory.family_member && @memory.family_member.user
+        @profile = @memory.family_member.user.profile
+      else
+        @profile = nil  # В случае отсутствия профиля, избегаем ошибки
+      end
+  end
+
   def timeline
     if current_user.family
       @memories_by_year = current_user.family.memories

@@ -1,185 +1,201 @@
-/* .Cover {
+#TextMemory4 {
+  width: 16.13181rem;
+  left: 1.5rem;
+  top: 25rem;
+}
+
+.BirdImg {
+  width: 22.48831rem;
+  height: 18.78669rem;
+  right: 1rem;
+  top: 10rem;
+}
+
+.GrannyImg {
+  bottom: 4rem;
+  left: 8rem;
+  width: 15.6715rem;
+  height: 13.94869rem;
+}
+
+.CrochetImg {
+  width: 9.08925rem;
+  height: 8.88488rem;
+  left: 11rem;
+  top: 13rem;
+  z-index: 2;
+}
+
+.CoverMemories.Home > .ImportantMoments2 {
+  top: 9rem;
+  left: 18rem;
+}
+
+.CoverMemories.Home > .whatDoesAeternaDo {
+  width: 14.0625rem;
+  height: 18.375rem;
+  right: 4rem;
+  top: 26rem;
+}
+
+.RecentNotes {
+  height: 60rem;
+  background: #f2efe8;
+  padding: 7.5rem 1.5rem 5rem 1.5rem;
+}
+
+.RecentNotesHeading > h2,
+.RecentNotesHeading > p {
+  margin: 0;
+}
+
+.RecentNotesHeading,
+.ImportantMomentsMainHeading {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.RecentNotesHeading > h2,
+.ImportantMomentsMainHeading > h2 {
+  margin-bottom: 1.5rem;
+}
+
+.RecentNotesHeading > .Description,
+.ImportantMomentsMainHeading > .Description {
+  width: 19.9375rem;
   font-family: 'JetBrains Mono';
-  font-weight: 300;
+  font-size: 1.25rem;
+}
+
+.RecentNotesImages {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  padding: 2.87rem 0 0 17.81rem;
-}
-.HeadingAndCTA {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.Heading {
-  width: 35.875rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.Heading > H1 {
-  font-family: 'JetBrains Mono';
-  font-size: 3rem;
-  line-height: 100%;
-  letter-spacing: -0.06rem;
-  font-weight: 300;
-}
-
-.StrokeText {
-  width: 18.7rem;
-  height: 100%;
-  align-self: end;
-  padding-right: 3rem;
-  margin-top: -3rem;
-}
-
-.Heading > p {
-  font-size: 1rem;
-  line-height: 110%;
-  width: 22rem;
-  margin-top: 0.3rem;
-  font-family: 'Neue Montreal';
-}
-
-.Form {
-  display: flex;
-  gap: 0.25rem;
-}
-
-.FormField,
-.FormActions {
-  display: flex;
-  width: 12rem;
-  padding: 1rem 1.25rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
-  border-radius: 0.125rem;
-}
-
-.FormField {
-  border: 1px solid var(--dark-grey-20);
-  background: #fafaf9;
-}
-
-.FormInput,
-.FormButton {
-  all: unset;
-  color: var(--black-50);
-  font-family: 'Neue Montreal';
-  font-size: 0.875rem;
-  line-height: 100%;
-}
-
-.FormActions {
-  background: var(--light-blue, #bbd3f9);
-  cursor: pointer;
-}
-
-.FormButton {
-  color: var(--black, #181b16);
-  align-self: center;
-}
-
-#SuccessSubscription {
-  font-family: 'Neue Montreal';
-}
-
-.FormErrors {
-  margin-bottom: 16px;
-  color: #d93025;
-}
-
-.MemoryExamples {
-  position: relative;
-  width: 51%;
-  height: 50vh;
-}
-
-.TextMemory {
-  display: flex;
-  width: 14rem;
-  padding: 0.625rem;
-  flex-direction: column;
   align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.ImageContainer1 {
+  width: 14.0625rem;
+  height: 18.375rem;
+  object-fit: cover;
+}
+
+.ImageContainer2 {
+  width: 21.375rem;
+  height: 23.5625rem;
+  object-fit: cover;
+}
+
+.ImageContainer3 {
+  width: 21.375rem;
+  height: 14.5rem;
+  object-fit: cover;
+}
+
+.ImageContainer4 {
+  width: 28.625rem;
+  height: 35.25rem;
+  object-fit: cover;
+}
+
+.tag > p {
+  margin: 0;
+}
+
+.YourFamily {
+  padding: 7.5rem 1.5rem 0rem 1.5rem;
+}
+
+.RecentNotesHeading > h2 {
+  width: 26.875rem;
+}
+
+.IrinaSemenova,
+.AlexSemenov,
+.VasilisaSemenova,
+.MikeSemenov {
+  width: 19.375rem;
+  height: 19.375rem;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-top: 1rem;
+}
+
+.YourFamilyMembers {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.FamilyMemberContainer {
+  display: flex;
+  width: 21.375rem;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: #f2efe8;
   border-radius: 0.125rem;
-  background-color: var(--light-grey);
-  box-shadow: 0 2px 6px 0 rgba(24, 27, 22, 0.08);
-  position: absolute;
+}
+
+.FamilyMemberContainer > p {
+  margin: 0;
+}
+
+.FamilyMemberName {
+  font-family: 'JetBrains Mono';
+  font-size: 1.25rem;
+  line-height: 110%;
+  text-transform: uppercase;
+}
+
+.FamilyMemberBirthday {
+  font-family: 'JetBrains Mono';
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 100%;
+  letter-spacing: -0.015rem;
+}
+
+.ImportantMomentsMain {
+  padding: 7.5rem 10.88rem 4.69rem 8.81rem;
+  background: var(--White);
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.MemoryDescription {
-  font-size: 0.75rem;
-  letter-spacing: -0.015rem;
-  margin: 0;
-  color: var(--dark-grey);
+.ImportantMomentsImg {
+  width: 28.6875rem;
+  height: 35.25rem;
+  border-radius: 0.125rem;
+  object-fit: cover;
 }
 
-.MemoryAuthor {
-  font-size: 0.625rem;
-  letter-spacing: -0.0125rem;
-  margin: 0;
-}
-
-.ImageMemory {
+.ImportantMomentsMainContainer {
   display: flex;
-  width: 10.625rem;
-  flex-direction: column;
-  align-items: center;
-  background: var(--Light-Grey, #eaebe9);
-  box-shadow: 0 2px 6px 0 rgba(24, 27, 22, 0.08);
-  border-radius: 0 0 0.125rem 0.125rem;
-  position: absolute;
-  padding-bottom: 0.5rem;
+  gap: 7.75rem;
 }
 
-.ImageMemoryItem {
-  border-radius: 0.125rem 0.125rem 0 0;
-  height: 10.625rem;
-}
-
-.MemoryDate {
-  width: 90%;
-  text-align: center;
-  padding: 0.5rem;
-  color: var(--black-50);
-  font-size: 0.75rem;
-  border-bottom: 1px solid var(--black-50);
+.ImportantMomentsMainHeading > h2,
+.ImportantMomentsMainHeading > p {
   margin: 0;
 }
 
-.TextMemory:first-child {
-  right: 9rem;
-  width: 12rem;
+.ImportantMomentsMainHeading > h2 {
+  margin-bottom: auto;
 }
 
-.ImageMemory:nth-child(2) {
-  left: 26rem;
-  top: 3rem;
+.ImportantMomentsMainHeading {
+  width: 34rem;
+  align-items: flex-start;
 }
 
-.TextMemory:nth-child(3) {
-  left: -11rem;
-  top: 11rem;
-  width: 13.875rem;
+.ImportantMomentsMainHeading > .CTA {
+  margin: 0;
 }
 
-.ImageMemory:nth-child(4) {
-  top: 15rem;
-  left: 1rem;
+.ImportantMomentsMainHeading > .CTA a {
+  background: #f2efe8;
+  width: 9.875rem;
 }
-
-.TextMemory:nth-child(5) {
-  top: 18rem;
-  left: 27rem;
-  width: 12rem;
-}
-
-.TextMemory:nth-child(6) {
-  top: 23rem;
-  left: 17rem;
-  width: 10.625rem;
-} */

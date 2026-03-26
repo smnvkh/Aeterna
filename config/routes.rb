@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   get "profile/edit", to: "profile#edit", as: "edit_profile"
   patch "profile/update", to: "profile#update", as: "update_profile"
 
-  resources :profile, only: [ :show ]
+  resources :profile, only: [ :show ] do
+      resources :memories, only: [ :index ] # Это создаст путь /profile/:profile_id/memories
+    end
 
   # CRUD для родственников
   resources :family_members

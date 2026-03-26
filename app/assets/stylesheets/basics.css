@@ -117,6 +117,14 @@ p.Subtitle {
   gap: 4rem;
 }
 
+.S_MenuBar div:nth-of-type(1) {
+  align-items: baseline;
+}
+
+.Logo {
+  font-size: 1.4rem;
+}
+
 .S_MenuBar > a {
   pointer-events: auto;
   cursor: pointer;

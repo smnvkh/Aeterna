@@ -69,26 +69,29 @@
           <% card_class = pattern[(index + offset) % pattern.length] %>
 
           <div class="MemoryItem <%= card_class %>">
+            
             <div class="CardContent">
-              <% if memory.image.present? %>
-                <%= image_tag memory.image.url, class: "MemoryImg" %>
-              <% else %> 
-                <div class="MemoryText">
-                  <p><%= truncate(memory.body, length: 150) %></p>
-                </div>
-              <% end %>
-              <div class="tags">
-                <% memory.tags.each do |tag| %>
-                  <%# Выбираем цвет на основе ID тега %>
-                  <% color = tag_colors[tag.id % tag_colors.length] %>
-                  
-                  <span class="tag">
-                    <span class="tag-circle" style="background-color: <%= color %>;"></span>
-                    <%= tag.name %>
-                  </span>
+              <%= link_to memory_path(memory) do %>
+                <% if memory.image.present? %>
+                  <%= image_tag memory.image.url, class: "MemoryImg" %>
+                <% else %> 
+                  <div class="MemoryText">
+                    <p><%= truncate(memory.body, length: 150) %></p>
+                  </div>
                 <% end %>
+                <div class="tags">
+                  <% memory.tags.each do |tag| %>
+                    <%# Выбираем цвет на основе ID тега %>
+                    <% color = tag_colors[tag.id % tag_colors.length] %>
+                    
+                    <span class="tag">
+                      <span class="tag-circle" style="background-color: <%= color %>;"></span>
+                      <%= tag.name %>
+                    </span>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
         <% end %>
       </div>

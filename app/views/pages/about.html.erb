@@ -1,14 +1,26 @@
 <section class="Cover">
-    <div class="Heading">
-        <h1>Каждый хранит часть большой</h1>
-        <%= image_tag 'about/HorizontalDivider.svg', class: 'HorizontalDivider' %>
-        <p>Aeterna сохраняет голоса, фото и истории семьи — чтобы память жила дольше</p>
+    <div class="CoverText">
+        <div class="Heading">
+            <h1>Каждый хранит часть большой истории</h1>
+            <p>Aeterna сохраняет голоса, фото и истории семьи — чтобы память жила дольше</p>
+        </div>
+        <div class="CTA">
+        <%= link_to root_url do %>
+            Начать сохранять
+            <span class="ArrowBox"></span>
+        <% end %>
+        </div>
     </div>
-    <div class="CTA">
-    <%= link_to root_url do %>
-        Начать сохранять
-        <span class="ArrowBox"></span>
-    <% end %>
+    <div class="CoverMemories">
+        <div class="TextMemory" id="TextMemory1">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</div>
+        <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
+        <%= image_tag 'about/ImportantMoments1.webp', class: 'ImportantMoments1'%>
+        <%= image_tag 'about/ImportantMoments3.webp', class: 'ImportantMoments3'%>
+        <div class="TextMemory" id="TextMemory2">Наш кот прожил с нами 19 лет. Мы подобрали его на улице и вылечили — он был верным...</div>
+        <%= image_tag 'about/CoverImg4.webp', class: 'CoverImg4'%>
+        <%= image_tag 'about/CoverImg5.webp', class: 'CoverImg5'%>
+        <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
+        <div class="TextMemory" id="TextMemory3">Мама смеялась, когда я включал её любимую песню</div>
     </div>
 </section>
 

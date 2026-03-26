@@ -1,14 +1,6 @@
 @raw_text = "Свой первый в жизни рассказ я написал лет пять тому назад..."
 @words = @raw_text.downcase.gsub(/[—.—,«»:()]/, '').gsub(/  /, ' ').split(' ')
 
-TAG_POOL = %w[Семья Детство Школа Праздник Каникулы Друзья Радость Мама Любовь Игра]
-COLLECTION_POOL = [
-  "Ездили в поле собирать полевые цветы",
-  "Первая совместная поездка на море",
-  "На даче с семьей",
-  "Рождение дорогой внучки"
-]
-
 def seed
   reset_db
   clean_uploads_folder
@@ -17,11 +9,10 @@ def seed
   create_users(5)
   create_family_members
   create_memories
-  create_collections
   create_comments(2..8)
 end
 
-# ----------------- Базовые методы -----------------
+# ------------------ Базовые методы ------------------
 def reset_db
   Rake::Task['db:drop'].invoke
   Rake::Task['db:create'].invoke
@@ -33,6 +24,7 @@ def clean_uploads_folder
   puts "Uploads folder just cleaned"
 end
 
+# ---------- Генерация текста ----------
 def create_title
   Array.new((2..10).to_a.sample) { @words.sample }.join(' ').capitalize + '.'
 end
@@ -41,6 +33,7 @@ def create_sentence
   Array.new((10..20).to_a.sample) { @words.sample }.join(' ').capitalize + '.'
 end
 
+# ---------- Фото ----------
 def upload_random_image
   uploader = MemoryImageUploader.new(Memory.new, :image)
   uploader.cache!(
@@ -51,13 +44,15 @@ def upload_random_image
   uploader
 end
 
-# ----------------- Пользователи и семьи -----------------
+# ------------------ Пользователи ------------------
 def create_admin_user
   family = Family.create!(name: "Семья админа")
-  user = User.create!(email: "admin@email.com", password: "123123", admin: true, family: family)
+  user_data = { email: "admin@email.com", password: "123123", admin: true, family: family }
+  user = User.create!(user_data)
   puts "Admin user created with id #{user.id} and family #{family.name}"
 end
 
+# ------------------ Семья ------------------
 def create_family
   @family = Family.create!(name: "Семья Ивановых")
   puts "Family created: #{@family.name}"
@@ -71,6 +66,7 @@ def create_users(quantity)
   puts "#{quantity} users created"
 end
 
+# ------------------ Родственники ------------------
 def create_family_members
   grandmother = FamilyMember.create!(name: "Мария", relation: "бабушка", family: @family)
   grandfather = FamilyMember.create!(name: "Алексей", relation: "дедушка", family: @family)
@@ -79,8 +75,8 @@ def create_family_members
 
   mother = FamilyMember.create!(name: "Анна", relation: "мама", family: @family, mother: grandmother, father: grandfather)
   father = FamilyMember.create!(name: "Иван", relation: "папа", family: @family)
-  mother.update!(spouse: father)
   father.update!(spouse: mother)
+  mother.update!(spouse: father)
 
   sister = FamilyMember.create!(name: "Ольга", relation: "сестра", family: @family)
   brother = FamilyMember.create!(name: "Пётр", relation: "брат", family: @family)
@@ -88,11 +84,16 @@ def create_family_members
   @family_members = [ grandmother, grandfather, mother, father, sister, brother ]
 
   # связываем users и family_members
-  @family_members.zip(@users).each { |member, user| member.update!(user: user) if user }
+  @family_members.zip(@users).each do |member, user|
+    break unless user
+    member.update!(user: user)
+  end
   puts "Family members created: #{@family_members.count}"
 end
 
-# ----------------- Воспоминания -----------------
+# ------------------ Воспоминания ------------------
+TAG_POOL = %w[семья детство школа праздник лето воспоминание друзья радость смех любовь игра]
+
 def create_memories
   @family.family_members.find_each do |member|
     rand(1..3).times do
@@ -105,34 +106,29 @@ def create_memories
       )
 
       # Генерация контента
-      memory.body = create_sentence if [ :text_only, :both ].include?(type)
-      memory.image = upload_random_image if [ :image_only, :both ].include?(type)
-      memory.save!  # сохраняем уже валидную память
+      case type
+      when :text_only
+        memory.body = create_sentence
+      when :image_only
+        memory.image = upload_random_image
+      when :both
+        memory.body = create_sentence
+        memory.image = upload_random_image
+      end
 
-      # Теги
+      memory.save! # сохраняем память
+
+      # Генерируем 1–3 случайных тега
       memory.tag_list.add(TAG_POOL.sample(rand(1..3)))
       memory.save!
 
       puts "Memory #{memory.id} created for #{member.name} (#{type}) with tags: #{memory.tag_list.join(', ')}"
     end
   end
+  puts "Created shared memories for family #{@family.name}"
 end
 
-# ----------------- Коллекции (категории) -----------------
-def create_collections
-  memories = Memory.all
-  COLLECTION_POOL.each do |collection|
-    selected_memories = memories.sample(rand(2..4))
-    selected_memories.each do |memory|
-      # Добавляем категорию без валидации (чтобы не падало на body_or_image_present)
-      memory.category_list.add(collection)
-      memory.save(validate: false)
-      puts "Collection '#{collection}' added to Memory #{memory.id}"
-    end
-  end
-end
-
-# ----------------- Комментарии -----------------
+# ------------------ Комментарии ------------------
 def create_comments(range)
   Memory.find_each do |memory|
     range.to_a.sample.times do
@@ -143,5 +139,4 @@ def create_comments(range)
   end
 end
 
-# ----------------- Запуск -----------------
 seed
