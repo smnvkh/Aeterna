@@ -187,3 +187,25 @@
   padding-bottom: 0.62rem;
   border-bottom: 1px solid var(--Dark-Grey);
 }
+
+.LogoutWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.LogoutButton {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--White);
+  border: 1px solid;
+  border-color: rgba(167, 166, 164, 0.4);
+  padding: 8px 16px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.LogoutWrapper:hover .LogoutButton {
+  display: block;
+}

@@ -15,8 +15,8 @@
 
   <div class="MainPart">
     <div class="breadcrumbs">
-      <%= link_to 'Профиль', profile_path(@profile) %> /
-      <%= link_to 'Воспоминания', profile_memories_path(@profile) %> /
+      <%= link_to 'Профиль', profile_path(@profile) %>
+      <%= link_to 'Воспоминания', profile_memories_path(@profile) %>
       <%= @memory.title %>
     </div>
     
@@ -38,19 +38,29 @@
     </div>
 
     <div class="EditButtons">
-      <%= link_to "Edit this memory", edit_memory_path(@memory) %> |
-      <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <%= link_to "Edit this memory", edit_memory_path(@memory), class: 'EditButton' %> 
+      <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'EditButton' %>
     </div>
   </div>
 
   <div class="AuthorInfo">
-    <%= (@profile.name || "Без имени") %>
-    <p><%= @memory.date %></p>
-    <p>
-      <% @memory.tag_list.each do |tag| %>
-        <%= link_to tag, by_tag_memories_path(tag) %>
+    <p class="AuthorInfoName"><%= (@profile.name || "Без имени") %></p>
+    <p class="AuthorInfoDate"><%= @memory.date %></p>
+    
+    <div class="Tags">
+      <%# Массив цветов как в списке воспоминаний %>
+      <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
+      
+      <% @memory.tags.each do |tag| %>
+        <%# Логика выбора цвета по ID тега %>
+        <% color = tag_colors[tag.id % tag_colors.length] %>
+        
+        <span class="tag">
+          <span class="tag-circle" style="background-color: <%= color %>;"></span>
+          <%= link_to tag.name, by_tag_memories_path(tag) %>
+        </span>
       <% end %>
-    </p>
+    </div>
   </div>
 </section>
 <%# <%= render "comments/comments", commentable: @memory %> 

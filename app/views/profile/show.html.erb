@@ -13,7 +13,10 @@
         <div class="UserBioBirthday"><%= l(@profile.birthday, format: "%d %B, %Y") if @profile.birthday %></div>
     </div>
     <div class="UserActionButtons">
-        <%= image_tag 'icons/ShareButton.svg', class: 'ShareButton' %>
+            <div class="LogoutWrapper">
+                <%= image_tag 'icons/ShareButton.svg', class: 'ShareButton' %>
+                <%= link_to "Выйти", destroy_user_session_path, data: {"turbo_method": :delete }, class: 'LogoutButton' %>
+            </div>
         <% if can? :manage, @profile %>
         <div>
             <%= link_to edit_profile_path, class: 'EditButton' do %>
