@@ -105,11 +105,14 @@ p.Subtitle {
   font-size: 1rem;
   line-height: 100%;
   letter-spacing: -0.02rem;
+  background: transparent;
+  position: fixed;
+  z-index: 101;
+  transition: all 0.3s ease;
 }
 
-.S_MenuBar {
-  position: fixed;
-  z-index: 1;
+.S_MenuBar.scrolled {
+  background: var(--White);
 }
 
 .S_MenuBar > div {
