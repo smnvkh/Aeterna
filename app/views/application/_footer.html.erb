@@ -1,47 +1,49 @@
 <nav class="Footer">
         <%= link_to 'AETERNA', root_url, id: 'Name' %>
-        <div class="LinksAndDate">
-            <div class="Pages Footer">
-                <div class="PageLinkFooterPublic">
-                    <%= link_to 'О нас', pages_about_path %>
+        <div class="FooterContainer">
+            <div class="LinksAndDate">
+                <div class="Pages Footer">
+                    <div class="PageLinkFooterPublic">
+                        <%= link_to 'О нас', pages_about_path %>
+                    </div>
+                    <% if user_signed_in? && current_user.admin? %>
+                        <div class="PageLink">
+                            <%= link_to 'Лента времени', admin_timeline_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Сеть', admin_family_web_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Cемейное древо', admin_family_tree_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Члены семьи', admin_family_members_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Подписки', admin_subscriptions_path %>
+                        </div>
+                        <% elsif user_signed_in? %>
+                            <%# <div class="PageLink"> %>
+                                <%#= link_to 'Лента времени', timeline_path %>
+                            <%# </div> %>
+                            <div class="PageLinkFooter">
+                                <%= link_to 'Сеть', family_web_path %>
+                            </div>
+                            <%# <div class="PageLink"> %>
+                                <%#= link_to 'Cемейное древо', family_tree_path %>
+                            <%# </div> %>
+                            <div class="PageLinkFooter">
+                                <%= link_to 'Профиль', my_profile_path %>
+                            </div>
+                    <% end %>
                 </div>
-                <% if user_signed_in? && current_user.admin? %>
-                    <div class="PageLink">
-                        <%= link_to 'Лента времени', admin_timeline_path %>
-                    </div>
-                    <div class="PageLink">
-                        <%= link_to 'Сеть', admin_family_web_path %>
-                    </div>
-                    <div class="PageLink">
-                        <%= link_to 'Cемейное древо', admin_family_tree_path %>
-                    </div>
-                    <div class="PageLink">
-                        <%= link_to 'Члены семьи', admin_family_members_path %>
-                    </div>
-                    <div class="PageLink">
-                        <%= link_to 'Подписки', admin_subscriptions_path %>
-                    </div>
-                    <% elsif user_signed_in? %>
-                        <%# <div class="PageLink"> %>
-                            <%#= link_to 'Лента времени', timeline_path %>
-                        <%# </div> %>
-                        <div class="PageLinkFooter">
-                            <%= link_to 'Сеть', family_web_path %>
-                        </div>
-                        <%# <div class="PageLink"> %>
-                            <%#= link_to 'Cемейное древо', family_tree_path %>
-                        <%# </div> %>
-                        <div class="PageLinkFooter">
-                            <%= link_to 'Профиль', my_profile_path %>
-                        </div>
-                <% end %>
+                <p>Aeterna © 2026</p>
             </div>
-            <p>Aeterna © 2026</p>
-        </div>
-        <div class="Authors">
-            <p class="Creators">Создатели</p>
-            <p>Чибичик Алёна</p>
-            <p>Семеновых Мария</p>
-            <p>Ямщикова Виктория</p>
+            <div class="Authors">
+                <p class="Creators">Создатели:</p>
+                <p>Чибичик Алёна</p>
+                <p>Семеновых Мария</p>
+                <p>Ямщикова Виктория</p>
+            </div>
         </div>
 </nav>

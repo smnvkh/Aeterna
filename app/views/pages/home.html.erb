@@ -1,129 +1,146 @@
 <section class="Cover">
-    <div class="CoverText">
-        <div class="Heading">
-            <h1>СОБЕРИТЕ ИСТОРИЮ ВАШЕЙ СЕМЬИ</h1>
-            <p>Соберите фотографии, истории и важные моменты в одном месте — вместе с близкими</p>
+    <div class="CoverInner">
+        <div class="CoverText">
+            <div class="Heading">
+                <h1>СОБЕРИТЕ ИСТОРИЮ ВАШЕЙ СЕМЬИ</h1>
+                <p>Соберите фотографии, истории и важные моменты в одном месте — вместе с близкими</p>
+            </div>
+            <div class="CTA">
+            <%= link_to root_url do %>
+                Начать сохранять
+                <span class="ArrowBox"></span>
+            <% end %>
+            </div>
         </div>
-        <div class="CTA">
-        <%= link_to root_url do %>
-            Начать сохранять
-            <span class="ArrowBox"></span>
-        <% end %>
+        <div class="CoverMemories Home">
+            <div class="TextMemory" id="TextMemory4">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</div>
+            <%= image_tag 'home/GrannyImg.svg', class: 'GrannyImg'%>
+            <%= image_tag 'home/CrochetImg.svg', class: 'CrochetImg'%>
+            <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
+            <%= image_tag 'home/BirdImg.svg', class: 'BirdImg'%>
+            <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
         </div>
-    </div>
-    <div class="CoverMemories Home">
-        <div class="TextMemory" id="TextMemory4">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</div>
-        <%= image_tag 'home/GrannyImg.svg', class: 'GrannyImg'%>
-        <%= image_tag 'home/CrochetImg.svg', class: 'CrochetImg'%>
-        <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
-        <%= image_tag 'home/BirdImg.svg', class: 'BirdImg'%>
-        <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
     </div>
 </section>
 
 <section class="RecentNotes">
-  <div class="RecentNotesHeading">
-        <p class="Subtitle">Недавние записи</p>
-        <h2>ЧТО ДОБАВИЛИ БЛИЗКИЕ</h2>
-        <p class="Description">Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
-    <div class="RecentNotesImages">
-      <div class="ImageContainer">
-        <%= image_tag 'home/ImageContainer1.webp', class: 'ImageContainer1'%>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #E19593;"></span>
-            <p>Детство</p>
-        </span>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-            <p>Летние каникулы</p>
-        </span>
-      </div>
-
-      <div class="ImageContainer">
-        <%= image_tag 'home/ImageContainer2.webp', class: 'ImageContainer2'%>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #E19593;"></span>
-            <p>Детство</p>
-        </span>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-            <p>Летние каникулы</p>
-        </span>
-      </div>
+  <div class="PageWrapper">
+    <div class="RecentNotesHeading">
+      <p class="Subtitle">Недавние записи</p>
+      <h2>ЧТО ДОБАВИЛИ БЛИЗКИЕ</h2>
+      <p class="Description">Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
+      <div class="RecentNotesImages">
+        <div class="ImageContainer">
+          <%= image_tag 'home/ImageContainer1.webp', class: 'ImageContainer1'%>
+          <div class="tags">
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #E19593;"></span>
+                  <p>Детство</p>
+              </span>
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
+                  <p>Лето</p>
+              </span>
+          </div>
+        </div>
 
         <div class="ImageContainer">
-        <%= image_tag 'home/ImageContainer3.webp', class: 'ImageContainer3'%>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #E19593;"></span>
-            <p>Детство</p>
-        </span>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-            <p>Летние каникулы</p>
-        </span>
-      </div>
+          <%= image_tag 'home/ImageContainer2.webp', class: 'ImageContainer2'%>
+          <div class="tags">
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #E19593;"></span>
+                  <p>Любовь</p>
+              </span>
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
+                  <p>Каникулы</p>
+              </span>
+          </div>
+        </div>
 
         <div class="ImageContainer">
-        <%= image_tag 'home/ImageContainer4.webp', class: 'ImageContainer4'%>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #E19593;"></span>
-            <p>Детство</p>
-        </span>
-        <span class="tag">
-            <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-            <p>Летние каникулы</p>
-        </span>
+          <%= image_tag 'home/ImageContainer3.webp', class: 'ImageContainer3'%>
+          <div class="tags">
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #E19593;"></span>
+                  <p>Бабушка</p>
+              </span>
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
+                  <p>Любовь</p>
+              </span>
+          </div>
+        </div>
+
+        <div class="ImageContainer">
+          <%= image_tag 'home/ImageContainer4.webp', class: 'ImageContainer4'%>
+          <div class="tags">
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #E19593;"></span>
+                  <p>Праздник</p>
+              </span>
+              <span class="tag">
+                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
+                  <p>Мама</p>
+              </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="YourFamily">
-  <div class="RecentNotesHeading">
-    <p class="Subtitle">Ваша семья</p>
-    <h2>ЛЮДИ, С КОТОРЫМИ У ВАС ЕСТЬ СВЯЗИ</h2>
-  </div>
-  <div class="YourFamilyMembers">
-    <div class="FamilyMemberContainer">
-        <p class="FamilyMemberName">Ирина<br>Семёнова</p>
-        <p class="FamilyMemberBirthday">23 июля, 1964</p>
-        <%= image_tag 'home/IrinaSemenova.webp', class: 'IrinaSemenova'%>
+  <div class="PageWrapper">
+    <div class="RecentNotesHeading">
+      <p class="Subtitle">Ваша семья</p>
+      <h2>ЛЮДИ, С КОТОРЫМИ У ВАС ЕСТЬ СВЯЗИ</h2>
     </div>
-
-    <div class="FamilyMemberContainer">
-        <p class="FamilyMemberName">Александр<br>Семёнов</p>
-        <p class="FamilyMemberBirthday">28 апреля, 1960</p>
-        <%= image_tag 'home/AlexSemenov.webp', class: 'AlexSemenov'%>
-    </div>
-
-    <div class="FamilyMemberContainer">
-        <p class="FamilyMemberName">Василиса<br>Семёнова</p>
-        <p class="FamilyMemberBirthday">23 июля, 1991</p>
-        <%= image_tag 'home/VasilisaSemenova.webp', class: 'VasilisaSemenova'%>
-    </div>
-
-    <div class="FamilyMemberContainer">
-        <p class="FamilyMemberName">Михаил<br>Семёнов</p>
-        <p class="FamilyMemberBirthday">21 ноября, 2008</p>
-        <%= image_tag 'home/MikeSemenov.webp', class: 'MikeSemenov'%>
+    <div class="YourFamilyMembers">
+      <div class="FamilyMemberContainer">
+          <p class="FamilyMemberName">Ирина<br>Семёнова</p>
+          <p class="FamilyMemberBirthday">23 июля, 1964</p>
+          <%= image_tag 'home/IrinaSemenova.webp', class: 'IrinaSemenova'%>
+      </div>
+      <div class="FamilyMemberContainer">
+          <p class="FamilyMemberName">Александр<br>Семёнов</p>
+          <p class="FamilyMemberBirthday">28 апреля, 1960</p>
+          <%= image_tag 'home/AlexSemenov.webp', class: 'AlexSemenov'%>
+      </div>
+      <div class="FamilyMemberContainer">
+          <p class="FamilyMemberName">Василиса<br>Семёнова</p>
+          <p class="FamilyMemberBirthday">23 июля, 1991</p>
+          <%= image_tag 'home/VasilisaSemenova.webp', class: 'VasilisaSemenova'%>
+      </div>
+      <div class="FamilyMemberContainer">
+          <p class="FamilyMemberName">Михаил<br>Семёнов</p>
+          <p class="FamilyMemberBirthday">21 ноября, 2008</p>
+          <%= image_tag 'home/MikeSemenov.webp', class: 'MikeSemenov'%>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="ImportantMomentsMain">
-  <div class="ImportantMomentsMainContainer">
-    <%= image_tag 'home/ImportantMomentsImg.webp', class: 'ImportantMomentsImg'%>
+  <div class="PageWrapper">
+    <div class="ImportantMomentsMainContainer">
+      <%= image_tag 'home/ImportantMomentsImg.webp', class: 'ImportantMomentsImg'%>
       <div class="ImportantMomentsMainHeading">
-        <p class="Subtitle">Важные моменты</p>
-        <h2>ДОБАВЛЯЙТЕ ВОСПОМИНАНИЯ ПРЯМО С ТЕЛЕФОНА</h2>
-        <p class="Description">Отправляйте фото и записывайте истории через Telegram — без лишних шагов</p>
-        <div class="CTA">
-            <%= link_to root_url do %>
-                Открыть бота
-                <span class="ArrowBox"></span>
-            <% end %>
+        <div class="ImportantMomentsMainHeadingUpper">
+            <p class="Subtitle">Важные моменты</p>
+            <h2>ДОБАВЛЯЙТЕ ВОСПОМИНАНИЯ ПРЯМО С ТЕЛЕФОНА</h2>
+        </div>
+        <div class="ImportantMomentsMainHeadingLower">
+            <p class="Description">Отправляйте фото и записывайте истории через Telegram — без лишних шагов</p>
+            <div class="CTA">
+                <%= link_to root_url do %>
+                    Открыть бота
+                    <span class="ArrowBox"></span>
+                <% end %>
+            </div>
         </div>
       </div>
+    </div>
   </div>
   <%= image_tag 'about/HorizontalDivider.svg', class: 'HorizontalDivider' %>
 </section>

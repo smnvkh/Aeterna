@@ -1,78 +1,85 @@
 <section class="Cover">
-    <div class="CoverText">
-        <div class="Heading">
-            <h1>Каждый хранит часть большой истории</h1>
-            <p>Aeterna сохраняет голоса, фото и истории семьи — чтобы память жила дольше</p>
+    <div class="CoverInner">
+        <div class="CoverText">
+            <div class="Heading">
+                <h1>Каждый хранит часть большой истории</h1>
+                <p>Aeterna сохраняет голоса, фото и истории семьи — чтобы память жила дольше</p>
+            </div>
+            <div class="CTA">
+            <%= link_to root_url do %>
+                Начать сохранять
+                <span class="ArrowBox"></span>
+            <% end %>
+            </div>
         </div>
-        <div class="CTA">
-        <%= link_to root_url do %>
-            Начать сохранять
-            <span class="ArrowBox"></span>
-        <% end %>
+        <div class="CoverMemories">
+            <div class="TextMemory" id="TextMemory1">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</div>
+            <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
+            <%= image_tag 'about/ImportantMoments1.webp', class: 'ImportantMoments1'%>
+            <%= image_tag 'about/ImportantMoments3.webp', class: 'ImportantMoments3'%>
+            <div class="TextMemory" id="TextMemory2">Наш кот прожил с нами 19 лет. Мы подобрали его на улице и вылечили — он был верным...</div>
+            <%= image_tag 'about/CoverImg4.webp', class: 'CoverImg4'%>
+            <%= image_tag 'about/CoverImg5.webp', class: 'CoverImg5'%>
+            <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
+            <div class="TextMemory" id="TextMemory3">Мама смеялась, когда я включал её любимую песню</div>
         </div>
-    </div>
-    <div class="CoverMemories">
-        <div class="TextMemory" id="TextMemory1">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</div>
-        <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
-        <%= image_tag 'about/ImportantMoments1.webp', class: 'ImportantMoments1'%>
-        <%= image_tag 'about/ImportantMoments3.webp', class: 'ImportantMoments3'%>
-        <div class="TextMemory" id="TextMemory2">Наш кот прожил с нами 19 лет. Мы подобрали его на улице и вылечили — он был верным...</div>
-        <%= image_tag 'about/CoverImg4.webp', class: 'CoverImg4'%>
-        <%= image_tag 'about/CoverImg5.webp', class: 'CoverImg5'%>
-        <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
-        <div class="TextMemory" id="TextMemory3">Мама смеялась, когда я включал её любимую песню</div>
     </div>
 </section>
 
 <section class="WhatDoesAeternaDo">
-  <div class="WhatDoesAeternaDoContainer">
-    <div class="LeftPart">
-        <p class="Subtitle">Что делает Aeterna?</p>
-        <h2>Aeterna помогает сохранить фото и истории семьи в одном месте</h2>
-        <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'HappyCouple'%>
-        <%= image_tag 'about/HorizontalDivider.svg', class: 'HorizontalDivider' %>
+  <div class="PageWrapper">
+    <div class="WhatDoesAeternaDoContainer">
+      <div class="LeftPart">
+          <p class="Subtitle">Что делает Aeterna?</p>
+          <h2>Aeterna помогает сохранить фото и истории семьи в одном месте</h2>
+          <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'HappyCouple'%>
+          <%= image_tag 'about/HorizontalDivider.svg', class: 'HorizontalDivider' %>
+      </div>
+      <div class="RightPart">
+        <p>Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
+      </div>
     </div>
-    <div class="RightPart">
-      <p>Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
-    </div>
+    <%= image_tag 'about/flower.svg', class: 'Flower' %>
   </div>
-  <%= image_tag 'about/flower.svg', class: 'Flower' %>
 </section>
 
 <section class="ImportantMoments">
+  <div class="PageWrapper">
     <div class="Headers">
         <p class="Subtitle">Важные моменты</p>
-        <h2>Сохраним то,что нельзя повторить</h2>
+        <h2>Сохраним то, что нельзя повторить</h2>
     </div>
     <div class="PhotoBlockContainer">
         <div class="PhotoBlock">
             <%= image_tag 'about/VerticalDivider.svg', class: 'VerticalDivider' %>
             <div class="PhotoBlockContent">
                 <%= image_tag 'about/ImportantMoments1.webp', class: 'ImageXL' %>
-                <h3>Вместе вы — история</h3>
-                <p>Все воспоминания собираются в один общий семейный архив</p>
+                <h3>Вместе вы — история</h3>
+                <p>Все воспоминания собираются в один общий семейный архив</p>
             </div>
         </div>
         <div class="PhotoBlock">
             <%= image_tag 'about/VerticalDivider.svg', class: 'VerticalDivider' %>
             <div class="PhotoBlockContent">
                 <%= image_tag 'about/ImportantMoments2.webp', class: 'ImageS' %>
-                <h3>Для тех, кто рядом</h3>
-                <p>Родные могут добавлять фото и делиться своими историями</p>
+                <h3>Для тех, кто рядом</h3>
+                <p>Родные могут добавлять фото и делиться своими историями</p>
             </div>
         </div>
         <div class="PhotoBlock">
             <%= image_tag 'about/VerticalDivider.svg', class: 'VerticalDivider' %>
             <div class="PhotoBlockContent">
                 <%= image_tag 'about/ImportantMoments3.webp', class: 'ImageXXL' %>
-                <h3>Всё начинается с тебя</h3>
-                <p>Добавь первую историю, фото или воспоминание — пусть семейный архив начинается с тебя</p>
+                <h3>Всё начинается с тебя</h3>
+                <p>Добавь первую историю, фото или воспоминание — пусть семейный архив начинается с тебя</p>
             </div>
         </div>
     </div>
+  </div>
 </section>
 
 <section class="SaveMemory">
+  <div class="PageWrapper">
     <div class="SaveMemoryContainer">
         <h2>Сохраняйте память</h2>
         <div class="CTA">
@@ -84,9 +91,11 @@
         </div>
     </div>
     <%= image_tag 'about/FlowerPattern.svg', class: 'FlowerPattern' %>
+  </div>
 </section>
 
 <section class="ConvenientTools">
+  <div class="PageWrapper">
     <div class="Headers">
         <h2>ВСЁ ДЛЯ УДОБНОГО ХРАНЕНИЯ ВОСПОМИНАНИЙ</h2>
         <p class="Subtitle">Удобные инструменты</p>
@@ -97,33 +106,36 @@
         <div class="FeaturesContainer">
             <div class="Feature">
                 <h3>Много форматов</h3>
-                <p>Фото, видео и текст — всё хранится вместе</p>
+                <p>Фото, видео и текст — всё хранится вместе</p>
             </div>
-                <div class="Feature">
+            <div class="Feature">
                 <h3>Удобно пополнять</h3>
-                <p>С телефона через Telegram-бота, с компьютера или планшета</p>
+                <p>С телефона через Telegram-бота, с компьютера или планшета</p>
             </div>
-                <div class="Feature">
+            <div class="Feature">
                 <h3>Только ваша семья</h3>
-                <p>Вы сами выбираете, кто имеет доступ</p>
+                <p>Вы сами выбираете, кто имеет доступ</p>
             </div>
-                <div class="Feature">
-                <h3>Всё под рукой</h3>
-                <p>Воспоминания всегда доступны — в семейном древе или тематических подборках</p>
+            <div class="Feature">
+                <h3>Всё под рукой</h3>
+                <p>Воспоминания всегда доступны — в семейном древе или тематических подборках</p>
             </div>
         </div>
     </div>
     <%= image_tag 'about/Flower2.svg', class: 'Flower2' %>
+  </div>
 </section>
 
 <section class="SubscriptionBlock">
+  <div class="PageWrapper">
     <div class="Heading">
         <h2>Создай свой цифровой архив</h2>
         <div class="EmailForm">
-            <p>Подпишитесь на новости Aeterna — получите первыми доступ к уникальному семейному архиву</p>
+            <p>Подпишитесь на новости Aeterna — получите первыми доступ к уникальному семейному архиву</p>
             <div class="CTA" id='new_subscription'>
                 <%= render "subscriptions/form" %>
             </div>
         </div>
     </div>
+  </div>
 </section>

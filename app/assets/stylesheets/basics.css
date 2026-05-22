@@ -12,11 +12,6 @@ body {
   font-weight: 300;
 }
 
-.ShiftLeft {
-  padding: 5rem 0 0 1.5rem;
-  min-height: 46.5vh;
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -27,74 +22,78 @@ a {
   color: var(--Dark-Grey);
 }
 
+.PageWrapper {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.ShiftLeft {
+  padding: 5rem 0 0 1.5rem;
+  min-height: 46.5vh;
+}
+
 h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 3.5vw, 3.5rem);
   font-weight: 300;
-  line-height: 100%; /* 3.5rem */
+  line-height: 100%;
   letter-spacing: -0.07rem;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 2.5vw, 2.5rem);
   font-weight: 300;
-  line-height: 100%; /* 2.5rem */
+  line-height: 100%;
   letter-spacing: -0.05rem;
   text-transform: uppercase;
 }
 
-/* title M */
 h3 {
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 110%; /* 1.375rem */
+  line-height: 110%;
 }
 
 p {
   font-family: 'PP Neue Montreal';
   font-size: 1rem;
   font-weight: 400;
-  line-height: 110%; /* 1.1rem */
+  line-height: 110%;
 }
 
 p.Subtitle {
   font-family: 'JetBrains Mono';
   font-size: 0.875rem;
   font-weight: 300;
-  line-height: 110%; /* 0.9625rem */
+  line-height: 110%;
 }
 
 .ImageS {
   width: 14.0625rem;
   height: 13.625rem;
 }
-
 .ImageM {
   width: 15.5625rem;
   height: 13.375rem;
   border-radius: 0.125rem;
 }
-
 .ImageL {
   width: 14.0625rem;
   height: 18.375rem;
   border-radius: 0.125rem;
 }
-
 .ImageXL {
-  width: 28.625rem;
-  height: 35.25rem;
+  height: clamp(25rem, 35vw, 35rem);
   border-radius: 0.125rem;
 }
-
 .ImageXXL {
-  width: 35.9375rem;
+  width: clamp(25rem, 35vw, 35rem);
   height: 33.4375rem;
   border-radius: 0.125rem;
 }
-
-/* HEADER */
 
 .S_MenuBar {
   display: flex;
@@ -108,7 +107,7 @@ p.Subtitle {
   background: transparent;
   position: fixed;
   z-index: 101;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .S_MenuBar.scrolled {
@@ -193,7 +192,6 @@ p.Subtitle {
   width: 100%;
   height: 1.5px;
 }
-
 .PlusIcon::after {
   width: 1.5px;
   height: 100%;
@@ -218,20 +216,17 @@ p.Subtitle {
   background: var(--White);
 }
 
-/* FOOTER */
-
 .Footer {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   background-color: var(--Blue-Halftone);
   padding: 1.5rem 6.62rem 1.5rem 1.5rem;
-  height: 17.44rem;
+  min-height: 17.44rem;
 }
 
 #Name {
   font-family: 'JetBrains Mono';
-  font-size: 4rem;
-  line-height: 80%;
   color: var(--Dark-Grey);
   font-size: 5.09rem;
   line-height: 110%;
@@ -241,7 +236,6 @@ p.Subtitle {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: 32rem;
 }
 
 .LinksAndDate p {
@@ -256,17 +250,27 @@ p.Subtitle {
 .Pages.Footer {
   margin-top: 0;
   padding: 0;
+  background: transparent;
   flex-direction: column;
   height: auto;
+  justify-content: flex-start;
   gap: 0.75rem;
-}
-
-.Pages.Footer {
   font-family: 'JetBrains Mono';
   color: var(--Dark-Grey);
   font-size: 0.875rem;
   font-weight: 300;
   line-height: 110%;
+}
+
+.FooterContainer {
+  display: flex;
+  gap: 5rem;
+}
+
+.Authors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .Authors p {
@@ -276,13 +280,119 @@ p.Subtitle {
   font-weight: 300;
 }
 
-.Authors {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .Authors .Creators {
   font-size: 1rem;
   margin-bottom: 0.25rem;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .Logo {
+    display: none;
+  }
+
+  .S_MenuBar {
+    font-size: 4.5vw;
+    padding: 4.45vw;
+  }
+
+  .PageLink::after {
+    height: 4.5vw;
+    width: 0.3vw;
+    margin-left: 4.5vw;
+  }
+
+  .Pages {
+    gap: 4.5vw;
+  }
+
+  .S_MenuBar > div:nth-child(2) {
+    gap: 1.15vw;
+  }
+
+  .AddMemoryButton {
+    font-size: 4vw;
+    gap: 2.3vw;
+    height: 9.5vw;
+    padding: 2.8vw 3.35vw;
+  }
+
+  .PlusIcon {
+    width: 2.8vw;
+    height: 2.8vw;
+  }
+
+  .PlusIcon::after {
+    width: 0.4vw;
+  }
+
+  .PlusIcon::before {
+    height: 0.4vw;
+  }
+
+  .ProfileImageButton {
+    width: 9.5vw;
+    height: 9.5vw;
+    border-radius: 0.55vw;
+  }
+
+  h1 {
+    font-size: 10.5vw;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  h2 {
+    font-size: 9vw;
+  }
+
+  p {
+    font-size: 3.5vw;
+  }
+
+  .Footer {
+    padding: 4.45vw;
+    min-height: auto;
+    flex-direction: column;
+    gap: 6vw;
+  }
+
+  #Name {
+    font-size: 21.8vw;
+  }
+
+  .LinksAndDate {
+    gap: 45vw;
+  }
+
+  .Pages.Footer {
+    font-size: 3.9vw;
+    gap: 2.5vw;
+  }
+
+  .LinksAndDate p {
+    font-size: 3.9vw;
+  }
+
+  .Authors {
+    gap: 2.5vw;
+  }
+
+  .Authors p {
+    font-size: 3.35vw;
+    color: var(--Grey);
+  }
+
+  .Authors .Creators {
+    font-size: 3.9vw;
+    margin-bottom: 2vw;
+  }
+
+  .FooterContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 11.2vw;
+  }
 }
