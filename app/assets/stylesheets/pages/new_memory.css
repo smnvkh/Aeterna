@@ -1,0 +1,264 @@
+.NewMemory {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 12rem 1.5rem 5rem;
+}
+
+.NewMemoryContainer {
+  width: 100%;
+  max-width: 28.625rem;
+}
+
+.NewMemoryTitle h3 {
+  font-weight: 400;
+  line-height: 110%;
+  margin-bottom: 2.5rem;
+  font-size: 1.75rem;
+}
+
+.MemoryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.MemoryFormErrors {
+  border: 1px solid var(--Light-Pink);
+  background: var(--White);
+  border-radius: 0.125rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.MemoryFormError {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--Pink);
+  font-family: 'Neue Montreal';
+}
+
+.MemoryFormField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.MemoryFormLabel {
+  font-family: 'Neue Montreal';
+  font-size: 0.75rem;
+  line-height: 100%;
+  letter-spacing: -0.015rem;
+}
+
+.MemoryFormTextarea {
+  all: unset;
+}
+
+.MemoryFormInput,
+.MemoryFormTextarea,
+.MemoryFormSelect {
+  box-sizing: border-box;
+  width: 100%;
+  transition: border-color 0.15s;
+  display: flex;
+  height: 3rem;
+  padding: 1.125rem 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--White);
+  color: var(--Dark-Grey);
+  font-family: 'PP Neue Montreal';
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.015rem;
+}
+
+.MemoryFormInput::placeholder,
+.MemoryFormTextarea::placeholder {
+  color: var(--Light-Grey);
+}
+
+.MemoryFormInput:focus,
+.MemoryFormTextarea:focus,
+.MemoryFormSelect:focus {
+  border-color: var(--Grey);
+}
+
+.MemoryFormTextarea {
+  min-height: 6.5rem;
+  line-height: 1.3;
+}
+
+.MemoryFormInput[type='date'] {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--White);
+  padding: 0.75rem 1rem;
+  font-family: 'Neue Montreal';
+  font-size: 0.75rem;
+  color: var(--Dark-Grey);
+  border-radius: 0.125rem;
+  transition: border-color 0.15s;
+  cursor: pointer;
+}
+
+.MemoryFormInput[type='date']:focus {
+  border-color: var(--Grey);
+}
+
+.MemoryFormSelect {
+  display: block;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23A7A6A4' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.MemoryFormCategories {
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.125rem 1rem;
+}
+
+.MemoryFormCatGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.MemoryFormCatHeading {
+  font-family: 'Neue Montreal';
+  font-size: 0.75rem;
+  color: var(--Light-Grey);
+}
+
+.MemoryFormTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.5rem;
+}
+
+.MemoryForm__categories {
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.MemoryForm__cat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.MemoryFormTag {
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.45;
+  transition: opacity 0.15s;
+}
+
+.MemoryFormTag input[type='checkbox'] {
+  display: none;
+}
+
+.MemoryFormTag:has(input:checked) {
+  opacity: 1;
+}
+
+.MemoryFormUpload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  height: 14rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.MemoryFormUpload:hover {
+  border-color: var(--Grey);
+}
+
+.MemoryFormFile {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 0;
+}
+
+.MemoryFormUploadBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--Grey);
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.MemoryFormUpload:hover .MemoryFormUpload-body {
+  opacity: 0.8;
+}
+
+.MemoryForm3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Neue Montreal';
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.MemoryForm3d-check {
+  all: unset;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--White);
+  cursor: pointer;
+}
+
+.MemoryFormSubmit {
+  all: unset;
+  width: 100%;
+  background: var(--Light-Blue);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  transition: opacity 0.15s;
+  padding: 0.625rem 0.75rem;
+  align-items: center;
+  border-radius: 0.125rem;
+}
+
+.MemoryFormSubmit:hover {
+  opacity: 0.85;
+}

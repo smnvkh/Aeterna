@@ -1,13 +1,8 @@
-<section class="ShiftLeft">
-  <% content_for :title, "New memory" %>
-  
-  <h1>New memory</h1>
-  
-  <%= render "form", memory: @memory %>
-  
-  <br>
-  
-  <div>
-    <%= link_to "Back to memories", timeline_path %>
+<% content_for :title, "Создание воспоминания" %>
+
+<main class="NewMemory">
+  <div class="NewMemoryContainer">
+    <h3 class="NewMemoryTitle">Создание воспоминания</h3>
+    <%= render "form", memory: @memory %>
   </div>
-</section>
+</main>

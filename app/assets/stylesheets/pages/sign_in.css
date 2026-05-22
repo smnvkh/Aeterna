@@ -1,0 +1,148 @@
+.SignIn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.SignInDecor {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.SignInPhone {
+  width: 10rem;
+  transform: rotate(1.621deg);
+  top: 20%;
+  left: 8%;
+}
+
+.SignInPot {
+  width: 16rem;
+  bottom: 19%;
+  left: 6%;
+}
+
+.SignInGranny {
+  width: 12rem;
+  right: 4%;
+  top: 47%;
+}
+
+.SignInFlower {
+  width: 8rem;
+  transform: rotate(8.89deg);
+  top: 8%;
+  right: 18%;
+}
+
+.SignInGrannyPhoto {
+  width: 11.25rem;
+  height: 13rem;
+  object-fit: cover;
+  left: 1.5%;
+  bottom: 34%;
+}
+
+.SignInMomPhoto {
+  width: 14rem;
+  height: 15.8rem;
+  object-fit: cover;
+  top: 17%;
+  right: 5%;
+}
+
+.SignInWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  width: 28rem;
+  margin-top: 10rem;
+}
+
+h3.SignInTitle {
+  font-size: 1.75rem;
+  text-align: center;
+  margin: 0;
+}
+
+.SignInForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field label {
+  color: var(--Dark-Grey);
+  font-family: 'Neue Montreal';
+  font-size: 0.75rem;
+  line-height: 100%;
+  letter-spacing: -0.015rem;
+}
+
+.field input {
+  all: unset;
+  padding: 1.12rem 1rem;
+  font-family: 'Neue Montreal';
+  border-radius: 0.125rem;
+  transition: border-color 0.15s;
+  font-size: 0.75rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--White);
+}
+
+.field input::placeholder {
+  color: var(--Grey);
+}
+
+.field input:focus {
+  border-color: var(--Grey);
+}
+
+.actions > input {
+  all: unset;
+  width: 100%;
+  background: var(--Light-Blue);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  transition: opacity 0.15s;
+  padding: 0.625rem 0.75rem;
+  align-items: center;
+  border-radius: 0.125rem;
+}
+
+.actions:hover {
+  opacity: 0.85;
+}
+
+.SignInRegister {
+  font-family: 'Neue Montreal';
+  font-size: 0.875rem;
+  color: var(--black);
+  margin: 0;
+}
+
+.SignInRegister a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.TextMemory#sign_in {
+  width: 16rem;
+  margin: 1rem 0 5.8rem 0;
+  align-self: end;
+}

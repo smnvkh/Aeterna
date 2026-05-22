@@ -1,28 +1,43 @@
-<section class="ShiftLeft">
-  <h2>Log in to Aeterna</h2>
-  
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
-  
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
-    </div>
-  
-    <% if devise_mapping.rememberable? %>
+<section class="SignIn">
+  <%= image_tag "sign_in/phone.svg",  class: "SignInDecor SignInPhone" %>
+  <%= image_tag "sign_in/granny_photo.webp",    class: "SignInDecor SignInGrannyPhoto"  %>
+  <%= image_tag "sign_in/pot.svg",    class: "SignInDecor SignInPot"  %>
+  <%= image_tag "sign_in/flower.svg", class: "SignInDecor SignInFlower" %>
+  <%= image_tag "sign_in/mom_photo.webp",    class: "SignInDecor SignInMomPhoto"  %>
+  <%= image_tag "sign_in/granny.svg", class: "SignInDecor SignInGranny" %>
+
+  <div class="SignInWrap">
+    <h3 class="SignInTitle">История вашей семьи<br>начинается здесь</h3>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+                 html: { class: "SignInForm" }) do |f| %>
+
       <div class="field">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+        <%= f.label :email, "Почта" %>
+        <%= f.email_field :email,
+              placeholder: "Введите вашу почту",
+              autofocus: true,
+              autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password, "Пароль" %>
+        <%= f.password_field :password,
+              placeholder: "Введите ваш пароль",
+              autocomplete: "current-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit t("devise.sessions.new.sign_in") %>
       </div>
     <% end %>
-  
-    <div class="actions">
-      <%= f.submit t("devise.sessions.new.sign_in") %>
-    </div>
-  <% end %>
-  
-  <%= render "devise/shared/links" %>
+
+    <p class="SignInRegister">
+      Еще нет аккаунта? <%= link_to "Зарегистрироваться", new_user_registration_path %>
+    </p>
+  </div>
+
+  <div class="TextMemory" id="sign_in">
+    История семьи — это не даты. Это запахи, голоса, привычки
+  </div>
 </section>

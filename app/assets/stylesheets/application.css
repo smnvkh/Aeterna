@@ -4,4 +4,8 @@
  *= require basics
  *= require pages/home
  *= require pages/about
+ *= require pages/memory
+ *= require pages/new_memory
+ *= require pages/profile
+ *= require pages/sign_in
  */

@@ -1,52 +1,124 @@
-<%= form_with(model: memory) do |form| %>
-  <% if memory.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(memory.errors.count, "error") %> prohibited this memory from being saved:</h2>
+<%= form_with(model: memory, class: "MemoryForm") do |f| %>
 
-      <ul>
-        <% memory.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <%# ── Ошибки ── %>
+  <% if memory.errors.any? %>
+    <div class="MemoryFormErrors">
+      <% memory.errors.each do |error| %>
+        <p class="MemoryFormError"><%= error.full_message %></p>
+      <% end %>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <%# ── Название ── %>
+  <div class="MemoryFormField">
+    <%= f.label :title, "Название", class: "MemoryFormLabel" %>
+    <%= f.text_field :title,
+          placeholder: "Коротко — чтобы вы сразу узнали его",
+          class: "MemoryFormInput" %>
   </div>
 
-  <div>
-    <%= form.label :family_member_id, "Family member" %>
-    <%= form.collection_select :family_member_id, current_user.family.family_members.order(:name), :id, :to_s %>
+  <%# ── Дата ── %>
+  <div class="MemoryFormField">
+    <%= f.label :date, "Когда это было?", class: "MemoryFormLabel" %>
+    <%= f.date_field :date, class: "MemoryFormInput" %>
   </div>
 
-  <div>
-    <%= form.label :category_list, style: "display: block"  %>
-    <%= form.textarea :category_list %>
+  <%# ── Чьё воспоминание ── %>
+  <div class="MemoryFormField">
+    <%= f.label :family_member_id, "Чьё воспоминание?", class: "MemoryFormLabel" %>
+    <%= f.collection_select :family_member_id,
+          current_user.family.family_members.order(:name),
+          :id, :to_s,
+          { prompt: "Выберите члена семьи" },
+          { class: "MemoryFormSelect" } %>
   </div>
 
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.textarea :body %>
+  <%# ── Описание ── %>
+  <div class="MemoryFormField">
+    <%= f.label :body, "Описание воспоминания", class: "MemoryFormLabel" %>
+    <%= f.text_area :body,
+          placeholder: "Расскажите о воспоминании во всех подробностях",
+          class: "MemoryFormTextarea",
+          rows: 5 %>
   </div>
 
-  <div>
-    <%= form.label :tag_list, style: "display: block" %>
-    <%= form.text_field :tag_list %>
+  <%# ── Категория ── %>
+  <% tag_groups = {
+    "Детство"         => { tags: %w[Школа Друзья Игры Хобби],                                          color: "#6795d6" },
+    "Юность"          => { tags: ["Выпускной", "Первая любовь", "Новые горизонты", "Мечты"],            color: "#e19593" },
+    "Взрослая"        => { tags: %w[Работа Достижения Дети Амбиции],                                   color: "#f2de97" },
+    "Общие категории" => { tags: %w[Семья Любовь Счастье Радость Ностальгия],                          color: "#6d8e6a" }
+  } %>
+  <div class="MemoryFormField">
+    <%= f.label :category_list, "Категория", class: "MemoryFormLabel" %>
+    <div class="MemoryFormCategories">
+      <% tag_groups.each do |group, data| %>
+        <div class="MemoryFormCatGroup">
+          <span class="MemoryFormCatHeading"><%= group %></span>
+          <div class="tags">
+            <% data[:tags].each do |tag| %>
+              <label class="tag MemoryFormTag">
+                <input type="checkbox"
+                       name="memory[category_list][]"
+                       value="<%= tag %>"
+                       <%= "checked" if memory.category_list.include?(tag) %>>
+                <span class="tag-circle" style="background-color: <%= data[:color] %>;"></span>
+                <%= tag %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :image, style: "display: block" %>
-    <%= form.file_field :image %>
+  <%# ── Фото ── %>
+  <div class="MemoryFormField">
+    <%= f.label :image, "Фото воспоминания", class: "MemoryFormLabel" %>
+    <label class="MemoryFormUpload">
+      <%= f.file_field :image,
+            class: "MemoryFormFile",
+            accept: "image/*",
+            id: "memory_image_input" %>
+      <div class="MemoryFormUploadBody" id="upload-body">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="14" y1="3" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="7,14 14,21 21,14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="5" y1="25" x2="23" y2="25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </label>
   </div>
 
-  <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date, required: true %>
-  </div>
+  <%# ── 3D-модель ── %>
+  <label class="MemoryForm3d">
+    <input type="checkbox" name="make_3d" class="MemoryForm3d-check">
+    <span>Сделать из фото 3D модель?</span>
+  </label>
 
-  <div>
-    <%= form.submit %>
-  </div>
+  <%# ── Отправить ── %>
+  <%= f.submit "Опубликовать", class: "MemoryFormSubmit" %>
+
 <% end %>
+
+<script>
+  (function () {
+    const input = document.getElementById('memory_image_input');
+    const body  = document.getElementById('upload-body');
+    if (!input || !body) return;
+
+    input.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        body.innerHTML = '';
+        body.style.backgroundImage    = 'url(' + e.target.result + ')';
+        body.style.backgroundSize     = 'cover';
+        body.style.backgroundPosition = 'center';
+        body.style.opacity            = '1';
+      };
+      reader.readAsDataURL(file);
+    });
+  })();
+</script>
