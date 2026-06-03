@@ -4,31 +4,13 @@ class ProfileController < ApplicationController
 
   def my
     @profile = current_user.profile
-    @memories = current_user.memories
+    @memories = profile_memories(@profile)
     render :show
   end
 
   def show
-    @memory = Memory.find(params[:id])
-    @profile = @memory.family_member.user.profile if @memory.family_member&.user
-
-    # Инициализация воспоминаний
-    if @profile.present?
-      @memories = @profile.user.memories.order(date: :desc)
-    else
-      @memories = Memory.none
-    end
-
-    set_meta_tags(
-      title: @memory.title,
-      description: "Воспоминание: #{@memory.title}",
-      keywords: "family, memory, #{@memory.title}",
-      og: {
-        title: @memory.title,
-        type: "website",
-        url: memory_url(@memory)
-      }
-    )
+    @profile = Profile.find(params[:id])
+    @memories = profile_memories(@profile)
   end
 
   def edit
@@ -47,6 +29,11 @@ class ProfileController < ApplicationController
 
   def set_my_profile
     @profile = current_user.profile
+  end
+
+  def profile_memories(profile)
+    return Memory.none unless profile&.user&.family_member
+    profile.user.family_member.memories.order(date: :desc)
   end
 
   def profile_params

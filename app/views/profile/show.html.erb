@@ -1,16 +1,24 @@
 <section class="UserInfo">
     <div class="UserPhoto">
-      <% if @profile.avatar.attached? %>
+      <% if @profile&.avatar&.attached? %>
         <%= image_tag @profile.avatar, class: "ProfileImage" %>
       <% else %>
-        <div class="ProfilePlaceholder"></div>
+        <%
+          avatar_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2 ]
+          name_str = @profile&.name.to_s
+          color = avatar_colors[name_str.sum % avatar_colors.length]
+          initials = name_str.split.first(2).map { |w| w[0]&.upcase }.join
+        %>
+        <div class="ProfilePlaceholder" style="background-color: <%= color %>;">
+          <span class="ProfileInitials"><%= initials.presence || "?" %></span>
+        </div>
       <% end %>
     </div>
     <div class="UserBio">
         <div class="UserBioName">
-          <%= (@profile.name || "Без имени").split(' ').join('<br>').html_safe %>
+          <%= ((@profile&.name).presence || "Без имени").split(' ').join('<br>').html_safe %>
         </div>
-        <div class="UserBioBirthday"><%= l(@profile.birthday, format: "%d %B, %Y") if @profile.birthday %></div>
+        <div class="UserBioBirthday"><%= l(@profile.birthday, format: "%d %B, %Y") if @profile&.birthday %></div>
     </div>
     <div class="UserActionButtons">
             <div class="LogoutWrapper">
@@ -23,10 +31,6 @@
             Редактировать
             <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
             <% end %>
-        </div>
-        <% else %>
-        <div>
-            <%= link_to "Пригласить в семью", edit_profile_path %>
         </div>
         <% end %>
     </div>
@@ -76,7 +80,7 @@
             <div class="CardContent">
               <%= link_to memory_path(memory) do %>
                 <% if memory.image.present? %>
-                  <%= image_tag memory.image.url, class: "MemoryImg" %>
+                  <%= image_tag memory.image.preview.url, class: "MemoryImg" %>
                 <% else %> 
                   <div class="MemoryText">
                     <p><%= truncate(memory.body, length: 150) %></p>

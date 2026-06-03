@@ -6,7 +6,7 @@ def seed
   clean_uploads_folder
   create_admin_user
   create_family
-  create_users(5)
+  create_users(6)
   create_family_members
   create_memories
   create_comments(2..8)
@@ -31,6 +31,18 @@ end
 
 def create_sentence
   Array.new((10..20).to_a.sample) { @words.sample }.join(' ').capitalize + '.'
+end
+
+# ---------- Аватарки ----------
+PROFILE_IMAGES = Dir.glob(File.join(Rails.root, 'public/autoupload/profile_images', '*')).sort
+
+def attach_profile_avatar(profile, index)
+  image_path = PROFILE_IMAGES[index % PROFILE_IMAGES.length]
+  profile.avatar.attach(
+    io: File.open(image_path),
+    filename: File.basename(image_path),
+    content_type: "image/jpeg"
+  )
 end
 
 # ---------- Фото ----------
@@ -58,10 +70,26 @@ def create_family
   puts "Family created: #{@family.name}"
 end
 
+NAMES = [
+  [ "Мария", "Иванова" ], [ "Алексей", "Иванов" ], [ "Анна", "Смирнова" ],
+  [ "Иван", "Петров" ], [ "Ольга", "Сидорова" ], [ "Пётр", "Козлов" ]
+]
+
+BIRTHDAYS = [
+  Date.new(1948, 3, 12), Date.new(1945, 7, 24), Date.new(1972, 11, 5),
+  Date.new(1970, 4, 18), Date.new(1998, 9, 3), Date.new(2001, 1, 30)
+]
+
 def create_users(quantity)
   @users = []
   quantity.times do |i|
-    @users << User.create!(email: "user_#{i}@email.com", password: "123123", family: @family)
+    user = User.create!(email: "user_#{i}@email.com", password: "123123", family: @family)
+    name = NAMES[i % NAMES.length].join(' ')
+    birthday = BIRTHDAYS[i % BIRTHDAYS.length]
+    profile = Profile.create!(user: user, name: name, birthday: birthday)
+    attach_profile_avatar(profile, i)
+    puts "User #{user.email} created with profile '#{name}' and avatar"
+    @users << user
   end
   puts "#{quantity} users created"
 end

@@ -39,10 +39,13 @@ class MemoryImageUploader < CarrierWave::Uploader::Base
    #   process resize_to_fit: [50, 50]
    # end
 
-   process resize_to_fit: [ 300, 300 ]
-
    version :thumb do
      process resize_to_fill: [ 100, 100 ]
+   end
+
+   version :preview do
+     process resize_to_fit: [ 800, 800 ]
+     process optimize: [ { quality: 85 } ]
    end
 
    version :q70 do

@@ -1,6 +1,20 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, only: [ :home ]
+
   def home
     @subscription = Subscription.new
+    @recent_memories = if user_signed_in? && current_user.family
+      current_user.family.memories.order(created_at: :desc).limit(4)
+    else
+      Memory.none
+    end
+    @family_members = if user_signed_in? && current_user.family
+      current_user.family.family_members
+        .where.not(user_id: current_user.id)
+        .includes(user: { profile: { avatar_attachment: :blob } })
+    else
+      FamilyMember.none
+    end
 
     set_meta_tags(
       title: "Главная страница",

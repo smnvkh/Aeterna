@@ -15,7 +15,9 @@
 
   <div class="MainPart">
     <div class="breadcrumbs">
-      <%= link_to 'Профиль', profile_path(@profile) %>
+      <% if @profile %>
+        <%= link_to 'Профиль', profile_path(@profile) %>
+      <% end %>
       <%= link_to 'Воспоминания', my_memories_path %>
       <%= @memory.title %>
     </div>
@@ -44,7 +46,7 @@
   </div>
 
   <div class="AuthorInfo">
-    <p class="AuthorInfoName"><%= (@profile.name || "Без имени") %></p>
+    <p class="AuthorInfoName"><%= (@profile&.name || @memory.family_member&.name || "Без имени") %></p>
     <p class="AuthorInfoDate"><%= @memory.date %></p>
     
     <div class="Tags">

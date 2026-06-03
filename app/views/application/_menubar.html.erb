@@ -1,6 +1,6 @@
 <nav class="S_MenuBar">
     <div>
-        <%= link_to 'AETERNA', root_url, class: "Logo"  %>
+        <%= link_to 'AETERNA', user_signed_in? ? home_path : root_path, class: "Logo"  %>
         <div class="Pages">
 
         <% if user_signed_in? && current_user.admin? %>
@@ -44,8 +44,10 @@
                 <%# end %>
         <% end %>
 
-        <%= link_to pages_about_path, class: "PageLinkPublic" do %>
-            О нас
+        <% if user_signed_in? %>
+          <%= link_to pages_about_path, class: "PageLinkPublic" do %>
+              О нас
+          <% end %>
         <% end %>
 
         </div>
@@ -61,10 +63,19 @@
             <% end %>
 
             <%= link_to my_profile_path, class: "ProfileButton" do %>
-                <% if current_user.avatar.attached? %>
-                    <%= image_tag current_user.avatar, class: "ProfileImageButton" %>
+                <% profile = current_user.profile %>
+                <% if profile&.avatar&.attached? %>
+                    <%= image_tag profile.avatar, class: "ProfileImageButton" %>
                 <% else %>
-                    <div class="ProfilePlaceholder">Профиль</div> <!-- Если фото нет -->
+                    <%
+                      avatar_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2]
+                      name_str = profile&.name.to_s
+                      color = avatar_colors[name_str.sum % avatar_colors.length]
+                      initials = name_str.split.first(2).map { |w| w[0]&.upcase }.join
+                    %>
+                    <div class="ProfilePlaceholder ProfilePlaceholderButton" style="background-color: <%= color %>;">
+                      <span class="ProfileInitials"><%= initials.presence || "?" %></span>
+                    </div>
                 <% end %>
             <% end %>
             <%#= link_to "Выйти", destroy_user_session_path, data: {"turbo_method": :delete } %>

@@ -3,7 +3,7 @@
         <div class="CoverText">
             <div class="Heading">
                 <h1>СОБЕРИТЕ ИСТОРИЮ ВАШЕЙ СЕМЬИ</h1>
-                <p>Соберите фотографии, истории и важные моменты в одном месте — вместе с близкими</p>
+                <p>Соберите фотографии, истории и важные моменты в одном месте — вместе с близкими</p>
             </div>
             <div class="CTA">
             <%= link_to root_url do %>
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="CoverMemories Home">
-            <div class="TextMemory" id="TextMemory4">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</div>
+            <div class="TextMemory" id="TextMemory4">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</div>
             <%= image_tag 'home/GrannyImg.svg', class: 'GrannyImg'%>
             <%= image_tag 'home/CrochetImg.svg', class: 'CrochetImg'%>
             <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
@@ -28,63 +28,28 @@
     <div class="RecentNotesHeading">
       <p class="Subtitle">Недавние записи</p>
       <h2>ЧТО ДОБАВИЛИ БЛИЗКИЕ</h2>
-      <p class="Description">Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
+      <p class="Description">Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
       <div class="RecentNotesImages">
-        <div class="ImageContainer">
-          <%= image_tag 'home/ImageContainer1.webp', class: 'ImageContainer1'%>
-          <div class="tags">
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #E19593;"></span>
-                  <p>Детство</p>
-              </span>
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-                  <p>Лето</p>
-              </span>
-          </div>
-        </div>
-
-        <div class="ImageContainer">
-          <%= image_tag 'home/ImageContainer2.webp', class: 'ImageContainer2'%>
-          <div class="tags">
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #E19593;"></span>
-                  <p>Любовь</p>
-              </span>
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-                  <p>Каникулы</p>
-              </span>
-          </div>
-        </div>
-
-        <div class="ImageContainer">
-          <%= image_tag 'home/ImageContainer3.webp', class: 'ImageContainer3'%>
-          <div class="tags">
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #E19593;"></span>
-                  <p>Бабушка</p>
-              </span>
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-                  <p>Любовь</p>
-              </span>
-          </div>
-        </div>
-
-        <div class="ImageContainer">
-          <%= image_tag 'home/ImageContainer4.webp', class: 'ImageContainer4'%>
-          <div class="tags">
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #E19593;"></span>
-                  <p>Праздник</p>
-              </span>
-              <span class="tag">
-                  <span class="tag-circle" style="background-color: #6D8E6A;"></span>
-                  <p>Мама</p>
-              </span>
-          </div>
-        </div>
+        <% @recent_memories.each do |memory| %>
+          <%= link_to memory_path(memory), class: 'ImageContainer' do %>
+            <% if memory.image.present? %>
+              <%= image_tag memory.image.preview.url %>
+            <% else %>
+              <div class="RecentNoteText">
+                <%= truncate(memory.body, length: 120) %>
+              </div>
+            <% end %>
+            <div class="tags">
+              <% tag_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a] %>
+              <% memory.tag_list.first(2).each_with_index do |tag, i| %>
+                <span class="tag">
+                  <span class="tag-circle" style="background-color: <%= tag_colors[i % tag_colors.length] %>;"></span>
+                  <p><%= tag %></p>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -92,34 +57,83 @@
 
 <section class="YourFamily">
   <div class="PageWrapper">
-    <div class="RecentNotesHeading">
-      <p class="Subtitle">Ваша семья</p>
-      <h2>ЛЮДИ, С КОТОРЫМИ У ВАС ЕСТЬ СВЯЗИ</h2>
+    <div class="YourFamilyHeader">
+      <div class="RecentNotesHeading">
+        <p class="Subtitle">Ваша семья</p>
+        <h2>ЛЮДИ, С КОТОРЫМИ У ВАС ЕСТЬ СВЯЗИ</h2>
+      </div>
+      <div class="SliderControls">
+        <button class="SliderBtn SliderBtnPrev" id="familyPrev" aria-label="Назад">
+          <%= image_tag 'icons/SliderIcon.svg', class: 'SliderIcon' %>
+        </button>
+        <button class="SliderBtn SliderBtnNext" id="familyNext" aria-label="Вперёд">
+          <%= image_tag 'icons/SliderIcon.svg', class: 'SliderIcon SliderIconFlipped' %>
+        </button>
+      </div>
     </div>
-    <div class="YourFamilyMembers">
-      <div class="FamilyMemberContainer">
-          <p class="FamilyMemberName">Ирина<br>Семёнова</p>
-          <p class="FamilyMemberBirthday">23 июля, 1964</p>
-          <%= image_tag 'home/IrinaSemenova.webp', class: 'IrinaSemenova'%>
-      </div>
-      <div class="FamilyMemberContainer">
-          <p class="FamilyMemberName">Александр<br>Семёнов</p>
-          <p class="FamilyMemberBirthday">28 апреля, 1960</p>
-          <%= image_tag 'home/AlexSemenov.webp', class: 'AlexSemenov'%>
-      </div>
-      <div class="FamilyMemberContainer">
-          <p class="FamilyMemberName">Василиса<br>Семёнова</p>
-          <p class="FamilyMemberBirthday">23 июля, 1991</p>
-          <%= image_tag 'home/VasilisaSemenova.webp', class: 'VasilisaSemenova'%>
-      </div>
-      <div class="FamilyMemberContainer">
-          <p class="FamilyMemberName">Михаил<br>Семёнов</p>
-          <p class="FamilyMemberBirthday">21 ноября, 2008</p>
-          <%= image_tag 'home/MikeSemenov.webp', class: 'MikeSemenov'%>
+    <div class="YourFamilySliderWrapper">
+      <div class="YourFamilyMembers" id="familySlider">
+        <% @family_members.each do |member| %>
+          <% profile = member.user&.profile %>
+          <% card_tag  = profile ? :a : :div %>
+          <% card_opts = profile ? { href: profile_path(profile), class: 'FamilyMemberContainer' } : { class: 'FamilyMemberContainer' } %>
+          <%= content_tag(card_tag, **card_opts) do %>
+            <p class="FamilyMemberName"><%= (profile&.name || member.name).split(' ').join('<br>').html_safe %></p>
+            <% if profile&.birthday %>
+              <p class="FamilyMemberBirthday"><%= l(profile.birthday, format: "%d %B, %Y") %></p>
+            <% elsif member.respond_to?(:birthday) && member.birthday %>
+              <p class="FamilyMemberBirthday"><%= l(member.birthday, format: "%d %B, %Y") %></p>
+            <% else %>
+              <p class="FamilyMemberBirthday"><%= member.relation&.capitalize %></p>
+            <% end %>
+            <% if profile&.avatar&.attached? %>
+              <%= image_tag profile.avatar, class: 'FamilyMemberPhoto' %>
+            <% else %>
+              <%
+                avatar_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2]
+                name_str = member.name.to_s
+                color = avatar_colors[name_str.sum % avatar_colors.length]
+                initials = name_str.split.first(2).map { |w| w[0]&.upcase }.join
+              %>
+              <div class="FamilyMemberPhoto FamilyMemberPhotoPlaceholder" style="background-color: <%= color %>;">
+                <span class="ProfileInitials"><%= initials.presence || "?" %></span>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    const slider = document.getElementById('familySlider');
+    const prev = document.getElementById('familyPrev');
+    const next = document.getElementById('familyNext');
+    if (!slider || !prev || !next) return;
+
+    const getStep = () => {
+      const card = slider.querySelector('.FamilyMemberContainer');
+      if (!card) return 340;
+      return card.offsetWidth + 8;
+    };
+
+    prev.addEventListener('click', () => {
+      slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', () => {
+      slider.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+
+    const updateBtns = () => {
+      prev.style.opacity = slider.scrollLeft <= 0 ? '0.3' : '1';
+      next.style.opacity = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1 ? '0.3' : '1';
+    };
+    slider.addEventListener('scroll', updateBtns);
+    updateBtns();
+  })();
+</script>
 
 <section class="ImportantMomentsMain">
   <div class="PageWrapper">
@@ -128,12 +142,12 @@
       <div class="ImportantMomentsMainHeading">
         <div class="ImportantMomentsMainHeadingUpper">
             <p class="Subtitle">Важные моменты</p>
-            <h2>ДОБАВЛЯЙТЕ ВОСПОМИНАНИЯ ПРЯМО С ТЕЛЕФОНА</h2>
+            <h2>ДОБАВЛЯЙТЕ ВОСПОМИНАНИЯ ПРЯМО С ТЕЛЕФОНА</h2>
         </div>
         <div class="ImportantMomentsMainHeadingLower">
-            <p class="Description">Отправляйте фото и записывайте истории через Telegram — без лишних шагов</p>
+            <p class="Description">Отправляйте фото и записывайте истории через Telegram — без лишних шагов</p>
             <div class="CTA">
-                <%= link_to root_url do %>
+                <%= link_to "https://t.me/AeternaFamilyBot", target: "_blank", rel: "noopener noreferrer" do %>
                     Открыть бота
                     <span class="ArrowBox"></span>
                 <% end %>

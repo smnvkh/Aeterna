@@ -216,6 +216,22 @@ p.Subtitle {
   background: var(--White);
 }
 
+.ProfilePlaceholderButton {
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ProfilePlaceholderButton .ProfileInitials {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.01rem;
+}
+
 .Footer {
   display: flex;
   justify-content: space-between;
