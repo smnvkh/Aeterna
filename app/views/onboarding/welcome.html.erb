@@ -1,0 +1,29 @@
+<section class="SignIn">
+  <%= image_tag "sign_in/phone.svg",         class: "SignInDecor SignInPhone" %>
+  <%= image_tag "sign_in/granny_photo.webp", class: "SignInDecor SignInGrannyPhoto" %>
+  <%= image_tag "sign_in/pot.svg",           class: "SignInDecor SignInPot" %>
+  <%= image_tag "sign_in/flower.svg",        class: "SignInDecor SignInFlower" %>
+  <%= image_tag "sign_in/mom_photo.webp",    class: "SignInDecor SignInMomPhoto" %>
+  <%= image_tag "sign_in/granny.svg",        class: "SignInDecor SignInGranny" %>
+
+  <div class="SignInWrap">
+    <h3 class="SignInTitle">Добро пожаловать,<br><%= current_user.profile&.name&.split&.first %>!</h3>
+
+    <p class="OnboardingWelcomeText">Мы рады, что вы с нами. Теперь можно добавить первое воспоминание: фото, видео или запись истории</p>
+
+    <% if current_user.family&.users&.count == 1 %>
+      <div class="FamilyCodeCard">
+        <p class="FamilyCodeHint">Код для приглашения близких</p>
+        <div class="FamilyCodeValue"><%= current_user.family.invite_code %></div>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= link_to "На главную", home_path, class: "SubmitBtn" %>
+    </div>
+  </div>
+
+  <div class="TextMemory" id="sign_in">
+    История семьи — это не даты. Это запахи, голоса, привычки
+  </div>
+</section>

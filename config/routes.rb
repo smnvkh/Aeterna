@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
 
   # Публичные страницы
   get "pages/home"
   get "pages/about"
+
+  # Онбординг после регистрации
+  get  "onboarding/profile_info", to: "onboarding#profile_info",      as: "onboarding_profile_info"
+  post "onboarding/profile_info", to: "onboarding#save_profile_info"
+  get  "onboarding/avatar",       to: "onboarding#avatar",            as: "onboarding_avatar"
+  post "onboarding/avatar",       to: "onboarding#save_avatar"
+  get  "onboarding/welcome",      to: "onboarding#welcome",           as: "onboarding_welcome"
   resources :subscriptions, only: :create
 
   # Страницы просмотра

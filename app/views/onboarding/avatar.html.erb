@@ -1,0 +1,51 @@
+<section class="SignIn">
+  <%= image_tag "sign_in/phone.svg",         class: "SignInDecor SignInPhone" %>
+  <%= image_tag "sign_in/granny_photo.webp", class: "SignInDecor SignInGrannyPhoto" %>
+  <%= image_tag "sign_in/pot.svg",           class: "SignInDecor SignInPot" %>
+  <%= image_tag "sign_in/flower.svg",        class: "SignInDecor SignInFlower" %>
+  <%= image_tag "sign_in/mom_photo.webp",    class: "SignInDecor SignInMomPhoto" %>
+  <%= image_tag "sign_in/granny.svg",        class: "SignInDecor SignInGranny" %>
+
+  <div class="SignInWrap">
+    <h3 class="SignInTitle">Добавьте свою фотографию</h3>
+
+    <%= form_with url: onboarding_avatar_path, method: :post,
+                  multipart: true, class: "SignInForm" do %>
+
+      <div class="field">
+        <%= label_tag :avatar, "Фото профиля" %>
+        <label class="AvatarUploadArea" for="avatarInput">
+          <img id="avatarPreview" class="AvatarPreview" style="display:none;" alt="Превью" />
+          <span class="AvatarUploadIcon" id="avatarIcon">
+            <%= image_tag 'icons/Upload.svg' %>
+          </span>
+          <%= file_field_tag :avatar, accept: "image/*", id: "avatarInput", class: "AvatarInput" %>
+        </label>
+      </div>
+
+      <div class="actions">
+        <%= submit_tag "Продолжить" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="TextMemory" id="sign_in">
+    История семьи — это не даты. Это запахи, голоса, привычки
+  </div>
+</section>
+
+<script>
+  document.getElementById('avatarInput').addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('avatarPreview');
+        const icon = document.getElementById('avatarIcon');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        icon.style.display = 'none';
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+</script>

@@ -58,17 +58,16 @@
 
 .SignInWrap {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
   width: 28rem;
+  flex-direction: column;
   margin-top: 10rem;
 }
 
 h3.SignInTitle {
   font-size: 1.75rem;
   text-align: center;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
 }
 
 .SignInForm {
@@ -111,8 +110,10 @@ h3.SignInTitle {
   border-color: var(--Grey);
 }
 
-.actions > input {
+.actions > input,
+.SubmitBtn {
   all: unset;
+  display: block;
   width: 100%;
   background: var(--Light-Blue);
   text-align: center;
@@ -121,8 +122,9 @@ h3.SignInTitle {
   margin-top: 1rem;
   transition: opacity 0.15s;
   padding: 0.625rem 0.75rem;
-  align-items: center;
   border-radius: 0.125rem;
+  font-family: 'Neue Montreal';
+  font-size: 0.875rem;
 }
 
 .actions:hover {
@@ -132,8 +134,9 @@ h3.SignInTitle {
 .SignInRegister {
   font-family: 'Neue Montreal';
   font-size: 0.875rem;
-  color: var(--black);
-  margin: 0;
+  color: var(--System-Grey);
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .SignInRegister a {
@@ -145,4 +148,135 @@ h3.SignInTitle {
   width: 16rem;
   margin: 1rem 0 5.8rem 0;
   align-self: end;
+}
+
+/* Онбординг */
+.OnboardingCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Neue Montreal';
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--Dark-Grey);
+}
+
+.OnboardingCheckbox input[type='checkbox'] {
+  all: unset;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid rgba(167, 166, 164, 0.6);
+  border-radius: 0.125rem;
+  background: var(--White);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OnboardingCheckbox input[type='checkbox']:checked {
+  background: var(--Light-Blue);
+  border-color: var(--Light-Blue);
+}
+
+.OnboardingAlert {
+  color: var(--Pink);
+  font-family: 'Neue Montreal';
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.OnboardingWelcomeText {
+  color: var(--Light-Grey);
+  text-align: center;
+  font-family: 'JetBrains Mono';
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 7.5rem;
+  font-weight: lighter;
+}
+
+.AvatarUploadArea {
+  display: flex;
+  height: 18.75rem;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--White);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.AvatarInput,
+.field .AvatarInput {
+  display: none !important;
+}
+
+.AvatarUploadIcon {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.AvatarUploadIcon img {
+  width: 100%;
+  height: 100%;
+}
+
+.AvatarPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  inset: 0;
+}
+
+.field input[type='date'] {
+  all: unset;
+  padding: 1.12rem 1rem;
+  font-family: 'Neue Montreal';
+  border-radius: 0.125rem;
+  transition: border-color 0.15s;
+  font-size: 0.75rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--White);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.FamilyCodeCard {
+  width: 100%;
+  background: var(--Light-Beige);
+  border-radius: 0.125rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.FamilyCodeHint {
+  font-family: 'Neue Montreal';
+  font-size: 0.75rem;
+  color: var(--Grey);
+  margin: 0;
+  text-align: center;
+}
+
+.FamilyCodeValue {
+  font-family: 'JetBrains Mono';
+  font-size: 1.25rem;
+  letter-spacing: 0.25rem;
+  color: var(--Dark-Grey);
 }

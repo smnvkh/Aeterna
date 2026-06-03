@@ -1,0 +1,56 @@
+<section class="SignIn">
+  <%= image_tag "sign_in/phone.svg",         class: "SignInDecor SignInPhone" %>
+  <%= image_tag "sign_in/granny_photo.webp", class: "SignInDecor SignInGrannyPhoto" %>
+  <%= image_tag "sign_in/pot.svg",           class: "SignInDecor SignInPot" %>
+  <%= image_tag "sign_in/flower.svg",        class: "SignInDecor SignInFlower" %>
+  <%= image_tag "sign_in/mom_photo.webp",    class: "SignInDecor SignInMomPhoto" %>
+  <%= image_tag "sign_in/granny.svg",        class: "SignInDecor SignInGranny" %>
+
+  <div class="SignInWrap">
+    <h3 class="SignInTitle">Расскажите немного о себе</h3>
+
+    <% if flash[:alert] %>
+      <p class="OnboardingAlert"><%= flash[:alert] %></p>
+    <% end %>
+
+    <%= form_with url: onboarding_profile_info_path, method: :post, class: "SignInForm" do |f| %>
+      <div class="field">
+        <%= label_tag :name, "Ваши имя и фамилия" %>
+        <%= text_field_tag :name, params[:name], placeholder: "Иван Иванов" %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :birthday, "Дата рождения" %>
+        <%= date_field_tag :birthday, params[:birthday] %>
+      </div>
+
+      <label class="OnboardingCheckbox" id="familyCodeToggle">
+        <%= check_box_tag :has_family_code, "1", false, id: "hasCodeCheckbox" %>
+        У меня есть код семьи
+      </label>
+
+      <div class="field" id="familyCodeField" style="display: none;">
+        <%= label_tag :family_code, "Код семьи" %>
+        <%= text_field_tag :family_code, nil, placeholder: "XXXXXX", maxlength: 6,
+                           style: "text-transform: uppercase; letter-spacing: 0.15rem;" %>
+      </div>
+
+      <div class="actions">
+        <%= submit_tag "Продолжить" %>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="TextMemory" id="sign_in">
+    История семьи — это не даты. Это запахи, голоса, привычки
+  </div>
+</section>
+
+<script>
+  const checkbox = document.getElementById('hasCodeCheckbox');
+  const codeField = document.getElementById('familyCodeField');
+  checkbox.addEventListener('change', function() {
+    codeField.style.display = this.checked ? 'flex' : 'none';
+  });
+</script>

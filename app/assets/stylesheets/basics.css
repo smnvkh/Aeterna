@@ -119,10 +119,6 @@ p.Subtitle {
   gap: 4rem;
 }
 
-.S_MenuBar div:nth-of-type(1) {
-  align-items: baseline;
-}
-
 .Logo {
   font-size: 1.4rem;
 }
@@ -164,6 +160,7 @@ p.Subtitle {
   border-radius: 0.125rem;
   background: var(--Light-Blue);
   color: var(--Dark-Grey);
+  font-size: 0.875rem;
 }
 
 .AddMemoryButton {
@@ -228,7 +225,7 @@ p.Subtitle {
 
 .ProfilePlaceholderButton .ProfileInitials {
   font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--Dark-Grey);
   letter-spacing: -0.01rem;
 }
 
