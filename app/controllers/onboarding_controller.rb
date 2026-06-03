@@ -31,6 +31,8 @@ class OnboardingController < ApplicationController
     profile.birthday = birthday
 
     if profile.save
+      # Синхронизировать имя в family_member
+      current_user.family_member&.update(name: name)
       redirect_to onboarding_avatar_path
     else
       flash[:alert] = profile.errors.full_messages.to_sentence

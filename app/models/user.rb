@@ -24,6 +24,17 @@ class User < ApplicationRecord
     unless family
       new_family = Family.create!(name: "Моя семья")
       update_columns(family_id: new_family.id)
+      reload
+    end
+
+    # Создать family_member если его нет
+    unless family_member
+      FamilyMember.create!(
+        name:     email.split("@").first,
+        relation: "участник",
+        family:   family,
+        user:     self
+      )
     end
   end
 

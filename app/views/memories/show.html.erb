@@ -13,56 +13,90 @@
 
 <section class="MemoryShow">
 
-  <div class="MainPart">
+  <div class="MemoryHead">
     <div class="breadcrumbs">
       <% if @profile %>
         <%= link_to 'Профиль', profile_path(@profile) %>
       <% end %>
       <%= link_to 'Воспоминания', my_memories_path %>
-      <%= @memory.title %>
+      <%= truncate(@memory.title, length: 40) %>
     </div>
-    
-    <div class="MemoryInfo">
-      <h1><%= @memory.title %></h1>
-        <%= image_tag 'about/HorizontalDivider.svg', class: 'HorizontalDivider' %>
-
-        <% if @memory.image? %>
-          <div class="MemoryImage">
-            <%= image_tag @memory.image.url %>
-          </div>
-        <% end %>
-
-        <% if @memory.body? %>
-          <div class="MemoryBody">
-            <%= @memory.body %>
-          </div>
-        <% end %>
-    </div>
-
-    <div class="EditButtons">
-      <%= link_to "Edit this memory", edit_memory_path(@memory), class: 'EditButton' %> 
-      <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'EditButton' %>
-    </div>
+    <h1 class="MemoryTitle"><%= @memory.title %></h1>
   </div>
 
-  <div class="AuthorInfo">
-    <p class="AuthorInfoName"><%= (@profile&.name || @memory.family_member&.name || "Без имени") %></p>
-    <p class="AuthorInfoDate"><%= @memory.date %></p>
-    
-    <div class="Tags">
-      <%# Массив цветов как в списке воспоминаний %>
-      <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
-      
-      <% @memory.tags.each do |tag| %>
-        <%# Логика выбора цвета по ID тега %>
-        <% color = tag_colors[tag.id % tag_colors.length] %>
-        
-        <span class="tag">
-          <span class="tag-circle" style="background-color: <%= color %>;"></span>
-          <%= link_to tag.name, by_tag_memories_path(tag) %>
-        </span>
+  <%= image_tag 'about/HorizontalDivider.svg', class: 'MemoryDivider' %>
+
+  <div class="MemoryBody">
+
+    <div class="MemoryMainPart">
+      <% if @memory.image? %>
+        <div class="MemoryImage">
+          <%= image_tag @memory.image.url %>
+        </div>
       <% end %>
+
+      <% if @memory.body? %>
+        <div class="MemoryBodyText">
+          <%= simple_format(@memory.body) %>
+        </div>
+      <% end %>
+
+      <div class="EditButtons">
+        <%= link_to "Edit this memory", edit_memory_path(@memory), class: 'EditButton' %>
+        <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'EditButton' %>
+      </div>
     </div>
+
+    <div class="AuthorInfo">
+      <%
+        author_profile = @memory.family_member&.user&.profile
+        author_name    = author_profile&.name || @memory.family_member&.name || "Без имени"
+        name_parts     = author_name.split(' ')
+      %>
+
+      <% if author_profile %>
+        <%= link_to profile_path(author_profile), class: "AuthorCard" do %>
+          <% if author_profile.avatar.attached? %>
+            <%= image_tag author_profile.avatar, class: "AuthorAvatar" %>
+          <% else %>
+            <%
+              avatar_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2]
+              color = avatar_colors[author_name.sum % avatar_colors.length]
+              initials = name_parts.first(2).map { |w| w[0]&.upcase }.join
+            %>
+            <div class="AuthorAvatar AuthorAvatarPlaceholder" style="background-color: <%= color %>;">
+              <span class="ProfileInitials"><%= initials %></span>
+            </div>
+          <% end %>
+          <p class="AuthorInfoName"><%= name_parts.first %><br><%= name_parts[1..].join(' ') %></p>
+        <% end %>
+      <% else %>
+        <div class="AuthorCard">
+          <%
+            avatar_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2]
+            color = avatar_colors[author_name.sum % avatar_colors.length]
+            initials = name_parts.first(2).map { |w| w[0]&.upcase }.join
+          %>
+          <div class="AuthorAvatar AuthorAvatarPlaceholder" style="background-color: <%= color %>;">
+            <span class="ProfileInitials"><%= initials %></span>
+          </div>
+          <p class="AuthorInfoName"><%= name_parts.first %><br><%= name_parts[1..].join(' ') %></p>
+        </div>
+      <% end %>
+
+      <p class="AuthorInfoDate"><%= l(@memory.date, format: "%-d %B, %Y") %></p>
+
+      <div class="Tags">
+        <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
+        <% @memory.tags.each do |tag| %>
+          <% color = tag_colors[tag.id % tag_colors.length] %>
+          <span class="tag">
+            <span class="tag-circle" style="background-color: <%= color %>;"></span>
+            <%= link_to tag.name, by_tag_memories_path(tag) %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </section>
-<%# <%= render "comments/comments", commentable: @memory %> 

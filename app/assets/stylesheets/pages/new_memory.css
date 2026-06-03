@@ -60,6 +60,7 @@
 .MemoryFormInput,
 .MemoryFormTextarea,
 .MemoryFormSelect {
+  outline: none;
   box-sizing: border-box;
   width: 100%;
   transition: border-color 0.15s;
@@ -90,6 +91,11 @@
 .MemoryFormInput:focus,
 .MemoryFormTextarea:focus,
 .MemoryFormSelect:focus {
+  border-color: var(--Grey);
+}
+
+.MemoryFormInput:not(:placeholder-shown),
+.MemoryFormTextarea:not(:placeholder-shown) {
   border-color: var(--Grey);
 }
 
@@ -180,8 +186,16 @@
   display: none;
 }
 
+.MemoryFormTag:hover {
+  opacity: 1;
+}
+
 .MemoryFormTag:has(input:checked) {
   opacity: 1;
+}
+
+.MemoryFormCategories:has(input:checked) {
+  border-color: var(--Grey);
 }
 
 .MemoryFormUpload {
@@ -240,9 +254,19 @@
   all: unset;
   width: 1rem;
   height: 1rem;
-  border: 1px solid rgba(167, 166, 164, 0.4);
+  border: 1px solid rgba(167, 166, 164, 0.6);
+  border-radius: 0.125rem;
   background: var(--White);
   cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.MemoryForm3d-check:checked {
+  background: var(--Light-Blue);
+  border-color: var(--Light-Blue);
 }
 
 .MemoryFormSubmit {

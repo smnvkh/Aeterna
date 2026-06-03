@@ -23,16 +23,6 @@
     <%= f.date_field :date, class: "MemoryFormInput" %>
   </div>
 
-  <%# ── Чьё воспоминание ── %>
-  <div class="MemoryFormField">
-    <%= f.label :family_member_id, "Чьё воспоминание?", class: "MemoryFormLabel" %>
-    <%= f.collection_select :family_member_id,
-          current_user.family.family_members.order(:name),
-          :id, :to_s,
-          { prompt: "Выберите члена семьи" },
-          { class: "MemoryFormSelect" } %>
-  </div>
-
   <%# ── Описание ── %>
   <div class="MemoryFormField">
     <%= f.label :body, "Описание воспоминания", class: "MemoryFormLabel" %>
@@ -50,7 +40,7 @@
     "Общие категории" => { tags: %w[Семья Любовь Счастье Радость Ностальгия],                          color: "#6d8e6a" }
   } %>
   <div class="MemoryFormField">
-    <%= f.label :category_list, "Категория", class: "MemoryFormLabel" %>
+    <%= f.label :tag_list, "Категория", class: "MemoryFormLabel" %>
     <div class="MemoryFormCategories">
       <% tag_groups.each do |group, data| %>
         <div class="MemoryFormCatGroup">
@@ -59,9 +49,9 @@
             <% data[:tags].each do |tag| %>
               <label class="tag MemoryFormTag">
                 <input type="checkbox"
-                       name="memory[category_list][]"
+                       name="memory[tag_list][]"
                        value="<%= tag %>"
-                       <%= "checked" if memory.category_list.include?(tag) %>>
+                       <%= "checked" if memory.tag_list.include?(tag) %>>
                 <span class="tag-circle" style="background-color: <%= data[:color] %>;"></span>
                 <%= tag %>
               </label>
@@ -81,11 +71,7 @@
             accept: "image/*",
             id: "memory_image_input" %>
       <div class="MemoryFormUploadBody" id="upload-body">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="14" y1="3" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <polyline points="7,14 14,21 21,14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="5" y1="25" x2="23" y2="25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+        <%= image_tag 'icons/Upload.svg', class: 'MemoryFormUploadIcon' %>
       </div>
     </label>
   </div>
@@ -121,4 +107,13 @@
       reader.readAsDataURL(file);
     });
   })();
+
+  // Подсветка date-инпута только когда выбрано значение
+  document.querySelectorAll('input[type="date"]').forEach(function(input) {
+    function update() {
+      input.style.borderColor = input.value ? 'var(--Grey)' : '';
+    }
+    input.addEventListener('change', update);
+    update();
+  });
 </script>

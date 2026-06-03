@@ -80,6 +80,7 @@ class MemoriesController < ApplicationController
   def create
     @memory = Memory.new(memory_params)
     @memory.family = current_user.family
+    @memory.family_member = current_user.family_member
 
     respond_to do |format|
       if @memory.save
@@ -110,6 +111,6 @@ class MemoriesController < ApplicationController
   end
 
   def memory_params
-    params.require(:memory).permit(:title, :family_member_id, :body, :date, :image, :tag_list, category_list: [])
+    params.require(:memory).permit(:title, :family_member_id, :body, :date, :image, tag_list: [], category_list: [])
   end
 end

@@ -63,11 +63,14 @@
         <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
 
         <% if can? :manage, @profile %>
-          <div class="AddMemorySpace MemoryItem <%= pattern[0] %>">
-              <h3 class="AddMemorySpaceText">Добавить новое воспоминание</h3>
-              <%= link_to new_memory_path, class: "AddMemoryButton" do %>
-                  Добавить <span class="PlusIcon"></span>
-              <% end %>
+          <div class="AddMemorySpace MemoryItem <%= @memories.empty? ? 'CardFull' : pattern[0] %>">
+            <% if @memories.empty? %>
+              <%= image_tag 'profile/EmptyFlower.svg', class: 'EmptyMemoriesDecor' %>
+            <% end %>
+            <h3 class="AddMemorySpaceText"><%= @memories.empty? ? 'У вас еще нет воспоминаний' : 'Добавить новое воспоминание' %></h3>
+            <%= link_to new_memory_path, class: "AddMemoryButton" do %>
+                Добавить <span class="PlusIcon"></span>
+            <% end %>
           </div>
           <% offset = 1 %>
         <% end %>
@@ -76,21 +79,18 @@
           <% card_class = pattern[(index + offset) % pattern.length] %>
 
           <div class="MemoryItem <%= card_class %>">
-            
             <div class="CardContent">
               <%= link_to memory_path(memory) do %>
                 <% if memory.image.present? %>
                   <%= image_tag memory.image.preview.url, class: "MemoryImg" %>
-                <% else %> 
+                <% else %>
                   <div class="MemoryText">
                     <p><%= truncate(memory.body, length: 150) %></p>
                   </div>
                 <% end %>
                 <div class="tags">
                   <% memory.tags.each do |tag| %>
-                    <%# Выбираем цвет на основе ID тега %>
                     <% color = tag_colors[tag.id % tag_colors.length] %>
-                    
                     <span class="tag">
                       <span class="tag-circle" style="background-color: <%= color %>;"></span>
                       <%= tag.name %>
