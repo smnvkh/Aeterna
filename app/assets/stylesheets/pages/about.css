@@ -145,7 +145,6 @@
   border-radius: 0.125rem;
   font-size: 0.875rem;
   letter-spacing: -0.0175rem;
-  width: 12rem;
   height: 2.125rem;
 }
 
@@ -225,7 +224,7 @@
   width: 100%;
   height: auto;
   margin-top: 1rem;
-  padding-right: 2rem;
+  padding: 0px 1.5rem;
 }
 
 .RightPart {

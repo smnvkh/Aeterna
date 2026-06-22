@@ -1,6 +1,8 @@
 <nav class="S_MenuBar">
     <div>
-        <%= link_to 'AETERNA', user_signed_in? ? home_path : root_path, class: "Logo"  %>
+        <%= link_to user_signed_in? ? home_path : root_path, class: "Logo" do %>
+            <%= image_tag "icons/Logo.svg", class: "LogoImage" %>
+        <% end %>
         <div class="Pages">
 
         <% if user_signed_in? && current_user.admin? %>
@@ -84,4 +86,73 @@
             <%#= link_to "Зарегистрироваться", new_user_registration_path %>
         <% end %>
     </div>
+
+    <input type="checkbox" id="mobile-menu-toggle" class="MobileMenuToggle">
+
+    <div class="MobileTopBar">
+        <%= link_to user_signed_in? ? home_path : root_path, class: "Logo" do %>
+            <%= image_tag "icons/Logo.svg", class: "LogoImage" %>
+        <% end %>
+        <label for="mobile-menu-toggle" class="BurgerButton">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+
+    <div class="MobileMenuOverlay">
+        <div class="MobileMenuHead">
+            <%= link_to user_signed_in? ? home_path : root_path, class: "Logo" do %>
+                <%= image_tag "icons/Logo.svg", class: "LogoImage" %>
+            <% end %>
+            <label for="mobile-menu-toggle" class="MobileMenuClose">
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+
+        <div class="MobileMenuLinks">
+            <% if user_signed_in? && current_user.admin? %>
+                <%= link_to "Лента времени", admin_timeline_path, class: "MobileMenuLink" %>
+                <%= link_to "Сеть", admin_family_web_path, class: "MobileMenuLink" %>
+                <%= link_to "Семейное древо", admin_family_tree_path, class: "MobileMenuLink" %>
+                <%= link_to "Члены семьи", admin_family_members_path, class: "MobileMenuLink" %>
+                <%= link_to "Подписки", admin_subscriptions_path, class: "MobileMenuLink" %>
+            <% elsif user_signed_in? %>
+                <%= link_to "Сеть", family_web_path, class: "MobileMenuLink" %>
+            <% end %>
+
+            <%= link_to "О нас", pages_about_path, class: "MobileMenuLink" %>
+
+            <% if user_signed_in? %>
+                <%= link_to "Профиль", my_profile_path, class: "MobileMenuLink" %>
+            <% end %>
+        </div>
+
+        <div class="MobileMenuActions">
+            <% if user_signed_in? %>
+                <input type="checkbox" id="mobile-add-toggle" class="MobileAddToggle">
+                <label for="mobile-add-toggle" class="AddMemoryButton MobileAddButton">
+                    Добавить
+                    <span class="PlusIcon"></span>
+                </label>
+                <div class="MobileAddOptions">
+                    <%= link_to "Воспоминание", new_memory_path, class: "MobileAddOption" %>
+                    <div class="MobileAddOption">Подборку</div>
+                </div>
+            <% else %>
+                <%= link_to "Войти", new_user_session_path, class: "SignInButton" %>
+            <% end %>
+        </div>
+    </div>
 </nav>
+
+<script>
+  document.addEventListener("turbo:before-cache", function () {
+    var menuToggle = document.getElementById("mobile-menu-toggle");
+    if (menuToggle) menuToggle.checked = false;
+
+    var addToggle = document.getElementById("mobile-add-toggle");
+    if (addToggle) addToggle.checked = false;
+  });
+</script>

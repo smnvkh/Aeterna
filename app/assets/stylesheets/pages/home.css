@@ -35,7 +35,7 @@
   width: 14.0625rem;
   height: 18.375rem;
   right: clamp(2rem, 4vw, 4rem);
-  top: 26rem;
+  top: 25rem;
 }
 
 .RecentNotes {
@@ -309,6 +309,7 @@
   display: flex;
   gap: clamp(2rem, 7.75vw, 7.75rem);
   align-items: flex-start;
+  justify-content: center;
 }
 
 .ImportantMomentsImg {

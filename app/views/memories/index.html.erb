@@ -9,7 +9,7 @@
     <%= link_to "All memories", memories_path %>
     
     <% Memory.tag_counts_on(:categories).each do |tag| %>
-      <%= link_to tag.name, by_tag_memories_path(tag.name) %>
+      <%= tag.name %>
     <% end %>
   </div>
 

@@ -86,7 +86,7 @@ h3.SignInTitle {
 .field label {
   color: var(--Dark-Grey);
   font-family: 'Neue Montreal';
-  font-size: 0.75rem;
+  font-size: 1rem;
   line-height: 100%;
   letter-spacing: -0.015rem;
 }
@@ -97,7 +97,7 @@ h3.SignInTitle {
   font-family: 'Neue Montreal';
   border-radius: 0.125rem;
   transition: border-color 0.15s;
-  font-size: 0.75rem;
+  font-size: 1rem;
   border: 1px solid rgba(167, 166, 164, 0.4);
   background: var(--White);
 }
@@ -124,7 +124,7 @@ h3.SignInTitle {
   padding: 0.625rem 0.75rem;
   border-radius: 0.125rem;
   font-family: 'Neue Montreal';
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .actions:hover {
@@ -248,7 +248,7 @@ h3.SignInTitle {
   font-family: 'Neue Montreal';
   border-radius: 0.125rem;
   transition: border-color 0.15s;
-  font-size: 0.75rem;
+  font-size: 1rem;
   border: 1px solid rgba(167, 166, 164, 0.4);
   background: var(--White);
   width: 100%;

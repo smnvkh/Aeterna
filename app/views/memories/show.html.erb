@@ -42,8 +42,23 @@
       <% end %>
 
       <div class="EditButtons">
-        <%= link_to "Edit this memory", edit_memory_path(@memory), class: 'EditButton' %>
-        <%= link_to "Destroy this memory", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'EditButton' %>
+        <div class="EditButton">
+          Добавить в подборку
+        </div>
+        <div class="MoreMenu">
+          <button type="button" class="MoreButton">
+            <span class="Dot"></span>
+            <span class="Dot"></span>
+            <span class="Dot"></span>
+          </button>
+          <div class="MoreMenuDropdown">
+            <%= link_to edit_memory_path(@memory), class: 'MoreMenuItem' do %>
+              Редактировать
+              <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
+            <% end %>
+            <%= link_to "Удалить", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'MoreMenuItem DeleteLink' %>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -92,11 +107,13 @@
           <% color = tag_colors[tag.id % tag_colors.length] %>
           <span class="tag">
             <span class="tag-circle" style="background-color: <%= color %>;"></span>
-            <%= link_to tag.name, by_tag_memories_path(tag) %>
+            <%= tag.name %>
           </span>
         <% end %>
       </div>
     </div>
+
+    <div class="AuthorInfoSpacer"></div>
 
   </div>
 </section>

@@ -1,8 +1,15 @@
 <nav class="Footer">
-        <%= link_to 'AETERNA', root_url, id: 'Name' %>
+        <%= link_to root_url, id: 'Name' do %>
+            <%= image_tag "icons/Logo.svg", class: "NameImage" %>
+        <% end %>
         <div class="FooterContainer">
             <div class="LinksAndDate">
                 <div class="Pages Footer">
+                    <% if user_signed_in? %>
+                        <div class="PageLinkFooter">
+                            <%= link_to 'Главная', home_path %>
+                        </div>
+                    <% end %>
                     <div class="PageLinkFooterPublic">
                         <%= link_to 'О нас', pages_about_path %>
                     </div>
@@ -37,13 +44,25 @@
                             </div>
                     <% end %>
                 </div>
-                <p>Aeterna © 2026</p>
+                <p>HSE 2025/2026</p>
             </div>
             <div class="Authors">
-                <p class="Creators">Создатели:</p>
-                <p>Чибичик Алёна</p>
-                <p>Семеновых Мария</p>
-                <p>Ямщикова Виктория</p>
+                <div class="AuthorsTop">
+                    <div class="AuthorsNames">
+                        <p>Чибичик Алёна</p>
+                        <p>Семеновых Мария</p>
+                        <p>Ямщикова Виктория</p>
+                    </div>
+                    <div class="SocialLinks">
+                        <%= link_to "https://vk.com/club239773493", class: "SocialIcon", target: "_blank", rel: "noopener" do %>
+                            <%= image_tag "icons/VK-icon.svg", class: "SocialIconImage" %>
+                        <% end %>
+                        <%= link_to "https://t.me/aeterna_history", class: "SocialIcon", target: "_blank", rel: "noopener" do %>
+                            <%= image_tag "icons/TG-icon.svg", class: "SocialIconImage" %>
+                        <% end %>
+                    </div>
+                </div>
+                <p class="Tagline">Aeterna — цифровой семейный архив</p>
             </div>
         </div>
 </nav>

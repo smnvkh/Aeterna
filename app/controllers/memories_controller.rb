@@ -100,8 +100,13 @@ class MemoriesController < ApplicationController
   end
 
   def destroy
+    profile = @memory.family_member&.user&.profile
     @memory.destroy
-    redirect_to timeline_path, notice: "Memory was successfully destroyed."
+    if profile
+      redirect_to profile_path(profile), notice: "Memory was successfully destroyed."
+    else
+      redirect_to timeline_path, notice: "Memory was successfully destroyed."
+    end
   end
 
   private
