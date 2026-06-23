@@ -160,13 +160,13 @@
   padding: 0.625rem 0.75rem;
   border-radius: 0.125rem;
   border: 1px solid rgba(167, 166, 164, 0.4);
-  background: #ece8df;
+  background: var(--Beige);
   cursor: pointer;
 }
 
 .MoreButton .Dot {
-  width: 0.1875rem;
-  height: 0.1875rem;
+  width: 0.15rem;
+  height: 0.15rem;
   border-radius: 100%;
   background: var(--Dark-Grey);
 }
@@ -179,7 +179,7 @@
   right: 0;
   border: 1px solid rgba(167, 166, 164, 0.4);
   border-radius: 0.125rem;
-  background: #ece8df;
+  background: var(--Light-Beige);
   overflow: hidden;
   z-index: 10;
   margin-top: 0.5rem;

@@ -331,6 +331,17 @@
   flex-shrink: 0;
 }
 
+.CollectionMemoryOptionImgPlaceholder {
+  background: var(--Light-Beige);
+  overflow: hidden;
+  padding: 0.25rem;
+  font-family: 'JetBrains Mono';
+  font-size: 0.5rem;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--Dark-Grey);
+}
+
 .CollectionMemoryOptionInfo {
   display: flex;
   flex-direction: column;

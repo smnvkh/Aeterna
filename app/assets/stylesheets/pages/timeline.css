@@ -1,0 +1,271 @@
+.TimelinePage {
+  padding-top: 10rem;
+}
+
+.TimelineMemoriesGrid {
+  view-transition-name: timeline-memories-grid;
+}
+
+@keyframes timeline-grid-blur-out {
+  from {
+    filter: blur(0);
+    opacity: 1;
+  }
+  to {
+    filter: blur(0.05rem);
+    opacity: 0;
+  }
+}
+
+@keyframes timeline-grid-blur-in {
+  from {
+    filter: blur(0.05rem);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+::view-transition-group(timeline-memories-grid) {
+  animation: none;
+}
+
+::view-transition-image-pair(timeline-memories-grid) {
+  isolation: isolate;
+}
+
+::view-transition-old(timeline-memories-grid),
+::view-transition-new(timeline-memories-grid) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(timeline-memories-grid) {
+  animation: timeline-grid-blur-out 0.4s ease-out forwards;
+}
+
+::view-transition-new(timeline-memories-grid) {
+  animation: timeline-grid-blur-in 0.4s ease-in forwards;
+}
+
+.TimelineFilters {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+  margin-bottom: 0;
+}
+
+.TimelineFiltersLeft,
+.TimelineFiltersRight {
+  display: flex;
+  align-items: flex-end;
+}
+
+.TimelineFiltersLeft {
+  gap: 1rem;
+}
+
+.TimelineFiltersRight {
+  gap: 0.5rem;
+}
+
+.TimelineFilterSelect {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(167, 166, 164, 0.4);
+  color: var(--Grey);
+  font-family: 'JetBrains Mono';
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.TimelineFilterDropdown {
+  position: relative;
+}
+
+.TimelineFilterDropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+}
+
+.TimelineFilterSelectLabel {
+  max-width: 11rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.TimelineFilterMenu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  min-width: 14rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  background: var(--White);
+  z-index: 20;
+}
+
+.TimelineFilterDropdown:hover .TimelineFilterMenu {
+  display: flex;
+}
+
+.TimelineFilterOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.5rem;
+  border-radius: 0.125rem;
+  color: var(--Grey);
+  font-family: 'JetBrains Mono';
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.TimelineFilterOption:hover {
+  background: var(--Light-Beige);
+}
+
+.TimelineFilterRadio {
+  appearance: none;
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(167, 166, 164, 0.6);
+  border-radius: 100%;
+  background: var(--White);
+  cursor: pointer;
+}
+
+.TimelineFilterRadio:checked {
+  border-color: var(--Light-Blue);
+}
+
+.TimelineFilterRadio:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 100%;
+  background: var(--Light-Blue);
+  transform: translate(-50%, -50%);
+}
+
+.TimelineFilterOption--selected {
+  background: var(--Light-Beige);
+  color: var(--Dark-Grey);
+}
+
+.TimelineZoom {
+  display: flex;
+  align-items: stretch;
+  gap: 0.25rem;
+}
+
+.TimelineZoomButton {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  background: var(--White);
+  color: var(--Dark-Grey);
+  font-size: 1.125rem;
+  line-height: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s;
+}
+
+.TimelineZoomButton--Active {
+  background: var(--Light-Beige);
+}
+
+.TimelineZoomButton--Active:hover {
+  background: var(--Beige);
+}
+
+.TimelineZoomTrack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 5.5rem;
+  height: 2.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  background: var(--White);
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.TimelineZoomTick {
+  width: 1px;
+  height: 0.625rem;
+  background: var(--Light-Grey);
+  pointer-events: none;
+  transition:
+    height 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.TimelineZoomTick--active {
+  height: 1.25rem;
+  background: var(--Dark-Grey);
+}
+
+.ChevronIcon {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-right: 1px solid var(--Grey);
+  border-bottom: 1px solid var(--Grey);
+  transform: rotate(45deg) translateY(-0.0625rem);
+}
+
+.TimelineToggleButton {
+  all: unset;
+  display: flex;
+  align-items: center;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  background: var(--White);
+  color: var(--Grey);
+  font-family: 'JetBrains Mono';
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.TimelineToggleButtonActive {
+  background: var(--Beige);
+  color: var(--Dark-Grey);
+}

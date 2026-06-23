@@ -66,7 +66,11 @@
                  name="collection[memory_ids][]"
                  value="<%= memory.id %>"
                  <%= "checked" if collection.memory_ids.include?(memory.id) %>>
-          <%= image_tag memory.image.preview.url, class: "CollectionMemoryOptionImg" %>
+          <% if memory.image.present? %>
+            <%= image_tag memory.image.preview.url, class: "CollectionMemoryOptionImg" %>
+          <% else %>
+            <div class="CollectionMemoryOptionImg CollectionMemoryOptionImgPlaceholder"><%= memory.body %></div>
+          <% end %>
           <span class="CollectionMemoryOptionInfo">
             <span class="CollectionMemoryOptionTitle"><%= memory.title %></span>
             <span class="CollectionMemoryOptionDate"><%= l(memory.date, format: "%-d %B, %Y") if memory.date %></span>

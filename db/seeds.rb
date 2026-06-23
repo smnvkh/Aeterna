@@ -56,13 +56,7 @@ end
 
 # ---------- Фото ----------
 def upload_random_image
-  uploader = MemoryImageUploader.new(Memory.new, :image)
-  uploader.cache!(
-    File.open(
-      Dir.glob(File.join(Rails.root, 'public/autoupload/memory_images', '*')).sample
-    )
-  )
-  uploader
+  File.open(Dir.glob(File.join(Rails.root, 'public/autoupload/memory_images', '*')).sample)
 end
 
 # ------------------ Пользователи ------------------
@@ -173,11 +167,11 @@ COLLECTION_TITLES = [
 
 def create_collections
   @family.family_members.find_each do |member|
-    image_memories = member.memories.select { |m| m.image.present? }
-    next if image_memories.empty?
+    member_memories = member.memories.to_a
+    next if member_memories.empty?
 
     rand(1..3).times do
-      memory_pool = image_memories.sample(rand(1..[ image_memories.count, 6 ].min))
+      memory_pool = member_memories.sample(rand(1..[ member_memories.count, 6 ].min))
       next if memory_pool.empty?
 
       collection = Collection.new(

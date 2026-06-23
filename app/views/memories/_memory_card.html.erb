@@ -1,0 +1,23 @@
+<div class="MemoryItem" style="grid-column: span <%= width %>;">
+  <div class="CardContent">
+    <%= link_to memory_path(memory) do %>
+      <% if memory.image.present? %>
+        <%= image_tag memory.image.preview.url, class: "MemoryImg" %>
+      <% else %>
+        <div class="MemoryText">
+          <p><%= truncate(memory.body, length: 150) %></p>
+        </div>
+      <% end %>
+      <div class="tags">
+        <% colors = memory_tag_colors %>
+        <% memory.tags.each do |tag| %>
+          <% color = colors[tag.id % colors.length] %>
+          <span class="tag">
+            <span class="tag-circle" style="background-color: <%= color %>;"></span>
+            <%= tag.name %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

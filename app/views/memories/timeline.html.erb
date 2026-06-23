@@ -1,49 +1,82 @@
-<section class="ShiftLeft">
-  <h1>Лента времени</h1>
+<% content_for :head do %>
+  <meta name="view-transition" content="same-origin">
+<% end %>
 
-  <div>
-    <%= link_to "All memories", memories_path %>
-    
-    <% Memory.tag_counts_on(:categories).each do |tag| %>
-      <%= tag.name %>
+<section class="TimelinePage" data-controller="type-filter">
+  <div class="TimelineFilters">
+    <%= form_with url: timeline_path, method: :get, html: { class: "TimelineFiltersLeft", data: { "type-filter-target": "form" } } do %>
+      <div class="TimelineZoom">
+        <%= hidden_field_tag "zoom", @zoom, data: { "type-filter-target": "zoom" } %>
+
+        <button type="button" class="TimelineZoomButton <%= 'TimelineZoomButton--Active' if @zoom > 1 %>" data-action="click->type-filter#decrementZoom">
+          <span class="MinusIcon"></span>
+        </button>
+
+        <div class="TimelineZoomTrack" data-type-filter-target="zoomTrack" data-max-zoom="<%= MemoriesHelper::ZOOM_LEVELS.size %>" data-action="pointerdown->type-filter#startDrag">
+          <% levels_count = MemoriesHelper::ZOOM_LEVELS.size %>
+          <% levels_count.times do |level_index| %>
+            <% level = level_index + 1 %>
+            <% is_last_pair = level == levels_count %>
+            <% active_position = is_last_pair ? 1 : 0 %>
+            <% [ 0, 1 ].each do |position| %>
+              <% is_active_tick = position == active_position %>
+              <span
+                class="TimelineZoomTick <%= 'TimelineZoomTick--active' if is_active_tick && @zoom == level %>"
+                <% if is_active_tick %>data-type-filter-target="zoomTick" data-level="<%= level %>"<% end %>
+              ></span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <button type="button" class="TimelineZoomButton <%= 'TimelineZoomButton--Active' if @zoom < MemoriesHelper::ZOOM_LEVELS.size %>" data-action="click->type-filter#incrementZoom">
+          <span class="PlusIcon"></span>
+        </button>
+      </div>
+
+      <div class="TimelineFilterDropdown">
+        <button type="button" class="TimelineFilterSelect">
+          <span class="TimelineFilterSelectLabel">Тип воспоминания</span>
+          <span class="ChevronIcon"></span>
+        </button>
+
+        <div class="TimelineFilterMenu">
+          <% MemoriesHelper::TYPE_LABELS.each do |type_key, label| %>
+            <label class="TimelineFilterOption <%= 'TimelineFilterOption--selected' if @selected_type == type_key %>">
+              <%= radio_button_tag "type", type_key, @selected_type == type_key, class: "TimelineFilterRadio", data: { action: "change->type-filter#submitForm" } %>
+              <%= label %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="TimelineFilterDropdown">
+        <button type="button" class="TimelineFilterSelect">
+          <span class="TimelineFilterSelectLabel">Хронология</span>
+          <span class="ChevronIcon"></span>
+        </button>
+
+        <div class="TimelineFilterMenu">
+          <% MemoriesHelper::SORT_LABELS.each do |sort_key, label| %>
+            <label class="TimelineFilterOption <%= 'TimelineFilterOption--selected' if @sort == sort_key %>">
+              <%= radio_button_tag "sort", sort_key, @sort == sort_key, class: "TimelineFilterRadio", data: { action: "change->type-filter#submitForm" } %>
+              <%= label %>
+            </label>
+          <% end %>
+        </div>
+      </div>
     <% end %>
+    <div class="TimelineFiltersRight">
+      <button type="button" class="TimelineToggleButton TimelineToggleButtonActive">Вся семья</button>
+      <button type="button" class="TimelineToggleButton">Выбрать члена семьи</button>
+    </div>
   </div>
 
-  <hr>
-  
-  <%= link_to 'Создать воспоминание', new_memory_path %>
-  
-  <div class="timeline">
-    <% @memories_by_year.each do |year, memories| %>
-      <div class="timeline-year">
-        <h2><%= year %></h2>
-  
-        <% memories.each do |memory| %>
-          <div class="timeline-item">
-            <h3>
-              <% if memory.family_member.user&.profile %>
-                <%= link_to \
-                  "#{memory.family_member.to_s}",
-                  profile_path(memory.family_member.user.profile)
-                %>
-              <% else %>
-                <%= memory.family_member.name %>
-              <% end %>
-            </h3>
-  
-            <div class="memory-image">
-              <%= link_to memory do %>
-                <% if memory.image.present? %>
-                  <%= image_tag memory.image.q70.url, width: 300 %>
-                <% end %>
-              <% end %>
-            </div>
-  
-            <p><%= l(memory.date, format: :long) %></p>
-            <p><%= memory.body %></p>
-          </div>
-        <% end %>
-      </div>
+  <% row_columns = MemoriesHelper::ZOOM_LEVELS[@zoom - 1] %>
+  <div class="ProfileMemories TimelineMemoriesGrid" data-type-filter-target="grid" style="grid-template-columns: repeat(<%= row_columns %>, 1fr);">
+    <% grid = memory_grid_widths(@memories, row_columns: row_columns) %>
+
+    <% @memories.each_with_index do |memory, index| %>
+      <%= render "memories/memory_card", memory: memory, width: grid[:memory_widths][index] %>
     <% end %>
   </div>
 </section>

@@ -163,6 +163,7 @@
   height: 1.5rem;
   background-color: var(--Light-Blue);
   border-radius: 0.125rem;
+  transition: opacity 0.15s;
 }
 
 .ArrowBox::after {
@@ -179,7 +180,7 @@
   background-color: #f0f0f0;
 }
 .CTA a:hover .ArrowBox {
-  background-color: #8db5ff;
+  opacity: 0.85;
 }
 
 .WhatDoesAeternaDo {
@@ -518,6 +519,11 @@
   background-color: var(--Light-Blue);
   border-radius: 0 0.125rem 0.125rem 0;
   height: 2.25rem;
+  transition: opacity 0.15s;
+}
+
+.FormButton:hover {
+  opacity: 0.85;
 }
 
 #new_subscription > .Form {
@@ -562,7 +568,7 @@
   .CoverInner,
   .WhatDoesAeternaDoContainer {
     max-width: 767px;
-    margin: 0 4.45vw;
+    padding: 0 4.45vw;
   }
 
   .Heading > h1,

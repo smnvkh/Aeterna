@@ -12,13 +12,16 @@ class MemoriesController < ApplicationController
   end
 
   def timeline
-    if current_user.family
-      @memories_by_year = current_user.family.memories
-        .order(:date)
-        .group_by { |m| m.date.year }
-    else
-      @memories_by_year = {}
-    end
+    @memories = current_user.family ? current_user.family.memories : Memory.none
+
+    @selected_type = Memory::TYPES.include?(params[:type]) ? params[:type] : "all"
+    @memories = @memories.of_type(@selected_type) unless @selected_type == "all"
+
+    @sort = MemoriesHelper::SORT_LABELS.key?(params[:sort]) ? params[:sort] : "newest"
+    @memories = @sort == "oldest" ? @memories.order(date: :asc) : @memories.order(date: :desc)
+
+    @zoom = params[:zoom].to_i
+    @zoom = MemoriesHelper::DEFAULT_ZOOM unless (1..MemoriesHelper::ZOOM_LEVELS.size).cover?(@zoom)
 
     # Мета-теги для страницы «Лента времени»
     set_meta_tags(

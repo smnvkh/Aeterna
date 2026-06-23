@@ -46,7 +46,7 @@ class CollectionsController < ApplicationController
 
   def set_my_memories
     memories = current_user.family_member&.memories || Memory.none
-    @memories = memories.where.not(image: [ nil, "" ]).order(date: :desc)
+    @memories = memories.order(date: :desc)
   end
 
   def collection_params

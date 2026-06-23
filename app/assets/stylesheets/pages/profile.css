@@ -14,6 +14,7 @@
   width: 10rem;
   height: 10rem;
   border-radius: 100%;
+  object-fit: cover;
 }
 
 .UserPhoto > .ProfilePlaceholder {
@@ -72,6 +73,8 @@
   font-size: 0.875rem;
   line-height: 100%;
   letter-spacing: -0.0175rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
 }
 
 .EditButton:hover {
@@ -81,6 +84,198 @@
 .ProfileActions {
   display: flex;
   gap: 0.5rem;
+}
+
+.EditProfileToggle {
+  display: none;
+}
+
+.EditProfileOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(51, 51, 51, 0.45);
+  z-index: 300;
+}
+
+.EditProfileToggle:checked ~ .EditProfileOverlay {
+  display: flex;
+}
+
+.EditProfileModal {
+  position: relative;
+  width: 65%;
+  padding: 2.5rem;
+  border-radius: 0.125rem;
+  background: var(--White);
+}
+
+.EditProfileClose {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  background: var(--Light-Beige);
+  cursor: pointer;
+}
+
+.EditProfileClose span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.875rem;
+  height: 1px;
+  background: var(--Dark-Grey);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.EditProfileClose span:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.EditProfileForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.EditProfileAvatar {
+  position: relative;
+  width: 7.5rem;
+  height: 7.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.EditProfileAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.EditProfileAvatarHover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    background 0.15s;
+}
+
+.EditProfileAvatar:hover .EditProfileAvatarHover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.EditProfileAvatarIcon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.EditProfileAvatarInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.EditProfileName {
+  margin: 0 0 2.5rem;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 100%;
+  letter-spacing: -0.04rem;
+  text-transform: uppercase;
+}
+
+.EditProfileField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 28.625rem;
+}
+
+.EditProfileField + .EditProfileField {
+  margin-top: 1.5rem;
+}
+
+.EditProfileLabel {
+  color: var(--Dark-Grey);
+  font-family: 'PP Neue Montreal';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.EditProfileInput {
+  all: unset;
+  box-sizing: border-box;
+  width: 28.625rem;
+  height: 3.25rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  color: var(--Dark-Grey);
+  font-family: 'PP Neue Montreal';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.EditProfileInput::placeholder {
+  color: var(--Dark-Grey);
+  font-family: 'PP Neue Montreal';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.EditProfileSubmit {
+  all: unset;
+  box-sizing: border-box;
+  width: 28.625rem;
+  height: 2.25rem;
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--Dark-Grey);
+  font-family: 'JetBrains Mono';
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 100%;
+  background: var(--Light-Blue);
+  border-radius: 0.125rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.EditProfileSubmit:hover {
+  opacity: 0.85;
 }
 
 .MoreMenu {
@@ -129,11 +324,16 @@
   border: 1px solid rgba(167, 166, 164, 0.4);
   background: var(--Light-Beige);
   cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.MoreButton:hover {
+  background: var(--Beige);
 }
 
 .MoreButton .Dot {
-  width: 0.1875rem;
-  height: 0.1875rem;
+  width: 0.15rem;
+  height: 0.15rem;
   border-radius: 100%;
   background: var(--Dark-Grey);
 }
@@ -199,7 +399,7 @@
   margin-left: 1.5rem;
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  gap: 1rem;
   line-height: 100%;
   letter-spacing: -0.02rem;
 }
@@ -245,7 +445,12 @@
 }
 
 .AddMemorySpace > .AddMemoryButton {
-  background: #ece8df;
+  background: var(--Light-Beige);
+}
+
+.AddMemorySpace > .AddMemoryButton:hover {
+  background: var(--Beige);
+  opacity: 1;
 }
 
 .ProfileCollections {
@@ -337,7 +542,17 @@
 }
 
 .CollectionCardImgPlaceholder {
-  background: #f2efe8;
+  background: var(--Light-Beige);
+}
+
+.CollectionCardTextPreview {
+  background: transparent;
+  padding: 0.75rem;
+  font-family: 'JetBrains Mono';
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 130%;
+  color: var(--Dark-Grey);
 }
 
 .CollectionCardFooter {
@@ -393,11 +608,6 @@
 
 .MemoryText > p {
   margin: 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 7;
-  line-clamp: 7;
-  overflow: hidden;
 }
 
 .MemoryText {

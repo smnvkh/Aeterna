@@ -12,11 +12,6 @@
             <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
             <% end %>
 
-            <%= link_to admin_family_web_path, class: "PageLink" do %>
-            Сеть
-            <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
-            <% end %>
-
             <%= link_to admin_family_tree_path, class: "PageLink" do %>
             Семейное древо
             <%= image_tag "icons/RightIconArrow.svg", class: "RightIconArrow" %>
@@ -33,12 +28,8 @@
             <% end %>
 
             <% elsif user_signed_in? %>
-                 <%#= link_to timeline_path, class: "PageLink" do %>
-                <%# Лента времени %>
-                <%# end %>
-
-                <%= link_to family_web_path, class: "PageLink" do %>
-                Сеть
+                <%= link_to timeline_path, class: "PageLink" do %>
+                Лента времени
                 <% end %>
 
                 <%#= link_to family_tree_path, class: "PageLink" do %>
@@ -114,12 +105,11 @@
         <div class="MobileMenuLinks">
             <% if user_signed_in? && current_user.admin? %>
                 <%= link_to "Лента времени", admin_timeline_path, class: "MobileMenuLink" %>
-                <%= link_to "Сеть", admin_family_web_path, class: "MobileMenuLink" %>
                 <%= link_to "Семейное древо", admin_family_tree_path, class: "MobileMenuLink" %>
                 <%= link_to "Члены семьи", admin_family_members_path, class: "MobileMenuLink" %>
                 <%= link_to "Подписки", admin_subscriptions_path, class: "MobileMenuLink" %>
             <% elsif user_signed_in? %>
-                <%= link_to "Сеть", family_web_path, class: "MobileMenuLink" %>
+                <%= link_to "Лента времени", timeline_path, class: "MobileMenuLink" %>
             <% end %>
 
             <%= link_to "О нас", pages_about_path, class: "MobileMenuLink" %>

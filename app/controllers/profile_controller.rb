@@ -23,7 +23,9 @@ class ProfileController < ApplicationController
     if @profile.update(profile_params)
       redirect_to my_profile_path
     else
-      render :edit
+      @memories = profile_memories(@profile)
+      @collections = profile_collections(@profile)
+      render :show, status: :unprocessable_entity
     end
   end
 

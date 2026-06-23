@@ -12,6 +12,27 @@ class Memory < ApplicationRecord
   validates :title, :date, presence: true
   validate :body_or_image_present
 
+  TYPES = %w[photo text].freeze
+
+  scope :of_type, ->(types) {
+    types = Array(types) & TYPES
+    next none if types.empty?
+
+    conditions = types.map do |type|
+      case type
+      when "photo" then "image != ''"
+      when "text"  then "(image IS NULL OR image = '') AND body != ''"
+      end
+    end
+
+    where(conditions.join(" OR "))
+  }
+
+  # "photo" = has an image (with or without text), "text" = text only, no image.
+  def kind
+    image.present? ? "photo" : "text"
+  end
+
   private
 
   def body_or_image_present

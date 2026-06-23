@@ -39,7 +39,7 @@
 }
 
 .RecentNotes {
-  background: #f2efe8;
+  background: var(--Light-Beige);
   padding: 7.5rem 0 5rem;
 }
 
@@ -109,7 +109,7 @@
   width: 100%;
   min-height: 10rem;
   flex: 1;
-  background-color: var(--Light-Blue);
+  background-color: var(--Light-Beige);
   padding: 1rem;
   font-size: 0.875rem;
   line-height: 1.4;
@@ -198,7 +198,7 @@
   border-radius: 0.125rem;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background-color 0.15s;
 }
 
 .SliderIcon {
@@ -214,6 +214,11 @@
 .SliderBtnPrev,
 .SliderBtnNext {
   background: var(--Light-Beige);
+}
+
+.SliderBtnPrev:hover,
+.SliderBtnNext:hover {
+  background: var(--Beige);
 }
 
 .YourFamilySliderWrapper {
@@ -321,6 +326,10 @@
   flex-shrink: 0;
 }
 
+.ImportantMomentsImgMobile {
+  display: none;
+}
+
 .ImportantMomentsMainHeadingUpper > h2,
 .ImportantMomentsMainHeadingLower > p {
   margin: 0;
@@ -337,5 +346,92 @@
 }
 
 .ImportantMomentsMainHeadingLower > .CTA a {
-  background: #f2efe8;
+  background: var(--Light-Beige);
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .CoverMemories.Home > .ImportantMoments2 {
+    display: block;
+    top: 23.8vw;
+    left: 53vw;
+    width: 42vw;
+    height: auto;
+  }
+
+  .CoverMemories.Home > .BirdImg {
+    display: none;
+  }
+
+  .CoverMemories.Home > .CrochetImg {
+    width: 29vw;
+    height: auto;
+    transform: rotate(-1.046deg);
+    left: 31vw;
+    top: 31vw;
+  }
+
+  .CoverMemories.Home > .GrannyImg {
+    width: 57vw;
+    height: auto;
+    left: 0;
+    bottom: 30vw;
+  }
+
+  .CoverMemories.Home > .whatDoesAeternaDo {
+    width: 45vw;
+    height: auto;
+    right: -22vw;
+    top: 154vw;
+    z-index: 2;
+  }
+
+  .CoverMemories.Home > .TextMemory#TextMemory4 {
+    width: 54vw;
+    padding: 3.4vw;
+    left: 32vw;
+    top: 185vw;
+    font-size: 3.4vw;
+    z-index: 1;
+  }
+
+  .Heading.Home {
+    margin: 78vw 0 7.25vw 0;
+  }
+
+  .ImportantMomentsMain {
+    padding: 20.4vw 0 15.5vw;
+  }
+
+  .ImportantMomentsImg {
+    display: none;
+  }
+
+  .ImportantMomentsImgMobile {
+    width: 47vw;
+    height: auto;
+  }
+
+  .PageWrapper {
+    max-width: 767px;
+    padding: 0 4.5vw;
+    width: auto;
+  }
+
+  .ImportantMomentsMainHeading {
+    gap: 7vw;
+  }
+
+  .ImportantMomentsMainHeadingUpper > h2 {
+    width: auto;
+  }
+
+  .RecentNotesHeading > .Description,
+  .ImportantMomentsMainHeadingLower > .Description {
+    font-size: 5.6vw;
+    width: 80%;
+  }
+
+  .ImportantMomentsMainHeadingLower {
+    gap: 11vw;
+  }
 }

@@ -29,11 +29,6 @@ a {
   padding: 0 1.5rem;
 }
 
-.ShiftLeft {
-  padding: 5rem 0 0 1.5rem;
-  min-height: 46.5vh;
-}
-
 h1 {
   font-size: clamp(2.5rem, 3.5vw, 3.5rem);
   font-weight: 300;
@@ -165,6 +160,7 @@ p.Subtitle {
 
 .PageLink {
   display: inline-flex;
+  align-items: flex-end;
   width: fit-content;
 }
 
@@ -185,6 +181,13 @@ p.Subtitle {
   background: var(--Light-Blue);
   color: var(--Dark-Grey);
   font-size: 0.875rem;
+  transition: opacity 0.15s;
+}
+
+.SignInButton:hover,
+.AddMemoryButton:hover,
+.ProfilePlaceholder:hover {
+  opacity: 0.85;
 }
 
 .AddMemoryButton {
@@ -215,11 +218,28 @@ p.Subtitle {
 
 .PlusIcon::before {
   width: 100%;
-  height: 1.5px;
+  height: 1px;
 }
 .PlusIcon::after {
-  width: 1.5px;
+  width: 1px;
   height: 100%;
+}
+
+.MinusIcon {
+  position: relative;
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.MinusIcon::before {
+  content: '';
+  position: absolute;
+  background-color: var(--Dark-Grey);
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 1px;
+  transform: translate(-50%, -50%);
 }
 
 .S_MenuBar > div:nth-child(2) {
@@ -265,6 +285,10 @@ p.Subtitle {
   background-color: var(--Blue-Halftone);
   padding: 1.5rem;
   min-height: 17.44rem;
+}
+
+.FooterContainerMobile {
+  display: none;
 }
 
 #Name {
@@ -347,6 +371,11 @@ p.Subtitle {
   padding: 0.5rem;
   border-radius: 0.125rem;
   background: var(--Light-Blue);
+  transition: opacity 0.15s;
+}
+
+.SocialIcon:hover {
+  opacity: 0.85;
 }
 
 .SocialIconImage {
@@ -569,11 +598,11 @@ p.Subtitle {
   }
 
   .PlusIcon::after {
-    width: 0.4vw;
+    width: 0.27vw;
   }
 
   .PlusIcon::before {
-    height: 0.4vw;
+    height: 0.27vw;
   }
 
   .ProfileImageButton {
@@ -597,14 +626,15 @@ p.Subtitle {
   }
 
   .Footer {
-    padding: 4.45vw;
+    padding: 4.45vw 4.45vw 11.2vw;
     min-height: auto;
     flex-direction: column;
-    gap: 6vw;
+    gap: 16.8vw;
   }
 
   #Name {
     font-size: 21.8vw;
+    width: 100%;
   }
 
   .LinksAndDate {
@@ -633,5 +663,49 @@ p.Subtitle {
     display: flex;
     flex-direction: row;
     gap: 11.2vw;
+  }
+
+  .NameImage {
+    width: 100%;
+    height: auto;
+  }
+
+  .FooterContainer {
+    display: none;
+  }
+
+  .FooterContainerMobile {
+    display: flex;
+    flex-direction: column;
+    gap: 16.8vw;
+  }
+
+  .LinksAndDate {
+    gap: 9vw;
+  }
+
+  .SocialIcon {
+    width: 9.5vw;
+    height: 9.5vw;
+    padding: 2.2vw;
+  }
+
+  .SocialIconImage {
+    width: 4.5vw;
+    height: 4.5vw;
+  }
+
+  .Taglines {
+    display: flex;
+    flex-direction: column;
+    gap: 3.35vw;
+  }
+
+  .Tagline {
+    font-size: 3.9vw;
+  }
+
+  .LinksAndDate p {
+    color: var(--Dark-Grey);
   }
 }

@@ -18,9 +18,6 @@
                             <%= link_to 'Лента времени', admin_timeline_path %>
                         </div>
                         <div class="PageLink">
-                            <%= link_to 'Сеть', admin_family_web_path %>
-                        </div>
-                        <div class="PageLink">
                             <%= link_to 'Cемейное древо', admin_family_tree_path %>
                         </div>
                         <div class="PageLink">
@@ -30,11 +27,8 @@
                             <%= link_to 'Подписки', admin_subscriptions_path %>
                         </div>
                         <% elsif user_signed_in? %>
-                            <%# <div class="PageLink"> %>
-                                <%#= link_to 'Лента времени', timeline_path %>
-                            <%# </div> %>
                             <div class="PageLinkFooter">
-                                <%= link_to 'Сеть', family_web_path %>
+                                <%= link_to 'Лента времени', timeline_path %>
                             </div>
                             <%# <div class="PageLink"> %>
                                 <%#= link_to 'Cемейное древо', family_tree_path %>
@@ -62,6 +56,61 @@
                         <% end %>
                     </div>
                 </div>
+                <p class="Tagline">Aeterna — цифровой семейный архив</p>
+            </div>
+        </div>
+        <div class="FooterContainerMobile">
+            <div class="LinksAndDate">
+                <div class="Pages Footer">
+                    <% if user_signed_in? %>
+                        <div class="PageLinkFooter">
+                            <%= link_to 'Главная', home_path %>
+                        </div>
+                    <% end %>
+                    <div class="PageLinkFooterPublic">
+                        <%= link_to 'О нас', pages_about_path %>
+                    </div>
+                    <% if user_signed_in? && current_user.admin? %>
+                        <div class="PageLink">
+                            <%= link_to 'Лента времени', admin_timeline_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Cемейное древо', admin_family_tree_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Члены семьи', admin_family_members_path %>
+                        </div>
+                        <div class="PageLink">
+                            <%= link_to 'Подписки', admin_subscriptions_path %>
+                        </div>
+                        <% elsif user_signed_in? %>
+                            <div class="PageLinkFooter">
+                                <%= link_to 'Лента времени', timeline_path %>
+                            </div>
+                            <%# <div class="PageLink"> %>
+                                <%#= link_to 'Cемейное древо', family_tree_path %>
+                            <%# </div> %>
+                            <div class="PageLinkFooter">
+                                <%= link_to 'Профиль', my_profile_path %>
+                            </div>
+                    <% end %>
+                </div>
+                <div class="Pages Footer">
+                    <p>Чибичик Алёна</p>
+                    <p>Семеновых Мария</p>
+                    <p>Ямщикова Виктория</p>
+                </div>
+                <div class="SocialLinks">
+                    <%= link_to "https://vk.com/club239773493", class: "SocialIcon", target: "_blank", rel: "noopener" do %>
+                        <%= image_tag "icons/VK-icon.svg", class: "SocialIconImage" %>
+                    <% end %>
+                    <%= link_to "https://t.me/aeterna_history", class: "SocialIcon", target: "_blank", rel: "noopener" do %>
+                        <%= image_tag "icons/TG-icon.svg", class: "SocialIconImage" %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="Taglines">
+                <p class="Tagline">HSE 2025/2026</p>
                 <p class="Tagline">Aeterna — цифровой семейный архив</p>
             </div>
         </div>

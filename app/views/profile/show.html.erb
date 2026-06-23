@@ -23,10 +23,78 @@
     <div class="UserActionButtons">
         <% if can? :manage, @profile %>
         <div class="ProfileActions">
-            <%= link_to edit_profile_path, class: 'EditButton' do %>
+            <input type="checkbox" id="edit-profile-toggle" class="EditProfileToggle" <%= "checked" if @profile.errors.any? %>>
+            <label for="edit-profile-toggle" class="EditButton">
             Редактировать
             <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
-            <% end %>
+            </label>
+
+            <div class="EditProfileOverlay">
+              <div class="EditProfileModal">
+                <label for="edit-profile-toggle" class="EditProfileClose">
+                  <span></span>
+                  <span></span>
+                </label>
+
+                <%= form_for(@profile, url: update_profile_path, html: { class: "EditProfileForm" }) do |form| %>
+                  <label class="EditProfileAvatar" id="edit-profile-avatar-label">
+                    <% if @profile.avatar.attached? %>
+                      <%= image_tag @profile.avatar, class: "EditProfileAvatarImg", id: "edit-profile-avatar-img" %>
+                    <% else %>
+                      <div class="ProfilePlaceholder EditProfileAvatarImg" id="edit-profile-avatar-placeholder" style="background-color: <%= avatar_colors[name_str.sum % avatar_colors.length] %>;">
+                        <span class="ProfileInitials"><%= initials.presence || "?" %></span>
+                      </div>
+                    <% end %>
+                    <span class="EditProfileAvatarHover">
+                      <%= image_tag 'icons/ChangeAvatar.svg', class: 'EditProfileAvatarIcon' %>
+                    </span>
+                    <%= form.file_field :avatar, accept: 'image/*', class: "EditProfileAvatarInput", id: "edit-profile-avatar-input" %>
+                  </label>
+
+                  <h2 class="EditProfileName"><%= ((@profile&.name).presence || "Без имени").split(' ').join('<br>').html_safe %></h2>
+
+                  <div class="EditProfileField">
+                    <%= form.label :name, "Ваше имя", class: "EditProfileLabel" %>
+                    <%= form.text_field :name, class: "EditProfileInput" %>
+                  </div>
+
+                  <div class="EditProfileField">
+                    <%= form.label :birthday, "Дата рождения", class: "EditProfileLabel" %>
+                    <%= form.date_field :birthday, class: "EditProfileInput" %>
+                  </div>
+
+                  <%= form.submit "Сохранить", class: "EditProfileSubmit" %>
+                <% end %>
+              </div>
+            </div>
+
+            <script>
+              (function () {
+                const input = document.getElementById('edit-profile-avatar-input');
+                if (!input) return;
+
+                input.addEventListener('change', function () {
+                  const file = this.files[0];
+                  if (!file) return;
+
+                  const reader = new FileReader();
+                  reader.onload = function (e) {
+                    let img = document.getElementById('edit-profile-avatar-img');
+                    const placeholder = document.getElementById('edit-profile-avatar-placeholder');
+
+                    if (!img) {
+                      img = document.createElement('img');
+                      img.id = 'edit-profile-avatar-img';
+                      img.className = 'EditProfileAvatarImg';
+                      placeholder.replaceWith(img);
+                    }
+
+                    img.src = e.target.result;
+                  };
+                  reader.readAsDataURL(file);
+                });
+              })();
+            </script>
 
             <div class="MoreMenu" data-controller="copy">
                 <button type="button" class="MoreButton">
@@ -68,81 +136,11 @@
   <div class="ContentSection">
     <div id="memories-list" class="tab-panel">
       <div class="ProfileMemories">
-        <%
-          row_columns = 12
-          pattern = [3, 3, 2, 2, 2, 2, 2, 3, 3, 2] # 3 = wide, 2 = narrow
-
-          pattern_index = 0
-          row_remaining = row_columns
-          slots = [] # { width: }
-          flexible_in_row = [] # indices of image cards placed in the current row
-
-          next_pattern_width = -> { w = pattern[pattern_index % pattern.length]; pattern_index += 1; w }
-
-          # Fits a card into the current grid row: use the desired width if it fits,
-          # fall back to the alternate width (3<->2, image cards only). If we're
-          # short by exactly 1 column, first try upgrading an earlier narrow image
-          # card in this row to wide (it absorbs the leftover column and this card
-          # starts a fresh row); if none is available, downgrade an earlier wide
-          # image card to narrow instead (frees up room for this card to join the
-          # row). Otherwise start a new row.
-          assign_width = lambda do |desired, allow_alt|
-            chosen = nil
-
-            if desired <= row_remaining
-              chosen = desired
-            else
-              alt = desired == 3 ? 2 : 3
-              if allow_alt && alt <= row_remaining
-                chosen = alt
-              elsif row_remaining == desired - 1
-                upgrade_index = flexible_in_row.reverse.find { |i| slots[i][:width] == 2 }
-                if upgrade_index
-                  slots[upgrade_index][:width] = 3
-                else
-                  downgrade_index = flexible_in_row.reverse.find { |i| slots[i][:width] == 3 }
-                  if downgrade_index
-                    slots[downgrade_index][:width] = 2
-                    row_remaining += 1
-                    chosen = desired
-                  end
-                end
-              end
-            end
-
-            if chosen.nil?
-              flexible_in_row.clear
-              row_remaining = row_columns
-              chosen = desired
-            end
-
-            row_remaining -= chosen
-            slots << { width: chosen }
-            flexible_in_row << (slots.length - 1) if allow_alt
-            chosen
-          end
-
-          can_manage_profile = can?(:manage, @profile)
-
-          if can_manage_profile && @memories.empty?
-            slots << { width: row_columns }
-          elsif can_manage_profile
-            assign_width.call(next_pattern_width.call, true)
-          end
-
-          @memories.each do |memory|
-            desired = next_pattern_width.call
-            desired = 2 unless memory.image.present?
-            assign_width.call(desired, memory.image.present?)
-          end
-
-          memory_widths = slots.last(@memories.size).map { |s| s[:width] }
-        %>
-
-        <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
+        <% can_manage_profile = can?(:manage, @profile) %>
+        <% grid = memory_grid_widths(@memories, include_add_space: can_manage_profile) %>
 
         <% if can_manage_profile %>
-          <div class="AddMemorySpace MemoryItem <%= @memories.empty? ? 'CardFull' : '' %>" style="grid-column: span <%= slots.first[:width] %>;">
+          <div class="AddMemorySpace MemoryItem <%= @memories.empty? ? 'CardFull' : '' %>" style="grid-column: span <%= grid[:add_space_width] %>;">
             <% if @memories.empty? %>
               <%= image_tag 'profile/EmptyFlower.svg', class: 'EmptyMemoriesDecor' %>
             <% end %>
@@ -154,28 +152,7 @@
         <% end %>
 
         <% @memories.each_with_index do |memory, index| %>
-          <div class="MemoryItem" style="grid-column: span <%= memory_widths[index] %>;">
-            <div class="CardContent">
-              <%= link_to memory_path(memory) do %>
-                <% if memory.image.present? %>
-                  <%= image_tag memory.image.preview.url, class: "MemoryImg" %>
-                <% else %>
-                  <div class="MemoryText">
-                    <p><%= truncate(memory.body, length: 150) %></p>
-                  </div>
-                <% end %>
-                <div class="tags">
-                  <% memory.tags.each do |tag| %>
-                    <% color = tag_colors[tag.id % tag_colors.length] %>
-                    <span class="tag">
-                      <span class="tag-circle" style="background-color: <%= color %>;"></span>
-                      <%= tag.name %>
-                    </span>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+          <%= render "memories/memory_card", memory: memory, width: grid[:memory_widths][index] %>
         <% end %>
       </div>
     </div>
@@ -202,6 +179,8 @@
               <% cover_memory = collection.memories.first %>
               <% if cover_memory&.image.present? %>
                 <%= image_tag cover_memory.image.preview.url, class: "CollectionCardImg" %>
+              <% elsif cover_memory&.body.present? %>
+                <div class="CollectionCardImg CollectionCardTextPreview"><%= truncate(cover_memory.body, length: 90, separator: " ") %></div>
               <% else %>
                 <div class="CollectionCardImg CollectionCardImgPlaceholder"></div>
               <% end %>
