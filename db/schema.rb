@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_03_124952) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_23_073357) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -37,6 +37,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_124952) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "collection_memories", force: :cascade do |t|
+    t.integer "collection_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "memory_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id", "memory_id"], name: "index_collection_memories_on_collection_id_and_memory_id", unique: true
+    t.index ["collection_id"], name: "index_collection_memories_on_collection_id"
+    t.index ["memory_id"], name: "index_collection_memories_on_memory_id"
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.string "decor_icon"
+    t.integer "family_id", null: false
+    t.integer "family_member_id"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["family_id"], name: "index_collections_on_family_id"
+    t.index ["family_member_id"], name: "index_collections_on_family_member_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -153,6 +175,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_124952) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "collection_memories", "collections"
+  add_foreign_key "collection_memories", "memories"
+  add_foreign_key "collections", "families"
+  add_foreign_key "collections", "family_members"
   add_foreign_key "comments", "users"
   add_foreign_key "family_members", "families"
   add_foreign_key "family_members", "users"

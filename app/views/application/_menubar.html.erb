@@ -138,7 +138,7 @@
                 </label>
                 <div class="MobileAddOptions">
                     <%= link_to "Воспоминание", new_memory_path, class: "MobileAddOption" %>
-                    <div class="MobileAddOption">Подборку</div>
+                    <%= link_to "Подборку", new_collection_path, class: "MobileAddOption" %>
                 </div>
             <% else %>
                 <%= link_to "Войти", new_user_session_path, class: "SignInButton" %>

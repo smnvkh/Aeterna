@@ -1,6 +1,7 @@
 class Family < ApplicationRecord
   has_many :users
   has_many :memories, dependent: :destroy
+  has_many :collections, dependent: :destroy
   has_many :family_members
 
   before_create :generate_invite_code

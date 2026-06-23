@@ -1,0 +1,82 @@
+<%= form_with(model: collection, class: "MemoryForm") do |f| %>
+
+  <%# ── Ошибки ── %>
+  <% if collection.errors.any? %>
+    <div class="MemoryFormErrors">
+      <% collection.errors.each do |error| %>
+        <p class="MemoryFormError"><%= error.full_message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%# ── Название ── %>
+  <div class="MemoryFormField">
+    <%= f.label :title, "Название", class: "MemoryFormLabel" %>
+    <%= f.text_field :title,
+          placeholder: "Коротко — чтобы вы сразу узнали её",
+          class: "MemoryFormInput" %>
+  </div>
+
+  <%# ── Дата ── %>
+  <div class="MemoryFormField">
+    <%= f.label :date, "Когда это было?", class: "MemoryFormLabel" %>
+    <%= f.date_field :date, class: "MemoryFormInput" %>
+  </div>
+
+  <%# ── Категория ── %>
+  <% tag_groups = {
+    "Детство"         => { tags: %w[Школа Друзья Игры Хобби],                                          color: "#6795d6" },
+    "Юность"          => { tags: ["Выпускной", "Первая любовь", "Новые горизонты", "Мечты"],            color: "#e19593" },
+    "Взрослая"        => { tags: %w[Работа Достижения Дети Амбиции],                                   color: "#f2de97" },
+    "Общие категории" => { tags: %w[Семья Любовь Счастье Радость Ностальгия],                          color: "#6d8e6a" }
+  } %>
+  <div class="MemoryFormField">
+    <%= f.label :category_list, "Категория", class: "MemoryFormLabel" %>
+    <div class="MemoryFormCategories">
+      <% tag_groups.each do |group, data| %>
+        <div class="MemoryFormCatGroup">
+          <span class="MemoryFormCatHeading"><%= group %></span>
+          <div class="tags">
+            <% data[:tags].each do |tag| %>
+              <label class="tag MemoryFormTag">
+                <input type="checkbox"
+                       name="collection[category_list][]"
+                       value="<%= tag %>"
+                       <%= "checked" if collection.category_list.include?(tag) %>>
+                <span class="tag-circle" style="background-color: <%= data[:color] %>;"></span>
+                <%= tag %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# ── Мои воспоминания ── %>
+  <div class="MemoryFormField">
+    <%= f.label :memory_ids, "Мои воспоминания", class: "MemoryFormLabel" %>
+    <div class="CollectionMemoryPicker">
+      <% if @memories.empty? %>
+        <p class="CollectionMemoryPickerEmpty">У вас пока нет воспоминаний, которые можно добавить в подборку.</p>
+      <% end %>
+      <% @memories.each do |memory| %>
+        <label class="CollectionMemoryOption">
+          <input type="checkbox"
+                 name="collection[memory_ids][]"
+                 value="<%= memory.id %>"
+                 <%= "checked" if collection.memory_ids.include?(memory.id) %>>
+          <%= image_tag memory.image.preview.url, class: "CollectionMemoryOptionImg" %>
+          <span class="CollectionMemoryOptionInfo">
+            <span class="CollectionMemoryOptionTitle"><%= memory.title %></span>
+            <span class="CollectionMemoryOptionDate"><%= l(memory.date, format: "%-d %B, %Y") if memory.date %></span>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <%# ── Отправить ── %>
+  <%= f.submit "Создать подборку", class: "MemoryFormSubmit" %>
+
+<% end %>

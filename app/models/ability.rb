@@ -18,6 +18,12 @@ class Ability
     can :read, Memory, family_id: user.family_id
 
 
+    # COLLECTION (подборки воспоминаний)
+
+    can :manage, Collection, family_id: user.family_id
+    can :read, Collection, family_id: user.family_id
+
+
     # COMMENTS (комментарии)
 
     # Создание комментариев к memories своей семьи

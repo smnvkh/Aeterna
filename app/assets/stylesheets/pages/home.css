@@ -109,7 +109,7 @@
   width: 100%;
   min-height: 10rem;
   flex: 1;
-  background-color: var(--Light-Blue, #d6e2f5);
+  background-color: var(--Light-Blue);
   padding: 1rem;
   font-size: 0.875rem;
   line-height: 1.4;
@@ -249,7 +249,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  background: #f2efe8;
+  background: var(--Light-Beige);
   border-radius: 0.125rem;
 }
 
@@ -338,5 +338,4 @@
 
 .ImportantMomentsMainHeadingLower > .CTA a {
   background: #f2efe8;
-  width: 9.875rem;
 }

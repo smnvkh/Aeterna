@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # CRUD для подборок воспоминаний
+  resources :collections, only: [ :new, :create, :show, :edit, :update, :destroy ]
+
   # Комментарии
   resources :comments, only: [ :show, :create, :edit, :update, :destroy ]
 

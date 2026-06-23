@@ -141,7 +141,7 @@
   align-items: center;
   gap: 1.35rem;
   background-color: var(--White);
-  padding: 0.125rem 0.125rem 0.125rem 0.75rem;
+  padding: 0.125rem 0.4rem 0.125rem 0.75rem;
   border-radius: 0.125rem;
   font-size: 0.875rem;
   letter-spacing: -0.0175rem;
@@ -504,7 +504,7 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 0.125rem 0 0 0.125rem;
-  background: var(--Blue-Light-Blue, #a1c8ff);
+  background: var(--Light-Blue);
   height: 2.25rem;
 }
 
@@ -587,10 +587,9 @@
 
   .CTA > a {
     gap: 6vw;
-    padding: 0.56vw 0.56vw 0.56vw 3.35vw;
+    padding: 0.56vw 1.79vw 0.56vw 3.35vw;
     border-radius: 0.56vw;
     font-size: 3.9vw;
-    width: 53.5vw;
     height: 9.5vw;
   }
 
@@ -872,7 +871,7 @@
 
   .SaveMemoryContainer > .CTA a {
     justify-content: space-between;
-    padding: 0.56vw 1.56vw 0.56vw 3.35vw;
+    padding: 0.56vw 1.79vw 0.56vw 3.35vw;
     gap: 0;
   }
 

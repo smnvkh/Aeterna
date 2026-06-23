@@ -21,16 +21,31 @@
         <div class="UserBioBirthday"><%= l(@profile.birthday, format: "%d %B, %Y") if @profile&.birthday %></div>
     </div>
     <div class="UserActionButtons">
-            <div class="LogoutWrapper">
-                <%= image_tag 'icons/ShareButton.svg', class: 'ShareButton' %>
-                <%= link_to "Выйти", destroy_user_session_path, data: {"turbo_method": :delete }, class: 'LogoutButton' %>
-            </div>
         <% if can? :manage, @profile %>
-        <div>
+        <div class="ProfileActions">
             <%= link_to edit_profile_path, class: 'EditButton' do %>
             Редактировать
             <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
             <% end %>
+
+            <div class="MoreMenu" data-controller="copy">
+                <button type="button" class="MoreButton">
+                    <span class="Dot"></span>
+                    <span class="Dot"></span>
+                    <span class="Dot"></span>
+                </button>
+                <div class="MoreMenuDropdown">
+                    <button type="button" class="MoreMenuItem CopyFamilyCode" data-action="click->copy#copy" data-copy-text="<%= @profile.user.family&.invite_code %>">
+                        Скопировать код семьи
+                        <%= image_tag 'icons/CopyIcon.svg', class: 'CopyIcon' %>
+                    </button>
+                    <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: 'MoreMenuItem LogoutLink' do %>
+                        Выйти
+                        <%= image_tag 'icons/LogoutIcon.svg', class: 'LogoutIcon' %>
+                    <% end %>
+                </div>
+                <div class="CopyToast" data-copy-target="toast">Код семьи скопирован</div>
+            </div>
         </div>
         <% end %>
     </div>
@@ -46,24 +61,88 @@
       Воспоминания <span class="MemoriesCount"><%= @memories.count %></span>
     </label>
     <label for="tab2" class="ProfileSelectionsButton">
-      Подборки <span class="MemoriesCount"><%= Memory.category_counts&.count || 0 %></span>
+      Подборки <span class="MemoriesCount"><%= @collections.count %></span>
     </label>
   </section>
 
   <div class="ContentSection">
     <div id="memories-list" class="tab-panel">
       <div class="ProfileMemories">
-        <% 
-          pattern = ["CardWide", "CardWide", "CardNarrow", "CardNarrow", "CardNarrow", 
-                    "CardNarrow", "CardNarrow", "CardWide", "CardWide", "CardNarrow"]
-          
-          offset = 0 
+        <%
+          row_columns = 12
+          pattern = [3, 3, 2, 2, 2, 2, 2, 3, 3, 2] # 3 = wide, 2 = narrow
+
+          pattern_index = 0
+          row_remaining = row_columns
+          slots = [] # { width: }
+          flexible_in_row = [] # indices of image cards placed in the current row
+
+          next_pattern_width = -> { w = pattern[pattern_index % pattern.length]; pattern_index += 1; w }
+
+          # Fits a card into the current grid row: use the desired width if it fits,
+          # fall back to the alternate width (3<->2, image cards only). If we're
+          # short by exactly 1 column, first try upgrading an earlier narrow image
+          # card in this row to wide (it absorbs the leftover column and this card
+          # starts a fresh row); if none is available, downgrade an earlier wide
+          # image card to narrow instead (frees up room for this card to join the
+          # row). Otherwise start a new row.
+          assign_width = lambda do |desired, allow_alt|
+            chosen = nil
+
+            if desired <= row_remaining
+              chosen = desired
+            else
+              alt = desired == 3 ? 2 : 3
+              if allow_alt && alt <= row_remaining
+                chosen = alt
+              elsif row_remaining == desired - 1
+                upgrade_index = flexible_in_row.reverse.find { |i| slots[i][:width] == 2 }
+                if upgrade_index
+                  slots[upgrade_index][:width] = 3
+                else
+                  downgrade_index = flexible_in_row.reverse.find { |i| slots[i][:width] == 3 }
+                  if downgrade_index
+                    slots[downgrade_index][:width] = 2
+                    row_remaining += 1
+                    chosen = desired
+                  end
+                end
+              end
+            end
+
+            if chosen.nil?
+              flexible_in_row.clear
+              row_remaining = row_columns
+              chosen = desired
+            end
+
+            row_remaining -= chosen
+            slots << { width: chosen }
+            flexible_in_row << (slots.length - 1) if allow_alt
+            chosen
+          end
+
+          can_manage_profile = can?(:manage, @profile)
+
+          if can_manage_profile && @memories.empty?
+            slots << { width: row_columns }
+          elsif can_manage_profile
+            assign_width.call(next_pattern_width.call, true)
+          end
+
+          @memories.each do |memory|
+            desired = next_pattern_width.call
+            desired = 2 unless memory.image.present?
+            assign_width.call(desired, memory.image.present?)
+          end
+
+          memory_widths = slots.last(@memories.size).map { |s| s[:width] }
         %>
 
         <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
 
-        <% if can? :manage, @profile %>
-          <div class="AddMemorySpace MemoryItem <%= @memories.empty? ? 'CardFull' : pattern[0] %>">
+        <% if can_manage_profile %>
+          <div class="AddMemorySpace MemoryItem <%= @memories.empty? ? 'CardFull' : '' %>" style="grid-column: span <%= slots.first[:width] %>;">
             <% if @memories.empty? %>
               <%= image_tag 'profile/EmptyFlower.svg', class: 'EmptyMemoriesDecor' %>
             <% end %>
@@ -72,13 +151,10 @@
                 Добавить <span class="PlusIcon"></span>
             <% end %>
           </div>
-          <% offset = 1 %>
         <% end %>
 
         <% @memories.each_with_index do |memory, index| %>
-          <% card_class = pattern[(index + offset) % pattern.length] %>
-
-          <div class="MemoryItem <%= card_class %>">
+          <div class="MemoryItem" style="grid-column: span <%= memory_widths[index] %>;">
             <div class="CardContent">
               <%= link_to memory_path(memory) do %>
                 <% if memory.image.present? %>
@@ -103,8 +179,50 @@
         <% end %>
       </div>
     </div>
-    <div id="selections-list" class="tab-panel">
-       <!-- Подборки -->
+    <div id="collections-list" class="tab-panel">
+      <div class="ProfileCollections">
+        <% if can_manage_profile %>
+          <%= link_to new_collection_path, class: "AddMemorySpace AddCollectionSpace #{'CardFull' if @collections.empty?}" do %>
+            <% if @collections.empty? %>
+              <%= image_tag 'profile/EmptyFlower.svg', class: 'EmptyMemoriesDecor' %>
+            <% end %>
+            <h3 class="AddMemorySpaceText"><%= @collections.empty? ? 'У вас еще нет подборок' : 'Добавить новую подборку' %></h3>
+            <span class="AddMemoryButton">
+              Добавить <span class="PlusIcon"></span>
+            </span>
+          <% end %>
+        <% end %>
+
+        <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>
+
+        <% @collections.each do |collection| %>
+          <%= link_to collection_path(collection), class: "CollectionCard" do %>
+            <%= image_tag "profile/collections/#{collection.decor_icon}", class: "CollectionCardDecor" %>
+            <div class="CollectionCardImageWrap">
+              <% cover_memory = collection.memories.first %>
+              <% if cover_memory&.image.present? %>
+                <%= image_tag cover_memory.image.preview.url, class: "CollectionCardImg" %>
+              <% else %>
+                <div class="CollectionCardImg CollectionCardImgPlaceholder"></div>
+              <% end %>
+            </div>
+            <div class="CollectionCardFooter">
+              <div class="CollectionCardInfo">
+                <h3 class="CollectionCardTitle"><%= collection.title %></h3>
+                <div class="tags">
+                  <% collection.category_list.each do |tag| %>
+                    <span class="tag">
+                      <span class="tag-circle" style="background-color: <%= tag_colors[tag.sum % tag_colors.length] %>;"></span>
+                      <%= tag %>
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+              <p class="CollectionCardDate"><%= l(collection.date, format: "%-d %B, %Y") if collection.date %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -5,12 +5,14 @@ class ProfileController < ApplicationController
   def my
     @profile = current_user.profile
     @memories = profile_memories(@profile)
+    @collections = profile_collections(@profile)
     render :show
   end
 
   def show
     @profile = Profile.find(params[:id])
     @memories = profile_memories(@profile)
+    @collections = profile_collections(@profile)
   end
 
   def edit
@@ -34,6 +36,11 @@ class ProfileController < ApplicationController
   def profile_memories(profile)
     return Memory.none unless profile&.user&.family_member
     profile.user.family_member.memories.order(date: :desc)
+  end
+
+  def profile_collections(profile)
+    return Collection.none unless profile&.user&.family_member
+    profile.user.family_member.collections.order(date: :desc)
   end
 
   def profile_params

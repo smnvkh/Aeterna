@@ -9,6 +9,7 @@ def seed
   create_users(6)
   create_family_members
   create_memories
+  create_collections
   # create_comments(2..8)
 end
 
@@ -162,6 +163,39 @@ def create_memories
     end
   end
   puts "Created shared memories for family #{@family.name}"
+end
+
+# ------------------ Подборки ------------------
+COLLECTION_TITLES = [
+  "Лучшие моменты лета", "Семейные праздники", "Детство", "Школьные годы",
+  "Наши путешествия", "Истории дедушки", "Смешные истории", "Воспоминания о даче"
+]
+
+def create_collections
+  @family.family_members.find_each do |member|
+    image_memories = member.memories.select { |m| m.image.present? }
+    next if image_memories.empty?
+
+    rand(1..3).times do
+      memory_pool = image_memories.sample(rand(1..[ image_memories.count, 6 ].min))
+      next if memory_pool.empty?
+
+      collection = Collection.new(
+        title: COLLECTION_TITLES.sample,
+        date: memory_pool.map(&:date).compact.min || Date.new(rand(1950..2020), rand(1..12), rand(1..28)),
+        family: @family,
+        family_member: member
+      )
+      collection.memory_ids = memory_pool.map(&:id)
+      collection.save!
+
+      collection.category_list.add(TAG_POOL.sample(rand(1..2)))
+      collection.save!
+
+      puts "Collection '#{collection.title}' created for #{member.name} with #{memory_pool.size} memories"
+    end
+  end
+  puts "Created collections for family #{@family.name}"
 end
 
 # ------------------ Комментарии ------------------

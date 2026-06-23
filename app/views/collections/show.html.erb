@@ -1,0 +1,53 @@
+<% content_for :title, @collection.title %>
+
+<section class="MemoryShow">
+
+  <div class="MemoryHead">
+    <div class="breadcrumbs">
+      <% if @collection.user&.profile %>
+        <%= link_to 'Профиль', profile_path(@collection.user.profile) %>
+      <% end %>
+      <%= truncate(@collection.title, length: 40) %>
+    </div>
+    <h1 class="MemoryTitle"><%= @collection.title %></h1>
+
+    <% if @collection.category_list.any? %>
+      <div class="CollectionShowTags">
+        <% @collection.category_list.each do |tag| %>
+          <span class="tag"><%= tag %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= image_tag 'about/HorizontalDivider.svg', class: 'MemoryDivider' %>
+
+  <div class="CollectionShowBody">
+    <% if @collection.memories.empty? %>
+      <p class="CollectionShowEmpty">В этой подборке пока нет воспоминаний.</p>
+    <% end %>
+
+    <div class="ProfileCollectionMemories">
+      <% @collection.memories.each do |memory| %>
+        <%= link_to memory_path(memory), class: "CollectionCard" do %>
+          <% if memory.image.present? %>
+            <%= image_tag memory.image.preview.url, class: "CollectionCardImg" %>
+          <% else %>
+            <div class="CollectionCardImg CollectionCardImgPlaceholder"></div>
+          <% end %>
+          <div class="CollectionCardInfo">
+            <h3 class="CollectionCardTitle"><%= memory.title %></h3>
+            <p class="CollectionCardDate"><%= l(memory.date, format: "%-d %B, %Y") if memory.date %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if can?(:manage, @collection) %>
+      <div class="EditButtons">
+        <%= link_to "Редактировать", edit_collection_path(@collection), class: "EditButton" %>
+        <%= link_to "Удалить", @collection, data: { turbo_method: :delete, turbo_confirm: "Удалить подборку?" }, class: "EditButton" %>
+      </div>
+    <% end %>
+  </div>
+</section>
