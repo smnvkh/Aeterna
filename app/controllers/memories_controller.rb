@@ -1,6 +1,6 @@
 class MemoriesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_memory, only: %i[ show edit update destroy ]
+  before_action :set_memory, only: %i[ show edit update destroy add_to_collection ]
 
   def show
     @memory = Memory.find(params[:id])
@@ -9,6 +9,13 @@ class MemoriesController < ApplicationController
       else
         @profile = nil  # В случае отсутствия профиля, избегаем ошибки
       end
+    @collections = current_user.family_member ? current_user.family_member.collections.order(created_at: :desc) : Collection.none
+  end
+
+  def add_to_collection
+    collection = current_user.family_member.collections.find(params[:collection_id])
+    collection.memories << @memory unless collection.memories.exists?(@memory.id)
+    redirect_to @memory, notice: "Воспоминание добавлено в подборку «#{collection.title}»."
   end
 
   def timeline

@@ -9,7 +9,7 @@ class Collection < ApplicationRecord
 
   acts_as_taggable_on :categories
 
-  validates :title, :date, presence: true
+  validates :title, presence: true
 
   before_create :assign_decor_icon
 

@@ -16,9 +16,9 @@
 }
 
 .GrannyImg {
-  bottom: 4rem;
+  top: 29rem;
   left: 8rem;
-  width: 15.67rem;
+  width: 19rem;
   height: auto;
 }
 
@@ -36,10 +36,10 @@
 }
 
 .CoverMemories.Home > .whatDoesAeternaDo {
-  width: 14.0625rem;
-  height: 18.375rem;
+  width: clamp(8.5rem, 13.125vw, 12rem);
+  height: clamp(12.5rem, 20vw, 18rem);
   right: clamp(2rem, 4vw, 4rem);
-  top: 25rem;
+  top: clamp(25rem, 5vw, 20rem);
 }
 
 .RecentNotes {

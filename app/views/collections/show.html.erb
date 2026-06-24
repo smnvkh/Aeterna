@@ -1,23 +1,61 @@
 <% content_for :title, @collection.title %>
 
+<%
+  author_profile = @collection.user&.profile
+  author_name    = author_profile&.name || @collection.family_member&.name || "Без имени"
+  name_parts     = author_name.split(' ')
+  avatar_colors  = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2]
+  tag_colors     = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"]
+%>
+
 <section class="MemoryShow">
 
   <div class="MemoryHead">
     <div class="breadcrumbs">
-      <% if @collection.user&.profile %>
-        <%= link_to 'Профиль', profile_path(@collection.user.profile) %>
+      <% if author_profile %>
+        <%= link_to 'Профиль', profile_path(author_profile) %>
+        <%= link_to 'Подборки', profile_path(author_profile) %>
       <% end %>
       <%= truncate(@collection.title, length: 40) %>
     </div>
-    <h1 class="MemoryTitle"><%= @collection.title %></h1>
 
-    <% if @collection.category_list.any? %>
-      <div class="CollectionShowTags">
-        <% @collection.category_list.each do |tag| %>
-          <span class="tag"><%= tag %></span>
+    <% if author_profile %>
+      <%= link_to profile_path(author_profile), class: "AuthorCard" do %>
+        <% if author_profile.avatar.attached? %>
+          <%= image_tag author_profile.avatar, class: "AuthorAvatar" %>
+        <% else %>
+          <% color = avatar_colors[author_name.sum % avatar_colors.length] %>
+          <div class="AuthorAvatar AuthorAvatarPlaceholder" style="background-color: <%= color %>;">
+            <span class="ProfileInitials"><%= name_parts.first(2).map { |w| w[0]&.upcase }.join %></span>
+          </div>
         <% end %>
+        <p class="AuthorInfoName"><%= name_parts.first %><br><%= name_parts[1..].join(' ') %></p>
+      <% end %>
+    <% else %>
+      <div class="AuthorCard">
+        <% color = avatar_colors[author_name.sum % avatar_colors.length] %>
+        <div class="AuthorAvatar AuthorAvatarPlaceholder" style="background-color: <%= color %>;">
+          <span class="ProfileInitials"><%= name_parts.first(2).map { |w| w[0]&.upcase }.join %></span>
+        </div>
+        <p class="AuthorInfoName"><%= name_parts.first %><br><%= name_parts[1..].join(' ') %></p>
       </div>
     <% end %>
+
+    <h1 class="MemoryTitle"><%= @collection.title %></h1>
+
+    <div class="CollectionShowMeta">
+      <p class="AuthorInfoDate"><%= l(@collection.created_at.to_date, format: "%-d %B, %Y") %></p>
+      <% if @collection.category_list.any? %>
+        <div class="tags">
+          <% @collection.category_list.each_with_index do |tag, i| %>
+            <span class="tag">
+              <span class="tag-circle" style="background-color: <%= tag_colors[i % tag_colors.length] %>;"></span>
+              <%= tag %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <%= image_tag 'about/HorizontalDivider.svg', class: 'MemoryDivider' %>
@@ -27,26 +65,62 @@
       <p class="CollectionShowEmpty">В этой подборке пока нет воспоминаний.</p>
     <% end %>
 
-    <div class="ProfileCollectionMemories">
-      <% @collection.memories.each do |memory| %>
-        <%= link_to memory_path(memory), class: "CollectionCard" do %>
-          <% if memory.image.present? %>
-            <%= image_tag memory.image.preview.url, class: "CollectionCardImg" %>
-          <% else %>
-            <div class="CollectionCardImg CollectionCardImgPlaceholder"></div>
+    <% @collection.memories.each_with_index do |memory, index| %>
+      <div class="CollectionMemoryRow">
+        <div class="CollectionMemoryMeta">
+          <% if memory.date %>
+            <p class="AuthorInfoDate"><%= l(memory.date, format: "%-d %B, %Y") %></p>
           <% end %>
-          <div class="CollectionCardInfo">
-            <h3 class="CollectionCardTitle"><%= memory.title %></h3>
-            <p class="CollectionCardDate"><%= l(memory.date, format: "%-d %B, %Y") if memory.date %></p>
+          <% if memory.tags.any? %>
+            <div class="Tags">
+              <% memory.tags.each do |tag| %>
+                <% color = tag_colors[tag.id % tag_colors.length] %>
+                <span class="tag">
+                  <span class="tag-circle" style="background-color: <%= color %>;"></span>
+                  <%= tag.name %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="CollectionMemoryContent">
+          <% if memory.image.present? %>
+            <%= link_to memory_path(memory), class: "CollectionMemoryCover" do %>
+              <%= image_tag memory.image.preview.url, class: "CollectionMemoryCoverImg" %>
+            <% end %>
+          <% end %>
+
+          <h3 class="CollectionMemoryTitle"><%= memory.title %></h3>
+
+          <% if memory.body.present? %>
+            <p class="CollectionMemoryDescription"><%= truncate(memory.body, length: 140, separator: " ") %></p>
+          <% end %>
+
+          <div class="CollectionMemoryCTA">
+            <%= link_to memory_path(memory) do %>
+              Посмотреть
+              <span class="ArrowBox"></span>
+            <% end %>
           </div>
-        <% end %>
-      <% end %>
-    </div>
+        </div>
+
+        <div class="CollectionMemorySpacer"></div>
+      </div>
+
+      <div class="CollectionMemoryDividerRow">
+        <div class="CollectionMemoryMeta"></div>
+        <div class="CollectionMemoryDividerClip">
+          <%= image_tag 'about/HorizontalDivider.svg', class: 'CollectionMemoryDivider' %>
+        </div>
+        <div class="CollectionMemorySpacer"></div>
+      </div>
+    <% end %>
 
     <% if can?(:manage, @collection) %>
       <div class="EditButtons">
         <%= link_to "Редактировать", edit_collection_path(@collection), class: "EditButton" %>
-        <%= link_to "Удалить", @collection, data: { turbo_method: :delete, turbo_confirm: "Удалить подборку?" }, class: "EditButton" %>
+        <%= link_to "Удалить", @collection, data: { turbo_method: :delete, turbo_confirm: "Удалить подборку?" }, class: "EditButton DeleteLink" %>
       </div>
     <% end %>
   </div>

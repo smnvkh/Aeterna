@@ -32,9 +32,9 @@
                 Лента времени
                 <% end %>
 
-                <%#= link_to family_tree_path, class: "PageLink" do %>
-                <%# Семейное древо %>
-                <%# end %>
+                <%= link_to family_tree_path, class: "PageLink" do %>
+                Семейное древо
+                <% end %>
         <% end %>
 
         <% if user_signed_in? %>
@@ -110,6 +110,7 @@
                 <%= link_to "Подписки", admin_subscriptions_path, class: "MobileMenuLink" %>
             <% elsif user_signed_in? %>
                 <%= link_to "Лента времени", timeline_path, class: "MobileMenuLink" %>
+                <%= link_to "Семейное древо", family_tree_path, class: "MobileMenuLink" %>
             <% end %>
 
             <%= link_to "О нас", pages_about_path, class: "MobileMenuLink" %>

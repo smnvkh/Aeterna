@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
   end
 
   def new
-    @collection = Collection.new
+    @collection = Collection.new(memory_ids: [ params[:memory_id] ].compact)
   end
 
   def create
@@ -45,11 +45,11 @@ class CollectionsController < ApplicationController
   end
 
   def set_my_memories
-    memories = current_user.family_member&.memories || Memory.none
+    memories = current_user.family ? current_user.family.memories : Memory.none
     @memories = memories.order(date: :desc)
   end
 
   def collection_params
-    params.require(:collection).permit(:title, :date, category_list: [], memory_ids: [])
+    params.require(:collection).permit(:title, category_list: [], memory_ids: [])
   end
 end

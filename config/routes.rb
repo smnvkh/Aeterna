@@ -36,6 +36,9 @@ Rails.application.routes.draw do
       get "my"
       get "by_tag/:tag", to: "by_tag", as: "by_tag"
     end
+    member do
+      post "add_to_collection"
+    end
   end
 
   # CRUD для подборок воспоминаний

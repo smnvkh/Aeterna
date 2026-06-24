@@ -42,23 +42,38 @@
       <% end %>
 
       <div class="EditButtons">
-        <div class="EditButton">
-          Добавить в подборку
-        </div>
-        <div class="MoreMenu">
-          <button type="button" class="MoreButton">
-            <span class="Dot"></span>
-            <span class="Dot"></span>
-            <span class="Dot"></span>
+        <div class="AddToCollectionMenu">
+          <button type="button" class="EditButton">
+            Добавить в подборку
           </button>
-          <div class="MoreMenuDropdown">
-            <%= link_to edit_memory_path(@memory), class: 'MoreMenuItem' do %>
-              Редактировать
-              <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
+          <div class="AddToCollectionDropdown">
+            <% if @collections.any? %>
+              <div class="AddToCollectionList">
+                <% @collections.each do |collection| %>
+                  <%= link_to collection.title, add_to_collection_memory_path(@memory, collection_id: collection.id), data: { turbo_method: :post }, class: "MoreMenuItem" %>
+                <% end %>
+              </div>
+              <div class="AddToCollectionDivider"></div>
             <% end %>
-            <%= link_to "Удалить", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'MoreMenuItem DeleteLink' %>
+            <%= link_to "Создать новую подборку", new_collection_path(memory_id: @memory.id), class: "MoreMenuItem" %>
           </div>
         </div>
+        <% if @memory.family_member == current_user.family_member %>
+          <div class="MoreMenu">
+            <button type="button" class="MoreButton">
+              <span class="Dot"></span>
+              <span class="Dot"></span>
+              <span class="Dot"></span>
+            </button>
+            <div class="MoreMenuDropdown">
+              <%= link_to edit_memory_path(@memory), class: 'MoreMenuItem' do %>
+                Редактировать
+                <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
+              <% end %>
+              <%= link_to "Удалить", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'MoreMenuItem DeleteLink' %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
 

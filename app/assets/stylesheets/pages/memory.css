@@ -74,26 +74,30 @@
 }
 
 .MemoryTitle {
-  margin: 0;
+  margin: 0 0 0.75rem;
   font-size: 2rem;
   letter-spacing: -0.04rem;
   text-transform: uppercase;
 }
 
+.MemoryHead > .AuthorCard {
+  margin-bottom: 1.5rem;
+}
+
 .MemoryImage {
-  width: 43.25rem;
+  width: 43rem;
   margin: 0 auto;
 }
 
 .MemoryImage img {
   width: 100%;
-  height: 43.25rem;
+  height: 37rem;
   object-fit: cover;
   border-radius: 0.125rem;
 }
 
 .MemoryBodyText {
-  width: 43.25rem;
+  width: 43rem;
   margin: 3rem auto 0;
   letter-spacing: -0.02rem;
 }
@@ -113,7 +117,7 @@
 
 .EditButtons {
   display: flex;
-  width: 43.25rem;
+  width: 43rem;
   gap: 0.5rem;
   justify-content: flex-start;
   margin: 5rem auto 0;
@@ -138,6 +142,61 @@
   height: 0.875rem;
 }
 
+.AddToCollectionMenu {
+  position: relative;
+}
+
+.AddToCollectionMenu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+}
+
+.AddToCollectionMenu > .EditButton {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.AddToCollectionDropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  background: var(--Light-Beige);
+  overflow: hidden;
+  z-index: 10;
+  width: 14rem;
+}
+
+.AddToCollectionMenu:hover .AddToCollectionDropdown {
+  display: flex;
+}
+
+.AddToCollectionList {
+  display: flex;
+  flex-direction: column;
+  max-height: 8.5rem;
+  overflow-y: auto;
+}
+
+.AddToCollectionDivider {
+  height: 1px;
+  flex-shrink: 0;
+  background: rgba(167, 166, 164, 0.4);
+}
+
+.AddToCollectionList > .MoreMenuItem:hover,
+.AddToCollectionDropdown > .MoreMenuItem:hover {
+  background: var(--Beige);
+}
+
 .MoreMenu {
   position: relative;
 }
@@ -156,8 +215,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.1875rem;
-  height: 100%;
-  padding: 0.625rem 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
   border-radius: 0.125rem;
   border: 1px solid rgba(167, 166, 164, 0.4);
   background: var(--Beige);
@@ -165,8 +225,9 @@
 }
 
 .MoreButton .Dot {
-  width: 0.15rem;
-  height: 0.15rem;
+  width: 0.125rem;
+  height: 0.125rem;
+  flex-shrink: 0;
   border-radius: 100%;
   background: var(--Dark-Grey);
 }
@@ -177,13 +238,13 @@
   position: absolute;
   top: 100%;
   right: 0;
+  margin-top: 0.5rem;
   border: 1px solid rgba(167, 166, 164, 0.4);
   border-radius: 0.125rem;
   background: var(--Light-Beige);
   overflow: hidden;
   z-index: 10;
-  margin-top: 0.5rem;
-  width: 14.35rem;
+  width: 14rem;
 }
 
 .MoreMenu:hover .MoreMenuDropdown {
@@ -204,7 +265,7 @@
 }
 
 .MoreMenuItem:hover {
-  background: rgba(167, 166, 164, 0.15);
+  background: var(--Beige);
 }
 
 .MoreMenuItem .EditIcon {
@@ -212,11 +273,15 @@
   height: 0.875rem;
 }
 
-.DeleteLink {
+.DeleteLink,
+.EditButton.DeleteLink,
+a.DeleteLink,
+a.EditButton.DeleteLink {
   color: #e15454;
 }
 
-.DeleteLink:hover {
+.DeleteLink:hover,
+.EditButton.DeleteLink:hover {
   background: rgba(225, 84, 84, 0.1);
 }
 
@@ -264,7 +329,8 @@
   letter-spacing: -0.015rem;
 }
 
-.AuthorInfo > .Tags {
+.AuthorInfo > .Tags,
+.CollectionMemoryMeta > .Tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 0.75rem;

@@ -46,8 +46,8 @@
 }
 
 .CoverMemories > .ImportantMoments2 {
-  width: clamp(5rem, 10.21vw, 9.1875rem);
-  height: clamp(6rem, 12.22vw, 11rem);
+  width: clamp(7rem, 10.21vw, 9.1875rem);
+  height: clamp(8rem, 12.22vw, 11rem);
   top: 17rem;
   left: clamp(4rem, 10vw, 9rem);
   object-fit: cover;

@@ -17,12 +17,6 @@
           class: "MemoryFormInput" %>
   </div>
 
-  <%# ── Дата ── %>
-  <div class="MemoryFormField">
-    <%= f.label :date, "Когда это было?", class: "MemoryFormLabel" %>
-    <%= f.date_field :date, class: "MemoryFormInput" %>
-  </div>
-
   <%# ── Категория ── %>
   <% tag_groups = {
     "Детство"         => { tags: %w[Школа Друзья Игры Хобби],                                          color: "#6795d6" },
