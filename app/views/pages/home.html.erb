@@ -1,4 +1,4 @@
-<section class="Cover">
+<section class="Cover" data-controller="parallax">
     <div class="CoverInner">
         <div class="CoverText">
             <div class="Heading Home">
@@ -13,12 +13,12 @@
             </div>
         </div>
         <div class="CoverMemories Home">
-            <div class="TextMemory" id="TextMemory4">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</div>
-            <%= image_tag 'home/GrannyImg.svg', class: 'GrannyImg'%>
-            <%= image_tag 'home/CrochetImg.svg', class: 'CrochetImg'%>
-            <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
-            <%= image_tag 'home/BirdImg.svg', class: 'BirdImg'%>
-            <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
+            <div class="TextMemory" id="TextMemory4" data-parallax-target="layer" data-parallax-speed="0.32">2020. Папа научился делать видеозвонки — теперь звонит каждое утро</div>
+            <%= image_tag 'home/GrannyImg.svg', class: 'GrannyImg', data: { parallax_target: 'layer', parallax_speed: '0.45' } %>
+            <%= image_tag 'home/CrochetImg.svg', class: 'CrochetImg', data: { parallax_target: 'layer', parallax_speed: '0.6' } %>
+            <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2', data: { parallax_target: 'layer', parallax_speed: '0.4' } %>
+            <%= image_tag 'home/BirdImg.svg', class: 'BirdImg', data: { parallax_target: 'layer', parallax_speed: '-0.4' } %>
+            <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo', data: { parallax_target: 'layer', parallax_speed: '-0.3' } %>
         </div>
     </div>
 </section>
@@ -29,7 +29,8 @@
       <p class="Subtitle">Недавние записи</p>
       <h2>ЧТО ДОБАВИЛИ БЛИЗКИЕ</h2>
       <p class="Description">Загружайте снимки, записывайте истории и делитесь ими с близкими</p>
-      <div class="RecentNotesImages">
+      <div class="RecentNotesImagesWrapper">
+        <div class="RecentNotesImages" id="recentNotesSlider">
         <% @recent_memories.each do |memory| %>
           <%= link_to memory_path(memory), class: 'ImageContainer' do %>
             <% if memory.image.present? %>
@@ -50,6 +51,15 @@
             </div>
           <% end %>
         <% end %>
+        </div>
+      </div>
+      <div class="SliderControls RecentNotesSliderControls">
+        <button class="SliderBtn SliderBtnPrev" id="recentNotesPrev" aria-label="Назад">
+          <%= image_tag 'icons/SliderIcon.svg', class: 'SliderIcon' %>
+        </button>
+        <button class="SliderBtn SliderBtnNext" id="recentNotesNext" aria-label="Вперёд">
+          <%= image_tag 'icons/SliderIcon.svg', class: 'SliderIcon SliderIconFlipped' %>
+        </button>
       </div>
     </div>
   </div>
@@ -103,35 +113,49 @@
         <% end %>
       </div>
     </div>
+    <div class="SliderControls YourFamilyMobileSliderControls">
+      <button class="SliderBtn SliderBtnPrev" id="familyPrevMobile" aria-label="Назад">
+        <%= image_tag 'icons/SliderIcon.svg', class: 'SliderIcon' %>
+      </button>
+      <button class="SliderBtn SliderBtnNext" id="familyNextMobile" aria-label="Вперёд">
+        <%= image_tag 'icons/SliderIcon.svg', class: 'SliderIcon SliderIconFlipped' %>
+      </button>
+    </div>
   </div>
 </section>
 
 <script>
   (function() {
-    const slider = document.getElementById('familySlider');
-    const prev = document.getElementById('familyPrev');
-    const next = document.getElementById('familyNext');
-    if (!slider || !prev || !next) return;
+    function initSlider(sliderId, prevId, nextId, cardSelector) {
+      const slider = document.getElementById(sliderId);
+      const prev = document.getElementById(prevId);
+      const next = document.getElementById(nextId);
+      if (!slider || !prev || !next) return;
 
-    const getStep = () => {
-      const card = slider.querySelector('.FamilyMemberContainer');
-      if (!card) return 340;
-      return card.offsetWidth + 8;
-    };
+      const getStep = () => {
+        const card = slider.querySelector(cardSelector);
+        if (!card) return 340;
+        return card.offsetWidth + 8;
+      };
 
-    prev.addEventListener('click', () => {
-      slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
-    });
-    next.addEventListener('click', () => {
-      slider.scrollBy({ left: getStep(), behavior: 'smooth' });
-    });
+      prev.addEventListener('click', () => {
+        slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
+      });
+      next.addEventListener('click', () => {
+        slider.scrollBy({ left: getStep(), behavior: 'smooth' });
+      });
 
-    const updateBtns = () => {
-      prev.style.opacity = slider.scrollLeft <= 0 ? '0.3' : '1';
-      next.style.opacity = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1 ? '0.3' : '1';
-    };
-    slider.addEventListener('scroll', updateBtns);
-    updateBtns();
+      const updateBtns = () => {
+        prev.style.opacity = slider.scrollLeft <= 0 ? '0.3' : '1';
+        next.style.opacity = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1 ? '0.3' : '1';
+      };
+      slider.addEventListener('scroll', updateBtns);
+      updateBtns();
+    }
+
+    initSlider('familySlider', 'familyPrev', 'familyNext', '.FamilyMemberContainer');
+    initSlider('familySlider', 'familyPrevMobile', 'familyNextMobile', '.FamilyMemberContainer');
+    initSlider('recentNotesSlider', 'recentNotesPrev', 'recentNotesNext', '.ImageContainer');
   })();
 </script>
 
@@ -142,7 +166,7 @@
       <div class="ImportantMomentsMainHeading">
         <div class="ImportantMomentsMainHeadingUpper">
             <p class="Subtitle">Важные моменты</p>
-            <h2>ДОБАВЛЯЙТЕ ВОСПОМИНАНИЯ ПРЯМО С ТЕЛЕФОНА</h2>
+            <h2>ДОБАВЛЯЙТЕ ВОСПОМИНАНИЯ ПРЯМО С ТЕЛЕФОНА</h2>
         </div>
         <%= image_tag 'home/ImportantMomentsImg.webp', class: 'ImportantMomentsImgMobile'%>
         <div class="ImportantMomentsMainHeadingLower">

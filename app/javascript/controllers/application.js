@@ -13,8 +13,11 @@ document.addEventListener('turbo:load', () => {
 
   if (!menu) return
 
+  const cover = document.querySelector('.Cover')
+  const getThreshold = () => (cover ? cover.offsetHeight : 10)
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 10) {
+    if (window.scrollY > getThreshold()) {
       menu.classList.add('scrolled')
     } else {
       menu.classList.remove('scrolled')

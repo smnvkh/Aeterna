@@ -38,7 +38,7 @@ h1 {
 }
 
 h2 {
-  font-size: clamp(2rem, 2.5vw, 2.5rem);
+  font-size: 2.5rem;
   font-weight: 300;
   line-height: 100%;
   letter-spacing: -0.05rem;
@@ -103,7 +103,7 @@ p.Subtitle {
   background: transparent;
   position: fixed;
   z-index: 101;
-  transition: background 0.3s ease;
+  transition: background 0.6s ease;
 }
 
 .S_MenuBar.scrolled {
@@ -279,9 +279,9 @@ p.Subtitle {
 
 .Footer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 23rem;
+  gap: 2rem;
   background-color: var(--Blue-Halftone);
   padding: 1.5rem;
   min-height: 17.44rem;
@@ -293,11 +293,12 @@ p.Subtitle {
 
 #Name {
   display: flex;
-  width: 23.35rem;
+  width: clamp(11rem, 27vw, 23.35rem);
+  flex-shrink: 0;
 }
 
 .NameImage {
-  width: 23.35rem;
+  width: 100%;
   height: auto;
 }
 
@@ -305,13 +306,18 @@ p.Subtitle {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
+}
+
+.LinksAndDate p {
+  white-space: nowrap;
 }
 
 .LinksAndDate p,
 .Tagline {
   color: var(--Grey);
   font-family: 'JetBrains Mono';
-  font-size: 0.875rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.875rem);
   font-weight: 300;
   line-height: 110%;
   margin: 0;
@@ -327,34 +333,37 @@ p.Subtitle {
   gap: 0.75rem;
   font-family: 'JetBrains Mono';
   color: var(--Dark-Grey);
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
   font-weight: 300;
   line-height: 100%;
+  white-space: nowrap;
 }
 
 .FooterContainer {
   display: flex;
-  flex: 1;
-  gap: 5rem;
+  gap: clamp(1.5rem, 4vw, 5rem);
+}
+
+.FooterContainer > .SocialLinks {
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
 .Authors {
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.AuthorsTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  min-width: 0;
 }
 
 .AuthorsNames {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.AuthorsNames p {
+  white-space: nowrap;
 }
 
 .SocialLinks {
@@ -387,7 +396,7 @@ p.Subtitle {
   margin: 0;
   font-family: 'JetBrains Mono';
   color: var(--Dark-Grey);
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
   font-weight: 300;
   line-height: 100%;
 }

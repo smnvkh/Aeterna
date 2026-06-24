@@ -1,4 +1,4 @@
-<section class="Cover">
+<section class="Cover" data-controller="parallax">
     <div class="CoverInner">
         <div class="CoverText">
             <div class="Heading">
@@ -13,15 +13,15 @@
             </div>
         </div>
         <div class="CoverMemories">
-            <div class="TextMemory" id="TextMemory1">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</div>
-            <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2'%>
-            <%= image_tag 'about/ImportantMoments1.webp', class: 'ImportantMoments1'%>
-            <%= image_tag 'about/ImportantMoments3.webp', class: 'ImportantMoments3'%>
-            <div class="TextMemory" id="TextMemory2">Наш кот прожил с нами 19 лет. Мы подобрали его на улице и вылечили — он был верным...</div>
-            <%= image_tag 'about/CoverImg4.webp', class: 'CoverImg4'%>
-            <%= image_tag 'about/CoverImg5.webp', class: 'CoverImg5'%>
-            <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo'%>
-            <div class="TextMemory" id="TextMemory3">Мама смеялась, когда я включал её любимую песню</div>
+            <div class="TextMemory" id="TextMemory1" data-parallax-target="layer" data-parallax-speed="0.25">1998. Пляж, тёплый чай в термосе, и никто не хочет уезжать</div>
+            <%= image_tag 'about/ImportantMoments2.webp', class: 'ImportantMoments2', data: { parallax_target: 'layer', parallax_speed: '0.4' } %>
+            <%= image_tag 'about/ImportantMoments1.webp', class: 'ImportantMoments1', data: { parallax_target: 'layer', parallax_speed: '0.55' } %>
+            <%= image_tag 'about/ImportantMoments3.webp', class: 'ImportantMoments3', data: { parallax_target: 'layer', parallax_speed: '0.32' } %>
+            <div class="TextMemory" id="TextMemory2" data-parallax-target="layer" data-parallax-speed="0.45">Наш кот прожил с нами 19 лет. Мы подобрали его на улице и вылечили — он был верным...</div>
+            <%= image_tag 'about/CoverImg4.webp', class: 'CoverImg4', data: { parallax_target: 'layer', parallax_speed: '-0.45' } %>
+            <%= image_tag 'about/CoverImg5.webp', class: 'CoverImg5', data: { parallax_target: 'layer', parallax_speed: '0.5' } %>
+            <%= image_tag 'about/whatDoesAeternaDo.webp', class: 'whatDoesAeternaDo', data: { parallax_target: 'layer', parallax_speed: '-0.3' } %>
+            <div class="TextMemory" id="TextMemory3" data-parallax-target="layer" data-parallax-speed="0.4">Мама смеялась, когда я включал её любимую песню</div>
         </div>
     </div>
 </section>

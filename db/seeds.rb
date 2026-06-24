@@ -117,6 +117,10 @@ def create_family_members
   # связываем users и family_members
   @family_members.zip(@users).each do |member, user|
     break unless user
+    # User#setup_new_user уже создал заглушку FamilyMember при User.create! —
+    # удаляем её, иначе пользователь окажется на слайдере дважды
+    stub = user.family_member
+    stub.destroy! if stub && stub.id != member.id
     member.update!(user: user)
   end
   puts "Family members created: #{@family_members.count}"

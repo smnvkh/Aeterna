@@ -2,6 +2,7 @@
   background: var(--White);
   overflow: hidden;
   position: relative;
+  height: 100vh;
 }
 
 .ImportantMoments,
@@ -33,53 +34,54 @@
 .CoverMemories > * {
   position: absolute;
   pointer-events: auto;
+  will-change: transform;
 }
 
 .CoverMemories > .ImportantMoments1 {
-  width: 11rem;
-  height: 12rem;
+  width: clamp(6rem, 12.22vw, 11rem);
+  height: clamp(6.5rem, 13.33vw, 12rem);
   top: -1rem;
-  left: 23rem;
+  left: clamp(10rem, 25.56vw, 23rem);
   object-fit: cover;
 }
 
 .CoverMemories > .ImportantMoments2 {
-  width: 9.1875rem;
-  height: 11rem;
+  width: clamp(5rem, 10.21vw, 9.1875rem);
+  height: clamp(6rem, 12.22vw, 11rem);
   top: 17rem;
-  left: 9rem;
+  left: clamp(4rem, 10vw, 9rem);
   object-fit: cover;
 }
 
 .CoverMemories > .ImportantMoments3 {
-  width: 11.8125rem;
-  height: 14.1875rem;
+  width: clamp(6.5rem, 13.125vw, 11.8125rem);
+  height: clamp(7.5rem, 15.76vw, 14.1875rem);
   object-fit: cover;
   top: 33rem;
-  left: 18rem;
+  left: clamp(8rem, 20vw, 18rem);
 }
 
 .CoverMemories > .CoverImg4 {
-  bottom: -8rem;
-  right: 30rem;
-  width: 9.1875rem;
-  height: 11rem;
+  bottom: -5rem;
+  right: clamp(13rem, 33.33vw, 30rem);
+  width: clamp(5rem, 10.21vw, 9.1875rem);
+  height: clamp(6rem, 12.22vw, 11rem);
   object-fit: cover;
 }
 
 .CoverMemories > .CoverImg5 {
   object-fit: cover;
-  width: 6.8125rem;
-  height: 7.625rem;
+  width: clamp(4.5rem, 9.79vw, 8.8125rem);
+  height: clamp(5.5rem, 11.81vw, 10.625rem);
   object-position: top;
   top: 29rem;
-  right: 19rem;
+  right: clamp(8rem, 21.11vw, 19rem);
 }
 
 .CoverMemories > .whatDoesAeternaDo {
   object-fit: cover;
-  width: 11.8125rem;
-  height: 14.25rem;
+  width: clamp(6.5rem, 13.125vw, 11.8125rem);
+  height: clamp(7.5rem, 15.83vw, 14.25rem);
   right: -1rem;
   top: 12rem;
 }
@@ -122,13 +124,16 @@
 
 .Heading > h1 {
   width: clamp(30rem, 40vw, 40rem);
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   margin-left: 42%;
 }
 
 .Heading > p {
-  width: 16.375rem;
+  width: 19rem;
   margin-left: 42%;
+  margin-bottom: 2.5rem;
+  font-family: 'JetBrains Mono';
+  font-size: 1.25rem;
 }
 
 .CTA {
@@ -143,7 +148,7 @@
   background-color: var(--White);
   padding: 0.125rem 0.4rem 0.125rem 0.75rem;
   border-radius: 0.125rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   letter-spacing: -0.0175rem;
   height: 2.125rem;
 }
@@ -185,8 +190,9 @@
 
 .WhatDoesAeternaDo {
   position: relative;
-  height: 49rem;
+  height: 100vh;
   overflow: hidden;
+  background: var(--Blue-Halftone);
 }
 
 .WhatDoesAeternaDo > .PageWrapper {
@@ -213,35 +219,21 @@
 }
 
 .HappyCouple {
-  width: 15.5625rem;
-  height: 13.375rem;
-  transform: rotate(-2.466deg);
+  width: 16rem;
+  height: auto;
   object-fit: cover;
-  object-position: 0 -45px;
-  margin-top: 8rem;
+  margin-top: 6rem;
 }
 
 .HorizontalDivider {
   width: 100%;
   height: auto;
   margin-top: 1rem;
-  padding: 0px 1.5rem;
 }
 
 .RightPart {
   position: relative;
   width: 41.6%;
-  background: var(--Blue-Halftone);
-}
-
-.RightPart::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -100vw;
-  width: 100vw;
-  height: 100%;
-  background: var(--Blue-Halftone);
 }
 
 .RightPart > p {
@@ -251,14 +243,14 @@
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 110%;
-  margin-left: 3.75rem;
-  margin-top: 35.94rem;
+  margin-left: -5rem;
+  margin-top: 42rem;
 }
 
 .Flower {
   position: absolute;
   mix-blend-mode: multiply;
-  right: 7rem;
+  right: 3rem;
   bottom: 1rem;
   height: 71%;
   z-index: 1;
@@ -404,6 +396,7 @@
 .SaveMemoryContainer > .CTA {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 2.5rem;
   margin-left: 0;
 }
@@ -558,9 +551,90 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .Heading:not(.Home) > h1,
+  .Heading:not(.Home) > p,
+  .Cover:has(.Heading:not(.Home)) .CTA {
+    margin-left: 33%;
+  }
+
+  .Headers,
+  .ConvenientTools > .PageWrapper > .Headers {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .Headers > h2,
+  .ConvenientTools > .PageWrapper > .Headers > h2 {
+    width: 100%;
+  }
+
+  .PhotoBlockContainer {
+    position: static;
+    height: auto;
+    margin: 6rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 1.5rem;
+  }
+
+  .PhotoBlock {
+    position: static;
+  }
+
+  .PhotoBlock:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    top: auto;
+  }
+
+  .PhotoBlock:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    right: auto;
+    top: auto;
+  }
+
+  .PhotoBlock:nth-child(3) {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    left: auto;
+    top: auto;
+    justify-content: center;
+  }
+
+  .PhotoBlock:nth-child(1) .PhotoBlockContent {
+    width: 14.0625rem;
+  }
+
+  .PhotoBlock:nth-child(2) .PhotoBlockContent {
+    width: 15.5625rem;
+  }
+
+  .PhotoBlock:nth-child(3) .PhotoBlockContent {
+    width: clamp(25rem, 35vw, 35rem);
+  }
+
+  .PhotoBlockContent > p,
+  .PhotoBlock:nth-child(2) .PhotoBlockContent > p {
+    width: 100%;
+  }
+
+  .SaveMemoryContainer {
+    gap: 3rem;
+  }
+
+  .SaveMemoryContainer > h2 {
+    flex-shrink: 1;
+  }
 }
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
+  .ImportantMoments1,
+  #TextMemory2,
+  .CoverImg4 {
+    display: none;
+  }
+
   .Heading {
     margin: 60vw 0 7.25vw 0;
   }
@@ -579,12 +653,13 @@
 
   .Heading > h1 {
     width: 100%;
-    margin-bottom: 6.65vw;
+    margin-bottom: 5.56vw;
   }
 
   .Heading > p {
     font-size: 3.9vw;
     width: 55vw;
+    margin-bottom: 6.65vw;
   }
 
   .CTA {
@@ -606,7 +681,7 @@
   }
 
   .TextMemory {
-    font-size: 2.6vw;
+    font-size: 2.8vw;
     padding: 2.5vw;
   }
 
@@ -629,7 +704,7 @@
   }
 
   .CoverMemories > .ImportantMoments3 {
-    bottom: 5vw;
+    bottom: 29vw;
     top: auto;
     left: 18vw;
     width: 40vw;
@@ -653,15 +728,15 @@
   .CoverMemories > .CoverImg5 {
     width: 34vw;
     height: 35vw;
-    top: 129vw;
-    right: -2vw;
+    top: 138vw;
+    right: -5vw;
   }
 
   .CoverMemories > .whatDoesAeternaDo {
     height: 47vw;
     width: 37vw;
-    right: -18vw;
-    top: 71vw;
+    right: -23vw;
+    top: 39vw;
   }
 
   #TextMemory3 {
@@ -878,7 +953,7 @@
   .SaveMemoryContainer > .CTA a {
     justify-content: space-between;
     padding: 0.56vw 1.79vw 0.56vw 3.35vw;
-    gap: 0;
+    gap: 6vw;
   }
 
   .ArrowBox::after {

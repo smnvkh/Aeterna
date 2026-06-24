@@ -4,6 +4,10 @@
   top: 25rem;
 }
 
+.Heading.Home > p {
+  width: 21rem;
+}
+
 .BirdImg {
   width: 22.49rem;
   height: auto;
@@ -21,14 +25,14 @@
 .CrochetImg {
   width: 9.09rem;
   height: auto;
-  left: clamp(9rem, 11vw, 11rem);
+  left: clamp(5rem, 11vw, 11rem);
   top: 13rem;
   z-index: 2;
 }
 
 .CoverMemories.Home > .ImportantMoments2 {
   top: 9rem;
-  left: clamp(14rem, 18vw, 18rem);
+  left: clamp(8rem, 18vw, 18rem);
 }
 
 .CoverMemories.Home > .whatDoesAeternaDo {
@@ -79,12 +83,22 @@
   gap: 2.5rem;
 }
 
+.RecentNotesImagesWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
 .RecentNotesImages {
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
   width: 100%;
   margin-top: 2rem;
+}
+
+.RecentNotesSliderControls,
+.RecentNotesSliderControls .SliderBtn {
+  display: none;
 }
 
 .ImageContainer {
@@ -107,15 +121,14 @@
 
 .RecentNoteText {
   width: 100%;
-  min-height: 10rem;
-  flex: 1;
-  background-color: var(--Light-Beige);
+  flex: none;
+  background-color: var(--White);
   padding: 1rem;
-  font-size: 0.875rem;
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
   line-height: 1.4;
   color: var(--Dark-Grey);
-  display: flex;
-  align-items: flex-start;
+  overflow: hidden;
+  min-height: 10rem;
 }
 
 .ImageContainer:nth-child(1) {
@@ -129,6 +142,10 @@
 }
 .ImageContainer:nth-child(4) {
   flex: 1.33;
+}
+
+.ImageContainer:has(.RecentNoteText) {
+  flex: 0.65;
 }
 
 .ImageContainer1 {
@@ -174,6 +191,12 @@
 
 .YourFamily {
   padding: 7.5rem 0 0;
+}
+
+.YourFamilyMobileSliderControls,
+#familyPrevMobile,
+#familyNextMobile {
+  display: none;
 }
 
 .YourFamilyHeader {
@@ -318,7 +341,7 @@
 }
 
 .ImportantMomentsImg {
-  width: 28.6875rem;
+  width: clamp(14rem, 36vw, 28.6875rem);
   height: auto;
   aspect-ratio: 28.6875 / 35.25;
   border-radius: 0.125rem;
@@ -338,7 +361,7 @@
 .ImportantMomentsMainHeadingUpper > h2 {
   margin-bottom: auto;
   width: 35rem;
-  width: clamp(27rem, 35vw, 35rem);
+  width: clamp(14rem, 35vw, 35rem);
 }
 
 .ImportantMomentsMainHeadingLower > .CTA {
@@ -398,6 +421,32 @@
     margin: 78vw 0 7.25vw 0;
   }
 
+  .Heading.Home > p {
+    width: 55vw;
+  }
+
+  .RecentNotes {
+    padding: 20.4vw 0 15.5vw;
+  }
+
+  .RecentNotesHeading,
+  .ImportantMomentsMainHeading {
+    gap: 4.5vw;
+  }
+
+  .RecentNotesHeading > h2 {
+    width: auto;
+  }
+
+  .RecentNotesHeading > h2,
+  .ImportantMomentsMainHeadingUpper > h2 {
+    margin-bottom: 0;
+  }
+
+  .RecentNotesHeading > .Description {
+    width: 100%;
+  }
+
   .ImportantMomentsMain {
     padding: 20.4vw 0 15.5vw;
   }
@@ -415,6 +464,9 @@
     max-width: 767px;
     padding: 0 4.5vw;
     width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 11.1vw;
   }
 
   .ImportantMomentsMainHeading {
@@ -428,10 +480,117 @@
   .RecentNotesHeading > .Description,
   .ImportantMomentsMainHeadingLower > .Description {
     font-size: 5.6vw;
+  }
+
+  .ImportantMomentsMainHeadingLower > .Description {
     width: 80%;
   }
 
   .ImportantMomentsMainHeadingLower {
     gap: 11vw;
+  }
+
+  .RecentNotesImages {
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 2.225vw;
+    margin-top: 6.6vw;
+  }
+
+  .RecentNotesImages::-webkit-scrollbar {
+    display: none;
+  }
+
+  .RecentNotesImages .ImageContainer {
+    scroll-snap-align: start;
+    flex: 0 0 78vw;
+    gap: 2.8vw;
+  }
+
+  .RecentNotesImages .RecentNoteText {
+    flex: none;
+    min-height: auto;
+    height: auto;
+    padding: 4.45vw;
+    font-size: 3.9vw;
+  }
+
+  .RecentNotesImages .tag {
+    font-size: 3.35vw;
+    gap: 1.12vw;
+    margin-right: 3.35vw;
+  }
+
+  .RecentNotesImages .tag-circle {
+    width: 1.67vw;
+    height: 1.67vw;
+  }
+
+  .RecentNotesImages .ImageContainer:nth-child(1),
+  .RecentNotesImages .ImageContainer:nth-child(2),
+  .RecentNotesImages .ImageContainer:nth-child(3),
+  .RecentNotesImages .ImageContainer:nth-child(4) {
+    flex: 0 0 78vw;
+  }
+
+  .RecentNotesSliderControls {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.12vw;
+    margin-top: 6.6vw;
+    padding-top: 0;
+  }
+
+  .RecentNotesSliderControls .SliderBtnPrev,
+  .RecentNotesSliderControls .SliderBtnNext {
+    background: var(--White);
+  }
+
+  .YourFamily {
+    padding: 20.4vw 0 0;
+  }
+
+  .YourFamilyHeader .SliderControls {
+    display: none;
+  }
+
+  .YourFamilyMobileSliderControls {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.12vw;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .FamilyMemberContainer {
+    flex: 0 0 78vw;
+    min-width: auto;
+    padding: 4.45vw;
+    gap: 2.25vw;
+  }
+
+  .FamilyMemberName {
+    font-size: 5.56vw;
+  }
+
+  .FamilyMemberBirthday {
+    font-size: 3.35vw;
+  }
+
+  .FamilyMemberPhoto {
+    margin-top: 4.45vw;
+  }
+
+  .SliderIcon {
+    width: 8.35vw;
+    height: 8.35vw;
+  }
+
+  .ImportantMomentsImgMobile {
+    display: block;
   }
 }

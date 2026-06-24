@@ -87,17 +87,12 @@
   cursor: pointer;
 }
 
-.TimelineFilterDropdown {
-  position: relative;
+.TimelineFilterDropdown:hover .TimelineFilterSelect {
+  border-bottom-color: transparent;
 }
 
-.TimelineFilterDropdown::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 0.5rem;
+.TimelineFilterDropdown {
+  position: relative;
 }
 
 .TimelineFilterSelectLabel {
@@ -113,12 +108,11 @@
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 0.5rem;
   min-width: 14rem;
-  padding: 0.25rem;
   border: 1px solid rgba(167, 166, 164, 0.4);
   border-radius: 0.125rem;
   background: var(--White);
+  overflow: hidden;
   z-index: 20;
 }
 
@@ -130,8 +124,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.625rem 0.5rem;
-  border-radius: 0.125rem;
+  padding: 0.625rem 0.75rem;
   color: var(--Grey);
   font-family: 'JetBrains Mono';
   font-size: 0.875rem;
