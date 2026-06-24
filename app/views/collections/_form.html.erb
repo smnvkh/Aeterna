@@ -24,6 +24,7 @@
     "Взрослая"        => { tags: %w[Работа Достижения Дети Амбиции],                                   color: "#f2de97" },
     "Общие категории" => { tags: %w[Семья Любовь Счастье Радость Ностальгия],                          color: "#6d8e6a" }
   } %>
+  <% selected_categories = collection.category_list.map(&:downcase) %>
   <div class="MemoryFormField">
     <%= f.label :category_list, "Категория", class: "MemoryFormLabel" %>
     <div class="MemoryFormCategories">
@@ -36,7 +37,7 @@
                 <input type="checkbox"
                        name="collection[category_list][]"
                        value="<%= tag %>"
-                       <%= "checked" if collection.category_list.include?(tag) %>>
+                       <%= "checked" if selected_categories.include?(tag.downcase) %>>
                 <span class="tag-circle" style="background-color: <%= data[:color] %>;"></span>
                 <%= tag %>
               </label>
@@ -75,6 +76,6 @@
   </div>
 
   <%# ── Отправить ── %>
-  <%= f.submit "Создать подборку", class: "MemoryFormSubmit" %>
+  <%= f.submit collection.persisted? ? "Сохранить подборку" : "Создать подборку", class: "MemoryFormSubmit" %>
 
 <% end %>

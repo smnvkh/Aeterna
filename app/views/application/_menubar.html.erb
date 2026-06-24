@@ -50,10 +50,16 @@
         <% if user_signed_in? %>
             <%#= link_to current_user.email, edit_user_registration_path %>
             <%#= link_to "Мои воспоминания", my_memories_path %>
-            <%= link_to new_memory_path, class: "AddMemoryButton" do %>
-                Добавить
-                <span class="PlusIcon"></span>
-            <% end %>
+            <div class="AddMemoryMenu">
+                <span class="AddMemoryButton">
+                    Добавить
+                    <span class="PlusIcon"></span>
+                </span>
+                <div class="AddMemoryDropdown">
+                    <%= link_to "Воспоминание", new_memory_path, class: "MoreMenuItem" %>
+                    <%= link_to "Подборку", new_collection_path, class: "MoreMenuItem" %>
+                </div>
+            </div>
 
             <%= link_to my_profile_path, class: "ProfileButton" do %>
                 <% profile = current_user.profile %>

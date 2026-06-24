@@ -39,6 +39,7 @@
     "Взрослая"        => { tags: %w[Работа Достижения Дети Амбиции],                                   color: "#f2de97" },
     "Общие категории" => { tags: %w[Семья Любовь Счастье Радость Ностальгия],                          color: "#6d8e6a" }
   } %>
+  <% selected_tags = memory.tag_list.map(&:downcase) %>
   <div class="MemoryFormField">
     <%= f.label :tag_list, "Категория", class: "MemoryFormLabel" %>
     <div class="MemoryFormCategories">
@@ -51,7 +52,7 @@
                 <input type="checkbox"
                        name="memory[tag_list][]"
                        value="<%= tag %>"
-                       <%= "checked" if memory.tag_list.include?(tag) %>>
+                       <%= "checked" if selected_tags.include?(tag.downcase) %>>
                 <span class="tag-circle" style="background-color: <%= data[:color] %>;"></span>
                 <%= tag %>
               </label>
@@ -70,9 +71,13 @@
             class: "MemoryFormFile",
             accept: "image/*",
             id: "memory_image_input" %>
-      <div class="MemoryFormUploadBody" id="upload-body">
-        <%= image_tag 'icons/Upload.svg', class: 'MemoryFormUploadIcon' %>
-      </div>
+      <% if memory.image.present? %>
+        <div class="MemoryFormUploadBody" id="upload-body" style="background-image: url('<%= memory.image.preview.url %>'); background-size: cover; background-position: center; opacity: 1;"></div>
+      <% else %>
+        <div class="MemoryFormUploadBody" id="upload-body">
+          <%= image_tag 'icons/Upload.svg', class: 'MemoryFormUploadIcon' %>
+        </div>
+      <% end %>
     </label>
   </div>
 
@@ -83,7 +88,7 @@
   </label>
 
   <%# ── Отправить ── %>
-  <%= f.submit "Опубликовать", class: "MemoryFormSubmit" %>
+  <%= f.submit memory.persisted? ? "Сохранить воспоминание" : "Опубликовать", class: "MemoryFormSubmit" %>
 
 <% end %>
 

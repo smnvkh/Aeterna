@@ -679,6 +679,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 0.5rem;
+  z-index: 0;
 }
 
 .CollectionCardInfo {
@@ -811,4 +812,160 @@
 
 .EmptyMemoriesBtn {
   position: relative;
+}
+
+/* Карточки используют grid-column: span 2/3, рассчитанный в Ruby для
+   12-колоночной сетки. Сократив число колонок на более узких десктопных
+   ширинах, те же span-ы дают карточкам пропорционально больше места и
+   вовремя переносят их на новую строку — вместо того чтобы сужать все 12
+   колонок до предела. */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .ProfileMemories {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .ProfileCollections {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* На 1024–1279px колонки специально не сужаем: ширины карточек (span 2/3)
+   рассчитаны в Ruby для 12 колонок, и только при родных 12 колонках ряд
+   гарантированно заполняется целиком при любом наборе данных — любое другое
+   число колонок (6, 9...) может оставить пробел в зависимости от того,
+   сколько и каких воспоминаний у пользователя. */
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .ProfileMemories,
+  .ProfileCollections {
+    grid-template-columns: 1fr;
+  }
+
+  .ProfileMemories .MemoryItem,
+  .ProfileCollections .CollectionCard,
+  .ProfileCollections .AddMemorySpace {
+    grid-column: 1 / -1;
+  }
+
+  .AddMemorySpace {
+    display: none;
+  }
+
+  .UserInfo {
+    flex-wrap: wrap;
+    margin: 33.36vw 4.45vw 0;
+    padding: 4.45vw;
+    gap: 3.35vw 6.7vw;
+  }
+
+  .UserActionButtons {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .ProfileActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .ProfileImage,
+  .UserPhoto > .ProfilePlaceholder {
+    width: 33.36vw;
+    height: 33.36vw;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+
+  .UserBioName {
+    font-size: 5.56vw;
+  }
+
+  .UserBioBirthday {
+    font-size: 3.35vw;
+  }
+
+  .UserBio {
+    gap: 2.25vw;
+  }
+
+  .EditButton {
+    padding: 2.8vw 3.35vw;
+    gap: 2.25vw;
+    width: 100%;
+    font-size: 3.9vw;
+    justify-content: center;
+  }
+
+  .EditIcon {
+    width: 3.9vw;
+    height: 3.9vw;
+  }
+
+  .ProfileMemoriesButton,
+  .ProfileSelectionsButton {
+    font-size: 3.9vw;
+  }
+
+  .ProfileMemories {
+    padding: 6.65vw 4.45vw 41vw;
+    gap: 6.65vw 0;
+  }
+
+  .tag {
+    font-size: 3.35vw;
+    gap: 1.12vw;
+    margin-right: 3.35vw;
+  }
+
+  #tab1:checked ~ .ProfileNavBar .ProfileMemoriesButton,
+  #tab2:checked ~ .ProfileNavBar .ProfileSelectionsButton {
+    padding-bottom: 2.25vw;
+  }
+
+  .MemoryText > p {
+    font-size: 4.45vw;
+  }
+
+  .CollectionCardTitle {
+    font-size: 4.45vw;
+  }
+
+  .CollectionCardInfo {
+    gap: 1.12vw;
+  }
+
+  .CollectionCardFooter {
+    gap: 0;
+  }
+
+  .CollectionCardDate {
+    font-size: 3.35vw;
+    margin-bottom: 0.4vw;
+  }
+
+  .CollectionCard {
+    padding: 2.8vw;
+    gap: 3.35vw;
+  }
+
+  .CollectionCardTextPreview {
+    line-height: 110%;
+    font-size: 5vw;
+    padding: 4.45vw;
+  }
+
+  .CollectionCard {
+    height: 100%;
+  }
+
+  .ProfileNavBar {
+    margin: 13.5vw 4.45vw 0;
+  }
+
+  .ProfileCollections {
+    gap: 6.65vw 0;
+    padding: 6.65vw 4.45vw;
+  }
 }

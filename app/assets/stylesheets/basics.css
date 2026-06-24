@@ -230,6 +230,38 @@ p.Subtitle {
   font-size: 1rem;
 }
 
+.AddMemoryMenu {
+  position: relative;
+}
+
+.AddMemoryMenu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+}
+
+.AddMemoryDropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  border: 1px solid rgba(167, 166, 164, 0.4);
+  border-radius: 0.125rem;
+  background: var(--Light-Beige);
+  overflow: hidden;
+  z-index: 10;
+  width: 10rem;
+}
+
+.AddMemoryMenu:hover .AddMemoryDropdown {
+  display: flex;
+}
+
 .PlusIcon {
   position: relative;
   width: 0.625rem;
@@ -432,6 +464,44 @@ p.Subtitle {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* На этих ширинах текст ссылок ("Лента времени" / "Семейное древо")
+     не помещается в одну строку рядом с логотипом и кнопками — сжимаем
+     шрифт/отступы/логотип, чтобы хедер уместился в одну строку без переноса. */
+  .S_MenuBar {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .S_MenuBar > div {
+    gap: 1.25rem;
+  }
+
+  .Logo,
+  .LogoImage {
+    width: 7rem;
+    height: 1.62rem;
+  }
+
+  .Pages {
+    gap: 0.6rem;
+  }
+
+  .PageLink,
+  .PageLinkPublic {
+    white-space: nowrap;
+  }
+
+  .PageLink::after {
+    margin-left: 0.6rem;
+  }
+
+  .S_MenuBar .AddMemoryButton {
+    padding: 0.5rem 0.6rem;
+    gap: 0.35rem;
+    height: 2rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
 }
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
