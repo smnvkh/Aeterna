@@ -99,18 +99,18 @@ end
 
 # ------------------ Родственники ------------------
 def create_family_members
-  grandmother = FamilyMember.create!(name: "Мария", relation: "бабушка", family: @family)
-  grandfather = FamilyMember.create!(name: "Алексей", relation: "дедушка", family: @family)
+  grandmother = FamilyMember.create!(name: "Мария", relation: "бабушка", gender: "f", family: @family)
+  grandfather = FamilyMember.create!(name: "Алексей", relation: "дедушка", gender: "m", family: @family)
   grandmother.update!(spouse: grandfather)
   grandfather.update!(spouse: grandmother)
 
-  mother = FamilyMember.create!(name: "Анна", relation: "мама", family: @family, mother: grandmother, father: grandfather)
-  father = FamilyMember.create!(name: "Иван", relation: "папа", family: @family)
+  mother = FamilyMember.create!(name: "Анна", relation: "мама", gender: "f", family: @family, mother: grandmother, father: grandfather)
+  father = FamilyMember.create!(name: "Иван", relation: "папа", gender: "m", family: @family)
   father.update!(spouse: mother)
   mother.update!(spouse: father)
 
-  sister = FamilyMember.create!(name: "Ольга", relation: "сестра", family: @family)
-  brother = FamilyMember.create!(name: "Пётр", relation: "брат", family: @family)
+  sister = FamilyMember.create!(name: "Ольга", relation: "сестра", gender: "f", family: @family, mother: mother, father: father)
+  brother = FamilyMember.create!(name: "Пётр", relation: "брат", gender: "m", family: @family, mother: mother, father: father)
 
   @family_members = [ grandmother, grandfather, mother, father, sister, brother ]
 

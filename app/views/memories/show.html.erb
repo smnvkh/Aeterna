@@ -18,7 +18,7 @@
       <% if @profile %>
         <%= link_to 'Профиль', profile_path(@profile) %>
       <% end %>
-      <%= link_to 'Воспоминания', my_memories_path %>
+      <%= link_to 'Воспоминания', profile_path(@profile) %>
       <%= truncate(@memory.title, length: 40) %>
     </div>
     <h1 class="MemoryTitle"><%= @memory.title %></h1>

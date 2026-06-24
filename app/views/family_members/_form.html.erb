@@ -23,17 +23,17 @@
   
     <div>
       <%= f.label :mother_id, "Мать" %><br>
-      <%= f.collection_select :mother_id, FamilyMember.all, :id, :name, include_blank: true %>
+      <%= f.collection_select :mother_id, current_user.family.family_members, :id, :name, include_blank: true %>
     </div>
   
     <div>
       <%= f.label :father_id, "Отец" %><br>
-      <%= f.collection_select :father_id, FamilyMember.all, :id, :name, include_blank: true %>
+      <%= f.collection_select :father_id, current_user.family.family_members, :id, :name, include_blank: true %>
     </div>
   
     <div>
       <%= f.label :spouse_id, "Супруг(а)" %><br>
-      <%= f.collection_select :spouse_id, FamilyMember.all, :id, :name, include_blank: true %>
+      <%= f.collection_select :spouse_id, current_user.family.family_members, :id, :name, include_blank: true %>
     </div>
   
     <div>

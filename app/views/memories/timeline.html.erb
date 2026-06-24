@@ -5,6 +5,8 @@
 <section class="TimelinePage" data-controller="type-filter">
   <div class="TimelineFilters">
     <%= form_with url: timeline_path, method: :get, html: { class: "TimelineFiltersLeft", data: { "type-filter-target": "form" } } do %>
+      <%= hidden_field_tag "family_member_id", @filter_member&.id if @filter_member %>
+
       <div class="TimelineZoom">
         <%= hidden_field_tag "zoom", @zoom, data: { "type-filter-target": "zoom" } %>
 
@@ -66,10 +68,21 @@
       </div>
     <% end %>
     <div class="TimelineFiltersRight">
-      <button type="button" class="TimelineToggleButton TimelineToggleButtonActive">Вся семья</button>
-      <button type="button" class="TimelineToggleButton">Выбрать члена семьи</button>
+      <%= link_to "Вся семья", timeline_path(request.query_parameters.except("family_member_id")), class: "TimelineToggleButton #{'TimelineToggleButtonActive' unless @filter_member}" %>
+      <%= link_to "Выбрать члена семьи", family_tree_path, class: "TimelineToggleButton #{'TimelineToggleButtonActive' if @filter_member}" %>
     </div>
   </div>
+
+  <% if @filter_member %>
+    <div class="TimelineAuthorChipRow">
+      <span class="TimelineAuthorChip">
+        <%= @filter_member.name %>
+        <%= link_to timeline_path(request.query_parameters.except("family_member_id")), class: "TimelineAuthorChipReset", aria: { label: "Сбросить фильтр по автору" } do %>
+          <span class="CrossIcon"></span>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
 
   <% row_columns = MemoriesHelper::ZOOM_LEVELS[@zoom - 1] %>
   <div class="ProfileMemories TimelineMemoriesGrid" data-type-filter-target="grid" style="grid-template-columns: repeat(<%= row_columns %>, 1fr);">

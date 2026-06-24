@@ -1,6 +1,6 @@
 class FamilyMembersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_family_member, only: %i[ show edit update destroy ]
+  before_action :set_family_member, only: %i[ show edit update destroy add_relation ]
 
   # GET /family_members or /family_members.json
   def index
@@ -53,6 +53,27 @@ class FamilyMembersController < ApplicationController
     end
   end
 
+  # POST /family_members/1/add_relation
+  def add_relation
+    existing_member = if params[:existing_member_id].present?
+      current_user.family.family_members.find_by(id: params[:existing_member_id])
+    end
+
+    builder = FamilyRelationBuilder.new(
+      source: @family_member,
+      relation_type: params[:relation_type],
+      name: params[:name],
+      gender: params[:gender].presence,
+      existing_member: existing_member
+    )
+
+    if builder.call
+      redirect_to family_tree_path, notice: "#{builder.member.name} добавлен(а) в дерево."
+    else
+      redirect_to family_tree_path, alert: builder.errors.to_a.to_sentence
+    end
+  end
+
   # DELETE /family_members/1 or /family_members/1.json
   def destroy
     @family_member.destroy!
@@ -66,7 +87,7 @@ class FamilyMembersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_family_member
-      @family_member = FamilyMember.find(params[:id])
+      @family_member = current_user.family.family_members.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

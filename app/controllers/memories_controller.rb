@@ -21,6 +21,12 @@ class MemoriesController < ApplicationController
   def timeline
     @memories = current_user.family ? current_user.family.memories : Memory.none
 
+    @filter_member = nil
+    if params[:family_member_id].present? && current_user.family
+      @filter_member = current_user.family.family_members.find_by(id: params[:family_member_id])
+    end
+    @memories = @memories.where(family_member_id: @filter_member.id) if @filter_member
+
     @selected_type = Memory::TYPES.include?(params[:type]) ? params[:type] : "all"
     @memories = @memories.of_type(@selected_type) unless @selected_type == "all"
 

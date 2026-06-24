@@ -2,7 +2,15 @@ class FamilyTreeController < ApplicationController
   load_and_authorize_resource :family_member, only: [ :index, :show ]
 
   def index
-    @members = current_user.family.family_members
+    @me = current_user.family_member
+    @family = current_user.family
+
+    if @me
+      @tree = FamilyTreeBuilder.new(@me)
+    end
+
+    @relatives_count = @family.family_members.where.not(id: @me&.id).count
+    @memories_count = @family.memories.count
 
     set_meta_tags(
       title: "Семейное древо",

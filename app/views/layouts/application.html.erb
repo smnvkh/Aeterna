@@ -25,8 +25,11 @@
 
   <body>
     <%= render 'menubar' %>
+    <% if notice.present? %>
+      <p class="FlashMessage FlashMessage--notice" data-controller="flash"><%= notice %></p>
+    <% end %>
     <% if alert.present? %>
-      <p style="color: red"><%= alert %></p>
+      <p class="FlashMessage FlashMessage--alert" data-controller="flash"><%= alert %></p>
     <% end %>
 	  <%= yield %>
     <%= render 'footer' %>

@@ -22,7 +22,7 @@ class User < ApplicationRecord
   def setup_new_user
     # Если семья не назначена — создать новую
     unless family
-      new_family = Family.create!(name: "Моя семья")
+      new_family = Family.create!(name: "Семья #{email.split('@').first.capitalize}")
       update_columns(family_id: new_family.id)
       reload
     end

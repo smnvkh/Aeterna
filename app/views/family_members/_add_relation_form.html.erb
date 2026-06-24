@@ -1,0 +1,74 @@
+<%
+  toggle_id = "add-relation-toggle-#{member.id}"
+  relation_options = [
+    [ "mother", "Мама" ],
+    [ "father", "Папа" ],
+    [ "spouse", "Супруг(а)" ],
+    [ "child", "Ребёнок" ],
+    [ "sibling", "Брат/сестра" ]
+  ]
+%>
+
+<input type="checkbox" id="<%= toggle_id %>" class="AddRelationToggle">
+<label for="<%= toggle_id %>" class="AddRelationButton" aria-label="Добавить родственника к <%= member.name %>">+</label>
+
+<div class="AddRelationOverlay">
+  <div class="AddRelationModal">
+    <label for="<%= toggle_id %>" class="EditProfileClose">
+      <span></span>
+      <span></span>
+    </label>
+
+    <h3 class="AddRelationTitle">Добавить родственника — кем он(а) приходится «<%= member.name %>»?</h3>
+
+    <%= form_with url: add_relation_family_member_path(member), method: :post, class: "MemoryForm" do %>
+      <div class="MemoryFormField">
+        <span class="MemoryFormLabel">Кем приходится</span>
+        <div class="MemoryFormTags">
+          <% relation_options.each_with_index do |(value, label), index| %>
+            <label class="tag MemoryFormTag">
+              <input type="radio" name="relation_type" value="<%= value %>" <%= "checked" if index.zero? %> required>
+              <%= label %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="MemoryFormField">
+        <label class="MemoryFormLabel">Это уже существующий человек в семье?</label>
+        <select name="existing_member_id" class="MemoryFormSelect">
+          <option value="">— нет, создать нового —</option>
+          <% current_user.family.family_members.where.not(id: member.id).order(:name).each do |candidate| %>
+            <option value="<%= candidate.id %>"><%= candidate.name %></option>
+          <% end %>
+        </select>
+        <p class="MemoryFormHint">Проверьте имя — выбор существующего человека сразу меняет дерево для всей семьи.</p>
+      </div>
+
+      <div class="AddRelationDivider"></div>
+
+      <p class="MemoryFormLabel">Если выбрали выше существующего человека — поля ниже не нужны:</p>
+
+      <div class="MemoryFormField">
+        <label class="MemoryFormLabel">Имя нового человека</label>
+        <input type="text" name="name" class="MemoryFormInput" placeholder="Имя и фамилия">
+      </div>
+
+      <div class="MemoryFormField">
+        <span class="MemoryFormLabel">Пол</span>
+        <div class="MemoryFormTags">
+          <label class="tag MemoryFormTag">
+            <input type="radio" name="gender" value="f" checked>
+            Женский
+          </label>
+          <label class="tag MemoryFormTag">
+            <input type="radio" name="gender" value="m">
+            Мужской
+          </label>
+        </div>
+      </div>
+
+      <%= submit_tag "Добавить", class: "MemoryFormSubmit" %>
+    <% end %>
+  </div>
+</div>

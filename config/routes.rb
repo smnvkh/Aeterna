@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   # Публичные страницы
   get "pages/home"
@@ -28,7 +28,11 @@ Rails.application.routes.draw do
     end
 
   # CRUD для родственников
-  resources :family_members
+  resources :family_members do
+    member do
+      post "add_relation"
+    end
+  end
 
   # CRUD для воспоминаний
   resources :memories do

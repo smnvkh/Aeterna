@@ -13,6 +13,8 @@ class FamilyMember < ApplicationRecord
 
   validates :name, presence: true
 
+  before_destroy :detach_from_relations
+
   # --- Родственные методы ---
   def parents
     [ mother, father ].compact
@@ -45,5 +47,15 @@ class FamilyMember < ApplicationRecord
 
   def to_s
     "#{relation.to_s.capitalize} #{name}"
+  end
+
+  private
+
+  # При удалении узла не оставляем у других FamilyMember висячие
+  # mother_id/father_id/spouse_id, указывающие на уже удалённую запись.
+  def detach_from_relations
+    FamilyMember.where(mother_id: id).update_all(mother_id: nil)
+    FamilyMember.where(father_id: id).update_all(father_id: nil)
+    FamilyMember.where(spouse_id: id).update_all(spouse_id: nil)
   end
 end

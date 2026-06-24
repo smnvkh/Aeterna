@@ -1,0 +1,63 @@
+<%
+  member = node.member
+  profile = member.user&.profile
+  avatar_colors = %w[#6795d6 #e19593 #f2de97 #6d8e6a #a3b7a1 #ffb4b2]
+  color = avatar_colors[member.name.to_s.sum % avatar_colors.length]
+  initials = member.name.to_s.split.first(2).map { |w| w[0]&.upcase }.join
+  deletable = node.slot != :me && can?(:destroy, member)
+  card_toggle_id = "tree-card-toggle-#{member.id}"
+%>
+
+<div class="TreeNode <%= "TreeNode--#{node.slot}" %> <%= "TreeNode--me" if node.slot == :me %>" data-family-tree-target="node" data-tree-id="<%= member.id %>">
+  <div class="TreeNodeAvatarWrap"
+       <% if deletable %>
+         data-action="pointerdown->family-tree#startPress pointerup->family-tree#cancelPress pointerleave->family-tree#cancelPress click->family-tree#suppressClickIfShaking"
+       <% end %>>
+    <input type="checkbox" id="<%= card_toggle_id %>" class="TreeNodeCardToggle">
+
+    <label for="<%= card_toggle_id %>" class="TreeNodeAvatarClickArea">
+      <% if profile&.avatar&.attached? %>
+        <%= image_tag profile.avatar, class: "TreeNodeAvatar" %>
+      <% else %>
+        <div class="TreeNodeAvatar TreeNodeAvatarPlaceholder" style="background-color: <%= color %>;">
+          <span class="ProfileInitials"><%= initials.presence || "?" %></span>
+        </div>
+      <% end %>
+    </label>
+
+    <% if deletable %>
+      <%
+        affected = member.children.count
+        warning = "Удалить «#{member.name}» из дерева?"
+        warning += " Сам(а) человек не удалится из системы навсегда, но его связи с другими сотрутся — #{affected} #{affected == 1 ? 'человек, связанный' : 'человека, связанных'} с ним(ней) через #{member.gender == 'm' ? 'отца' : 'мать'}, могут пропасть из дерева, если у них нет другого общего родителя." if affected > 0
+      %>
+      <%= link_to "×", family_member_path(member), data: { turbo_method: :delete, turbo_confirm: warning }, class: "TreeNodeDelete", aria: { label: "Удалить #{member.name}" } %>
+    <% end %>
+
+    <label for="<%= card_toggle_id %>" class="TreeNodeCardOverlay"></label>
+
+    <div class="TreeNodeCard">
+      <p class="TreeNodeCardName"><%= member.name %></p>
+      <% if profile&.birthday %>
+        <p class="TreeNodeCardBirthday"><%= l(profile.birthday, format: "%-d %B, %Y") %></p>
+      <% end %>
+
+      <% if profile %>
+        <div class="TreeNodeCardActions">
+          <%= link_to "Посмотреть воспоминания", timeline_path(family_member_id: member.id), class: "TreeNodeCardMemoriesButton" %>
+          <%= link_to profile_path(profile), class: "TreeNodeCardProfileButton", aria: { label: "Профиль #{member.name}" } do %>
+            <%= image_tag "icons/TreeProfileIcon.svg", class: "TreeProfileIcon" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if node.label.present? %>
+    <span class="TreeNodeLabel"><%= node.label %></span>
+  <% end %>
+
+  <% if can? :manage, member %>
+    <%= render "family_members/add_relation_form", member: member %>
+  <% end %>
+</div>

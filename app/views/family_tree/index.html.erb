@@ -1,13 +1,132 @@
-<section>
-  <h1>Семейное древо — список всех членов</h1>
-  
-  <%= link_to 'Создать новую связь', new_family_member_path %>
-  
-  <ul>
-    <% @members.each do |member| %>
-      <li>
-        <%= link_to "#{member.relation} #{member.name}", family_tree_member_path(member) %>
-      </li>
-    <% end %>
-  </ul>
+<section class="FamilyTreePage">
+  <div class="FamilyTreeHeader">
+    <span class="FamilyTreeTag">Семейное древо</span>
+    <div class="FamilyTreeTitleGroup">
+      <h1 class="FamilyTreeTitle"><%= @family.name %></h1>
+      <p class="FamilyTreeStats"><%= @relatives_count %> родственников · <%= @memories_count %> воспоминаний</p>
+    </div>
+  </div>
+
+  <% if @tree.nil? %>
+    <p class="FamilyTreeEmpty">
+      Вы пока не привязаны ни к одному узлу семейного древа.
+    </p>
+  <% else %>
+    <div class="FamilyTreeCanvasWrapper" data-controller="family-tree">
+      <div class="FamilyTreeZoomControls">
+        <button type="button" class="FamilyTreeZoomButton" data-action="family-tree#zoomIn">
+          <span class="PlusIcon"></span>
+        </button>
+
+        <div class="FamilyTreeZoomTrack" data-family-tree-target="zoomTrack" data-action="pointerdown->family-tree#startTrackDrag">
+          <% 7.times do %>
+            <span class="FamilyTreeZoomTick" data-family-tree-target="zoomTick"></span>
+          <% end %>
+        </div>
+
+        <button type="button" class="FamilyTreeZoomButton" data-action="family-tree#zoomOut">
+          <span class="MinusIcon"></span>
+        </button>
+      </div>
+
+      <div class="FamilyTreeCanvas" data-family-tree-target="canvas" data-edges="<%= @tree.edges.to_json %>">
+        <svg class="FamilyTreeLines" data-family-tree-target="svg"></svg>
+
+        <div class="FamilyTreeRow FamilyTreeRow--great-grandparents">
+          <div class="FamilyTreeHalf FamilyTreeHalf--left">
+            <div class="FamilyTreeGroup">
+              <% @tree.nodes.select { |n| n.slot == :father_great_grandparent }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+          </div>
+          <div class="FamilyTreeCenter FamilyTreeCenter--gap"></div>
+          <div class="FamilyTreeHalf FamilyTreeHalf--right">
+            <div class="FamilyTreeGroup">
+              <% @tree.nodes.select { |n| n.slot == :mother_great_grandparent }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="FamilyTreeRow FamilyTreeRow--grandparents">
+          <div class="FamilyTreeHalf FamilyTreeHalf--left">
+            <div class="FamilyTreeGroup">
+              <% @tree.nodes.select { |n| n.slot == :fathers_parent }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+          </div>
+          <div class="FamilyTreeCenter FamilyTreeCenter--gap"></div>
+          <div class="FamilyTreeHalf FamilyTreeHalf--right">
+            <div class="FamilyTreeGroup">
+              <% @tree.nodes.select { |n| n.slot == :mothers_parent }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+            <div class="FamilyTreeGroup FamilyTreeSpouseGroup">
+              <% @tree.nodes.select { |n| n.slot == :spouses_parent }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="FamilyTreeRow FamilyTreeRow--parents">
+          <div class="FamilyTreeHalf FamilyTreeHalf--left">
+            <% @tree.nodes.select { |n| n.slot == :father_sibling }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+            <% @tree.nodes.select { |n| n.slot == :father }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+          </div>
+          <div class="FamilyTreeCenter FamilyTreeCenter--gap"></div>
+          <div class="FamilyTreeHalf FamilyTreeHalf--right">
+            <% @tree.nodes.select { |n| n.slot == :mother }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+            <% @tree.nodes.select { |n| n.slot == :mother_sibling }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+            <div class="FamilyTreeSpouseGroup">
+              <% @tree.nodes.select { |n| n.slot == :spouse }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="FamilyTreeRow FamilyTreeRow--me">
+          <div class="FamilyTreeHalf FamilyTreeHalf--left">
+            <% @tree.nodes.select { |n| n.slot == :cousin }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+            <% @tree.nodes.select { |n| n.slot == :sibling }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+          </div>
+          <div class="FamilyTreeCenter">
+            <% @tree.nodes.select { |n| n.slot == :me }.each do |node| %>
+              <%= render "family_tree/node", node: node %>
+            <% end %>
+          </div>
+          <div class="FamilyTreeHalf FamilyTreeHalf--right"></div>
+        </div>
+
+        <div class="FamilyTreeRow FamilyTreeRow--children">
+          <div class="FamilyTreeHalf FamilyTreeHalf--left"></div>
+          <div class="FamilyTreeCenter">
+            <div class="FamilyTreeGroup">
+              <% @tree.nodes.select { |n| n.slot == :child }.each do |node| %>
+                <%= render "family_tree/node", node: node %>
+              <% end %>
+            </div>
+          </div>
+          <div class="FamilyTreeHalf FamilyTreeHalf--right"></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </section>
