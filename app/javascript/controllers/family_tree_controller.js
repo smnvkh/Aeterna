@@ -1,16 +1,21 @@
 import { Controller } from '@hotwired/stimulus'
 
+// Зум — через CSS-переменную --tree-zoom
 const MIN_ZOOM = 0.6
 const MAX_ZOOM = 1.6
 const STEP = 0.15
 const LONG_PRESS_MS = 500
 const TRANSITION_MS = 250
+const MOBILE_DEFAULT_ZOOM = 1.39
+const MOBILE_QUERY = '(max-width: 767px)'
 
 export default class extends Controller {
   static targets = ['canvas', 'svg', 'zoomTrack', 'zoomTick']
 
   connect() {
-    this.zoom = 1
+    this.zoom = window.matchMedia(MOBILE_QUERY).matches
+      ? MOBILE_DEFAULT_ZOOM
+      : 1
     this.updateZoomVar()
     this.updateTicks()
 
@@ -21,6 +26,36 @@ export default class extends Controller {
     document.addEventListener('pointerdown', this.onDocumentPointerDown)
 
     requestAnimationFrame(() => this.draw())
+    this.centerOnMe()
+  }
+
+  // На мобильном у .FamilyTreeCanvasWrapper фиксированная высота — внутри
+  // неё центрируем "это вы" через её собственный scrollTop/scrollLeft.
+  // Страница при этом никуда не скроллится — двигается только содержимое
+  // внутри уже видимой коробки с древом.
+  centerOnMe() {
+    if (!window.matchMedia(MOBILE_QUERY).matches) return
+
+    requestAnimationFrame(() => {
+      const meNode = this.element.querySelector('.TreeNode--me')
+      if (!meNode) return
+
+      const wrapperRect = this.element.getBoundingClientRect()
+      const nodeRect = meNode.getBoundingClientRect()
+      const nodeCenterX =
+        nodeRect.left +
+        nodeRect.width / 2 -
+        wrapperRect.left +
+        this.element.scrollLeft
+      const nodeCenterY =
+        nodeRect.top +
+        nodeRect.height / 2 -
+        wrapperRect.top +
+        this.element.scrollTop
+
+      this.element.scrollLeft = nodeCenterX - wrapperRect.width / 2
+      this.element.scrollTop = nodeCenterY - wrapperRect.height / 2
+    })
   }
 
   disconnect() {
@@ -53,6 +88,35 @@ export default class extends Controller {
 
     document.addEventListener('pointermove', this.onTrackDrag)
     document.addEventListener('pointerup', this.onTrackDragEnd)
+  }
+
+  // --- Pinch-зум двумя пальцами на мобильных
+  onTouchStart(event) {
+    if (event.touches.length !== 2) return
+
+    this.pinchStartDistance = this.touchDistance(event.touches)
+    this.pinchStartZoom = this.zoom
+  }
+
+  onTouchMove(event) {
+    if (event.touches.length !== 2 || !this.pinchStartDistance) return
+
+    event.preventDefault()
+    const distance = this.touchDistance(event.touches)
+    const scale = distance / this.pinchStartDistance
+    this.setZoom(this.pinchStartZoom * scale)
+  }
+
+  onTouchEnd(event) {
+    if (event.touches.length < 2) {
+      this.pinchStartDistance = null
+    }
+  }
+
+  touchDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX
+    const dy = touches[0].clientY - touches[1].clientY
+    return Math.hypot(dx, dy)
   }
 
   setZoomFromTrackEvent(event) {

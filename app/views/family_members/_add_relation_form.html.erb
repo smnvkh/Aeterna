@@ -19,7 +19,7 @@
       <span></span>
     </label>
 
-    <h3 class="AddRelationTitle">Добавить родственника — кем он(а) приходится «<%= member.name %>»?</h3>
+    <h3 class="AddRelationTitle">Добавить родственника для «<%= member.name %>»</h3>
 
     <%= form_with url: add_relation_family_member_path(member), method: :post, class: "MemoryForm" do %>
       <div class="MemoryFormField">
@@ -35,46 +35,47 @@
       </div>
 
       <div class="MemoryFormField">
-        <label class="MemoryFormLabel">Это уже существующий человек в семье?</label>
+        <label class="MemoryFormLabel">Выберите члена семьи</label>
         <select name="existing_member_id" class="MemoryFormSelect">
-          <option value="">— нет, создать нового —</option>
+          <option value="" selected disabled>Выбрать члена семьи</option>
           <% current_user.family.family_members.where.not(id: member.id).order(:name).each do |candidate| %>
             <option value="<%= candidate.id %>"><%= candidate.name %></option>
           <% end %>
         </select>
-        <p class="MemoryFormHint">Проверьте имя — выбор существующего человека сразу меняет дерево для всей семьи.</p>
+        <p class="MemoryFormHint">Проверьте имя — выбор человека, уже зарегистрированного в Aeterna, сразу меняет дерево для всей семьи.</p>
       </div>
 
-      <div class="AddRelationDivider"></div>
+      <label class="AddRelationCreateNewToggle">
+        <input type="checkbox" name="create_new_person" value="1" class="AddRelationCreateNewCheck">
+        Создать нового
+      </label>
 
-      <p class="MemoryFormLabel">Если выбрали выше существующего человека — поля ниже не нужны:</p>
+      <div class="AddRelationNewPersonFields">
+        <div class="MemoryFormField">
+          <label class="MemoryFormLabel">Имя нового человека</label>
+          <input type="text" name="name" class="MemoryFormInput" placeholder="Имя и фамилия">
+        </div>
 
-      <div class="MemoryFormField">
-        <label class="MemoryFormLabel">Имя нового человека</label>
-        <input type="text" name="name" class="MemoryFormInput" placeholder="Имя и фамилия">
-      </div>
+        <div class="MemoryFormField">
+          <span class="MemoryFormLabel">Годы жизни</span>
+          <div class="AddRelationLifeYears">
+            <input type="date" name="birth_date" class="MemoryFormInput" placeholder="Дата рождения">
+            <input type="date" name="death_date" class="MemoryFormInput" placeholder="Дата смерти (если есть)">
+          </div>
+        </div>
 
-      <div class="MemoryFormField">
-        <label class="MemoryFormLabel">Дата рождения (необязательно)</label>
-        <input type="date" name="birth_date" class="MemoryFormInput">
-      </div>
-
-      <div class="MemoryFormField">
-        <label class="MemoryFormLabel">Дата смерти (необязательно)</label>
-        <input type="date" name="death_date" class="MemoryFormInput">
-      </div>
-
-      <div class="MemoryFormField">
-        <span class="MemoryFormLabel">Пол</span>
-        <div class="MemoryFormTags">
-          <label class="tag MemoryFormTag">
-            <input type="radio" name="gender" value="f" checked>
-            Женский
-          </label>
-          <label class="tag MemoryFormTag">
-            <input type="radio" name="gender" value="m">
-            Мужской
-          </label>
+        <div class="MemoryFormField">
+          <span class="MemoryFormLabel">Пол</span>
+          <div class="MemoryFormTags">
+            <label class="tag MemoryFormTag">
+              <input type="radio" name="gender" value="f" checked>
+              Женский
+            </label>
+            <label class="tag MemoryFormTag">
+              <input type="radio" name="gender" value="m">
+              Мужской
+            </label>
+          </div>
         </div>
       </div>
 

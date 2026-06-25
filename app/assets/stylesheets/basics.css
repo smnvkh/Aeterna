@@ -520,7 +520,7 @@ p.Subtitle {
 
   .S_MenuBar {
     font-size: 4.5vw;
-    padding: 1rem;
+    padding: 4.5vw;
   }
 
   .S_MenuBar > div:nth-child(1),
@@ -538,7 +538,7 @@ p.Subtitle {
   .MobileTopBar .Logo {
     display: flex;
     width: auto;
-    height: clamp(2.5rem, 7vw, 3rem);
+    height: 11.12vw;
   }
 
   .MobileTopBar .LogoImage {
@@ -551,9 +551,9 @@ p.Subtitle {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
-    width: clamp(2.5rem, 7vw, 3rem);
-    height: clamp(2.5rem, 7vw, 3rem);
+    gap: 1.12vw;
+    width: 11.12vw;
+    height: 11.12vw;
     flex-shrink: 0;
     border: 1px solid rgba(167, 166, 164, 0.4);
     border-radius: 0.125rem;
@@ -563,7 +563,7 @@ p.Subtitle {
 
   .BurgerButton span {
     display: block;
-    width: 1rem;
+    width: 4.45vw;
     height: 1px;
     background: var(--Dark-Grey);
   }
@@ -573,26 +573,28 @@ p.Subtitle {
     position: fixed;
     inset: 0;
     background: var(--White);
-    padding: 1rem;
     z-index: 200;
     overflow-y: auto;
+    padding: 4.45vw;
   }
 
   .MobileMenuToggle:checked ~ .MobileMenuOverlay {
     display: flex !important;
+    gap: 0;
   }
 
   .MobileMenuHead {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-width: 50vw;
     width: 100%;
   }
 
   .MobileMenuHead .Logo {
     display: flex;
     width: auto;
-    height: clamp(2.5rem, 7vw, 3rem);
+    height: 11.12vw;
   }
 
   .MobileMenuHead .LogoImage {
@@ -605,8 +607,8 @@ p.Subtitle {
     align-items: center;
     justify-content: center;
     position: relative;
-    width: clamp(2.5rem, 7vw, 3rem);
-    height: clamp(2.5rem, 7vw, 3rem);
+    width: 11.12vw;
+    height: 11.12vw;
     flex-shrink: 0;
     border-radius: 0.125rem;
     border: 1px solid rgba(167, 166, 164, 0.4);
@@ -618,7 +620,7 @@ p.Subtitle {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 1rem;
+    width: 4.45vw;
     height: 1px;
     background: var(--Dark-Grey);
     transform: translate(-50%, -50%) rotate(45deg);
@@ -633,7 +635,7 @@ p.Subtitle {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 13vw;
+    margin-top: 33.36vw;
   }
 
   .MobileMenuLink {
@@ -688,7 +690,7 @@ p.Subtitle {
     border: 1px solid rgba(167, 166, 164, 0.4);
     border-top: none;
     background: var(--Light-Beige);
-    font-size: 4vw;
+    font-size: 4.45vw;
     color: var(--Dark-Grey);
   }
 
@@ -825,5 +827,9 @@ p.Subtitle {
 
   .LinksAndDate p {
     color: var(--Dark-Grey);
+  }
+
+  .S_MenuBar .AddMemoryButton {
+    font-size: 4.45vw;
   }
 }

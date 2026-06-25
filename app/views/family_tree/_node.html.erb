@@ -39,6 +39,11 @@
     <label for="<%= card_toggle_id %>" class="TreeNodeCardOverlay"></label>
 
     <div class="TreeNodeCard">
+      <label for="<%= card_toggle_id %>" class="TreeNodeCardClose" aria-label="Закрыть">
+        <span></span>
+        <span></span>
+      </label>
+
       <p class="TreeNodeCardName"><%= member.name %></p>
       <% if birth_date || death_date %>
         <p class="TreeNodeCardBirthday">
@@ -58,13 +63,13 @@
         </div>
       <% end %>
     </div>
+
+    <% if can? :manage, member %>
+      <%= render "family_members/add_relation_form", member: member %>
+    <% end %>
   </div>
 
   <% if node.label.present? %>
     <span class="TreeNodeLabel"><%= node.label %></span>
-  <% end %>
-
-  <% if can? :manage, member %>
-    <%= render "family_members/add_relation_form", member: member %>
   <% end %>
 </div>

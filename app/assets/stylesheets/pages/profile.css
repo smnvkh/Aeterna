@@ -131,7 +131,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0.875rem;
+  width: 1rem;
   height: 1px;
   background: var(--Dark-Grey);
   transform: translate(-50%, -50%) rotate(45deg);
@@ -436,10 +436,13 @@
   border: 1px solid rgba(167, 166, 164, 0.4);
   padding: 10.7212rem 1rem;
   position: relative;
+  z-index: 0;
   overflow: hidden;
 }
 
 .AddMemorySpaceText {
+  position: relative;
+  z-index: 1;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 400;
@@ -447,6 +450,8 @@
 }
 
 .AddMemorySpace > .AddMemoryButton {
+  position: relative;
+  z-index: 1;
   background: var(--Light-Beige);
 }
 
@@ -801,6 +806,7 @@
 
 .EmptyMemoriesDecor {
   position: absolute;
+  z-index: -1;
   left: 6rem;
   top: 50%;
   transform: translateY(-50%);
@@ -829,6 +835,11 @@
   .ProfileCollections {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .EmptyMemoriesDecor {
+    left: 2.5rem;
+    width: 11rem;
+  }
 }
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
@@ -843,7 +854,11 @@
     grid-column: 1 / -1;
   }
 
-  .AddMemorySpace {
+  .ProfileMemories .MemoryItem:has(.MemoryImg) {
+    height: 119vw;
+  }
+
+  .AddMemorySpace:not(.CardFull) {
     display: none;
   }
 
@@ -963,5 +978,27 @@
   .ProfileCollections {
     gap: 6.65vw 0;
     padding: 6.65vw 4.45vw;
+  }
+
+  .AddMemorySpaceText {
+    font-size: 6.65vw;
+  }
+
+  .AddMemorySpace {
+    gap: 4.45vw;
+  }
+
+  .AddMemoryButton {
+    gap: 2.25vw;
+    height: 9.45vw;
+    padding: 2.8vw 3.35vw;
+    font-size: 3.9vw;
+  }
+
+  .EmptyMemoriesDecor {
+    width: 50vw;
+    height: auto;
+    left: 35.61vw;
+    top: 75%;
   }
 }

@@ -12,7 +12,8 @@
       Вы пока не привязаны ни к одному узлу семейного древа.
     </p>
   <% else %>
-    <div class="FamilyTreeCanvasWrapper" data-controller="family-tree">
+    <div class="FamilyTreeCanvasWrapper" data-controller="family-tree"
+         data-action="touchstart->family-tree#onTouchStart touchmove->family-tree#onTouchMove touchend->family-tree#onTouchEnd touchcancel->family-tree#onTouchEnd">
       <div class="FamilyTreeZoomControls">
         <button type="button" class="FamilyTreeZoomButton" data-action="family-tree#zoomIn">
           <span class="PlusIcon"></span>
