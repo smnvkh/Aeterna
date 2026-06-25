@@ -614,6 +614,13 @@
   color: inherit;
 }
 
+.AddMemorySpace.CardFull,
+.AddCollectionSpace.CardFull {
+  height: 26.84rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
 .CollectionCard {
   position: relative;
   display: flex;
@@ -733,13 +740,13 @@
 .MemoryText {
   padding: 1rem;
   border-radius: 0.125rem 0.125rem 0 0;
-  background: #f2efe8;
+  background: var(--Light-Beige);
 }
 
 .MemoryItem .tags {
   padding: 0.5rem;
   border-radius: 0 0 0.125rem 0.125rem;
-  background: #f2efe8;
+  background: var(--Light-Beige);
 }
 
 .tag {
@@ -748,7 +755,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
   text-transform: capitalize;
 }
 
@@ -814,11 +821,6 @@
   position: relative;
 }
 
-/* Карточки используют grid-column: span 2/3, рассчитанный в Ruby для
-   12-колоночной сетки. Сократив число колонок на более узких десктопных
-   ширинах, те же span-ы дают карточкам пропорционально больше места и
-   вовремя переносят их на новую строку — вместо того чтобы сужать все 12
-   колонок до предела. */
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .ProfileMemories {
     grid-template-columns: repeat(6, 1fr);
@@ -828,12 +830,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* На 1024–1279px колонки специально не сужаем: ширины карточек (span 2/3)
-   рассчитаны в Ruby для 12 колонок, и только при родных 12 колонках ряд
-   гарантированно заполняется целиком при любом наборе данных — любое другое
-   число колонок (6, 9...) может оставить пробел в зависимости от того,
-   сколько и каких воспоминаний у пользователя. */
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
   .ProfileMemories,

@@ -156,6 +156,10 @@
 .CoverText > .CTA a {
   background-color: var(--Light-Beige);
 }
+
+.CoverText > .CTA a:hover {
+  background-color: var(--Beige);
+}
 .EmailForm > .CTA {
   margin-bottom: 0;
 }

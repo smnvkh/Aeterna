@@ -6,9 +6,11 @@
   initials = member.name.to_s.split.first(2).map { |w| w[0]&.upcase }.join
   deletable = node.slot != :me && can?(:destroy, member)
   card_toggle_id = "tree-card-toggle-#{member.id}"
+  birth_date = member.birth_date || profile&.birthday
+  death_date = member.death_date
 %>
 
-<div class="TreeNode <%= "TreeNode--#{node.slot}" %> <%= "TreeNode--me" if node.slot == :me %>" data-family-tree-target="node" data-tree-id="<%= member.id %>">
+<div class="TreeNode <%= "TreeNode--#{node.slot}" %> <%= "TreeNode--me" if node.slot == :me %> <%= "TreeNode--deceased" if death_date %>" data-family-tree-target="node" data-tree-id="<%= member.id %>">
   <div class="TreeNodeAvatarWrap"
        <% if deletable %>
          data-action="pointerdown->family-tree#startPress pointerup->family-tree#cancelPress pointerleave->family-tree#cancelPress click->family-tree#suppressClickIfShaking"
@@ -38,8 +40,13 @@
 
     <div class="TreeNodeCard">
       <p class="TreeNodeCardName"><%= member.name %></p>
-      <% if profile&.birthday %>
-        <p class="TreeNodeCardBirthday"><%= l(profile.birthday, format: "%-d %B, %Y") %></p>
+      <% if birth_date || death_date %>
+        <p class="TreeNodeCardBirthday">
+          <%= birth_date ? l(birth_date, format: "%-d %B, %Y") : "?" %>
+          <% if death_date %>
+            — <%= l(death_date, format: "%-d %B, %Y") %>
+          <% end %>
+        </p>
       <% end %>
 
       <% if profile %>

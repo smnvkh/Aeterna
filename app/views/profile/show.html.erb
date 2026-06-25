@@ -149,6 +149,11 @@
                 Добавить <span class="PlusIcon"></span>
             <% end %>
           </div>
+        <% elsif @memories.empty? %>
+          <div class="AddMemorySpace MemoryItem CardFull" style="grid-column: span <%= MemoriesHelper::ROW_COLUMNS %>;">
+            <%= image_tag 'profile/EmptyFlower.svg', class: 'EmptyMemoriesDecor' %>
+            <h3 class="AddMemorySpaceText">У этого члена семьи еще нет воспоминаний</h3>
+          </div>
         <% end %>
 
         <% @memories.each_with_index do |memory, index| %>
@@ -168,6 +173,11 @@
               Добавить <span class="PlusIcon"></span>
             </span>
           <% end %>
+        <% elsif @collections.empty? %>
+          <div class="AddMemorySpace AddCollectionSpace CardFull">
+            <%= image_tag 'profile/EmptyFlower.svg', class: 'EmptyMemoriesDecor' %>
+            <h3 class="AddMemorySpaceText">У этого члена семьи еще нет подборок</h3>
+          </div>
         <% end %>
 
         <% tag_colors = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"] %>

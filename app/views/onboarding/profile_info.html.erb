@@ -29,7 +29,7 @@
         У меня есть код семьи
       </label>
 
-      <div class="field" id="familyCodeField" style="display: none;">
+      <div class="field" id="familyCodeField">
         <%= label_tag :family_code, "Код семьи" %>
         <%= text_field_tag :family_code, nil, placeholder: "XXXXXX", maxlength: 6,
                            style: "text-transform: uppercase; letter-spacing: 0.15rem;" %>
@@ -46,11 +46,3 @@
     История семьи — это не даты. Это запахи, голоса, привычки
   </div>
 </section>
-
-<script>
-  const checkbox = document.getElementById('hasCodeCheckbox');
-  const codeField = document.getElementById('familyCodeField');
-  checkbox.addEventListener('change', function() {
-    codeField.style.display = this.checked ? 'flex' : 'none';
-  });
-</script>

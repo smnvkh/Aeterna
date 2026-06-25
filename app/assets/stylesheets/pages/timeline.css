@@ -313,3 +313,110 @@
   background: var(--Beige);
   color: var(--Dark-Grey);
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .TimelineMemoriesGrid {
+    grid-template-columns: repeat(6, 1fr) !important;
+  }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .TimelineZoom {
+    display: none;
+  }
+
+  .TimelineFilters {
+    flex-wrap: wrap;
+    gap: 4.45vw;
+  }
+
+  .TimelineFiltersLeft {
+    gap: 8.25vw;
+  }
+
+  .TimelineFiltersRight {
+    width: 100%;
+    gap: 2.25vw;
+  }
+
+  .TimelineToggleButton {
+    justify-content: center;
+    padding: 2.8vw;
+    font-size: 3.9vw;
+  }
+
+  .TimelineFilterSelect {
+    gap: 2.25vw;
+    padding-bottom: 2.8vw;
+    font-size: 3.9vw;
+  }
+
+  .TimelineToggleButton:nth-child(1) {
+    width: 50%;
+  }
+  .TimelineToggleButton:nth-child(2) {
+    width: 100%;
+  }
+
+  .TimelineMemoriesGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .TimelineMemoriesGrid .MemoryItem {
+    grid-column: 1 / -1 !important;
+  }
+
+  .TimelinePage {
+    padding-top: 33.36vw;
+  }
+
+  .TimelineFilters {
+    gap: 6.65vw;
+    padding: 0 4.45vw;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .TimelineFilters > form > div:nth-child(3) > div {
+    right: 0;
+    left: auto;
+  }
+
+  .TimelineFilterSelectLabel {
+    max-width: fit-content;
+  }
+
+  .ChevronIcon {
+    width: 1.7vw;
+    height: 1.7vw;
+  }
+
+  .TimelineFilterMenu {
+    min-width: 49vw;
+  }
+
+  .TimelineFilterOption {
+    gap: 2.25vw;
+    padding: 2.8vw 3.35vw;
+    font-size: 3.9vw;
+    align-items: center;
+  }
+
+  .TimelineFilterRadio {
+    width: 5.56vw;
+    height: 5.56vw;
+  }
+
+  .MemoryText {
+    padding: 4.45vw 6.65vw 3.35vw;
+  }
+
+  .MemoryItem .tags {
+    padding: 2.25vw;
+  }
+
+  .tag-circle {
+    width: 1.68vw;
+    height: 1.68vw;
+  }
+}

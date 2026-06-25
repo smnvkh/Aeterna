@@ -2,7 +2,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 12rem 1.5rem 5rem;
+  padding: 12rem 1.5rem 7.5rem;
 }
 
 .NewMemoryContainer {
@@ -10,11 +10,12 @@
   max-width: 28.625rem;
 }
 
-.NewMemoryTitle h3 {
+h3.NewMemoryTitle {
   font-weight: 400;
   line-height: 110%;
   margin-bottom: 2.5rem;
   font-size: 1.75rem;
+  margin-top: 0;
 }
 
 .MemoryForm {
@@ -43,12 +44,12 @@
 .MemoryFormField {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .MemoryFormLabel {
   font-family: 'Neue Montreal';
-  font-size: 0.75rem;
+  font-size: 1rem;
   line-height: 100%;
   letter-spacing: -0.015rem;
 }
@@ -76,7 +77,7 @@
   background: var(--White);
   color: var(--Dark-Grey);
   font-family: 'PP Neue Montreal';
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
@@ -112,7 +113,7 @@
   background: var(--White);
   padding: 0.75rem 1rem;
   font-family: 'Neue Montreal';
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: var(--Dark-Grey);
   border-radius: 0.125rem;
   transition: border-color 0.15s;
@@ -138,19 +139,19 @@
   border-radius: 0.125rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 1.125rem 1rem;
 }
 
 .MemoryFormCatGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .MemoryFormCatHeading {
   font-family: 'Neue Montreal';
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: var(--Light-Grey);
 }
 
@@ -241,7 +242,7 @@
 }
 
 .MemoryForm3d {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   font-family: 'Neue Montreal';
@@ -290,12 +291,12 @@
 .CollectionMemoryPicker {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
   max-height: 22rem;
   overflow-y: auto;
   border: 1px solid rgba(167, 166, 164, 0.4);
   border-radius: 0.125rem;
-  padding: 0.75rem;
+  padding: 1.12rem 1rem;
 }
 
 .CollectionMemoryPickerEmpty {
@@ -308,15 +309,29 @@
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-  padding: 0.5rem;
   border-radius: 0.125rem;
+  padding-right: 0.25rem;
 }
 
 .CollectionMemoryOption:hover {
   background: var(--Light-Beige);
 }
 
-.CollectionMemoryOption input[type='checkbox'] {
+/* Выбранные воспоминания подсвечены так же, как при ховере. */
+.CollectionMemoryOption:has(.CollectionMemoryOptionCheckbox:checked) {
+  background: var(--Light-Beige);
+}
+
+.CollectionMemoryOptionThumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+}
+
+.CollectionMemoryOptionCheckbox {
+  display: none;
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
@@ -324,8 +339,8 @@
 }
 
 .CollectionMemoryOptionImg {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   object-fit: cover;
   border-radius: 0.125rem;
   flex-shrink: 0;
@@ -338,7 +353,7 @@
   font-family: 'JetBrains Mono';
   font-size: 0.5rem;
   font-weight: 400;
-  line-height: 120%;
+  line-height: 105%;
   color: var(--Dark-Grey);
 }
 
@@ -355,4 +370,112 @@
 .CollectionMemoryOptionDate {
   font-size: 0.75rem;
   color: var(--Grey);
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .NewMemory {
+    padding: 33.36vw 4.45vw 16.68vw;
+  }
+
+  h3.NewMemoryTitle {
+    margin-bottom: 11.12vw;
+    font-size: 7.8vw;
+  }
+
+  .MemoryFormLabel {
+    font-size: 4.45vw;
+  }
+
+  .MemoryFormField {
+    gap: 2.25vw;
+  }
+
+  .MemoryFormInput,
+  .MemoryFormTextarea,
+  .MemoryFormSelect {
+    height: auto;
+    padding: 5vw 4.45vw;
+    gap: 0;
+    font-size: 4.45vw;
+  }
+
+  .MemoryFormInput[type='date'] {
+    padding: 5vw 4.45vw;
+    font-size: 4.45vw;
+  }
+
+  .MemoryFormTextarea {
+    min-height: 33.36vw;
+  }
+
+  .MemoryFormCategories {
+    padding: 5vw 4.45vw;
+  }
+
+  .MemoryForm {
+    gap: 6.65vw;
+  }
+
+  .MemoryFormCatHeading {
+    font-size: 4.45vw;
+  }
+
+  .MemoryFormCatGroup {
+    gap: 2.25vw;
+  }
+
+  .MemoryFormCategories {
+    gap: 3.35vw;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+    row-gap: 1.12vw;
+  }
+
+  .MemoryFormSubmit {
+    font-size: 4.45vw;
+    padding: 2.8vw 3.35vw;
+  }
+
+  .NewMemoryContainer {
+    max-width: fit-content;
+  }
+
+  .MemoryFormUpload {
+    height: 56vw;
+  }
+
+  .CollectionMemoryPicker {
+    gap: 2.25vw;
+    max-height: 69.5vw;
+    padding: 5vw 4.45vw;
+  }
+
+  .CollectionMemoryOption {
+    padding: 0;
+    gap: 2.25vw;
+  }
+
+  .CollectionMemoryOptionImgPlaceholder {
+    padding: 1.12vw;
+    font-size: 2.25vw;
+  }
+
+  .CollectionMemoryOptionImg {
+    width: 18vw;
+    height: 18vw;
+  }
+
+  .CollectionMemoryOptionInfo {
+    gap: 1.12vw;
+  }
+
+  .CollectionMemoryOptionTitle {
+    font-size: 3.9vw;
+  }
+
+  .CollectionMemoryOptionDate {
+    font-size: 3.35vw;
+  }
 }

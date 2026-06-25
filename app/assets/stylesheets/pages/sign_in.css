@@ -180,6 +180,14 @@ h3.SignInTitle {
   border-color: var(--Light-Blue);
 }
 
+#familyCodeField {
+  display: none;
+}
+
+.SignInForm:has(#hasCodeCheckbox:checked) #familyCodeField {
+  display: flex;
+}
+
 .OnboardingAlert {
   color: var(--Pink);
   font-family: 'Neue Montreal';

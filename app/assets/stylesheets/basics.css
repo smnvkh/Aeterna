@@ -94,7 +94,6 @@ p.Subtitle {
 .S_MenuBar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 1.5rem;
   width: 100%;
   font-size: 1.25rem;
@@ -104,6 +103,7 @@ p.Subtitle {
   position: fixed;
   z-index: 101;
   transition: background 0.6s ease;
+  align-items: end;
 }
 
 .FlashMessage {
@@ -200,6 +200,12 @@ p.Subtitle {
   width: 1px;
   height: 0.875rem;
   background-color: var(--Light-Grey);
+}
+
+.PageLink:hover,
+.PageLinkPublic:hover,
+.Footer a:hover {
+  color: var(--Grey);
 }
 
 .SignInButton,
@@ -464,9 +470,6 @@ p.Subtitle {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  /* На этих ширинах текст ссылок ("Лента времени" / "Семейное древо")
-     не помещается в одну строку рядом с логотипом и кнопками — сжимаем
-     шрифт/отступы/логотип, чтобы хедер уместился в одну строку без переноса. */
   .S_MenuBar {
     padding: 1rem;
     font-size: 0.95rem;
@@ -480,6 +483,7 @@ p.Subtitle {
   .LogoImage {
     width: 7rem;
     height: 1.62rem;
+    align-self: end;
   }
 
   .Pages {
@@ -501,6 +505,11 @@ p.Subtitle {
     height: 2rem;
     font-size: 0.85rem;
     white-space: nowrap;
+  }
+
+  .ProfileImageButton {
+    width: 2rem;
+    height: 2rem;
   }
 }
 
@@ -707,11 +716,11 @@ p.Subtitle {
   }
 
   .PlusIcon::after {
-    width: 0.27vw;
+    width: 0.31vw;
   }
 
   .PlusIcon::before {
-    height: 0.27vw;
+    height: 0.31vw;
   }
 
   .ProfileImageButton {

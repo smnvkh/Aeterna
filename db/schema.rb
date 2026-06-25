@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_23_073357) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_25_051219) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -81,7 +81,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_073357) do
   end
 
   create_table "family_members", force: :cascade do |t|
+    t.date "birth_date"
     t.datetime "created_at", null: false
+    t.date "death_date"
     t.integer "family_id", null: false
     t.integer "father_id"
     t.string "gender"

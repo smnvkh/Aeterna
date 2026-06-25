@@ -121,8 +121,6 @@
   overflow: auto;
 }
 
-/* Зум-плашка: позиция как была (вертикальный столбик слева сверху),
-   визуал среднего трека — как у .TimelineZoom, но вертикальный. */
 .FamilyTreeZoomControls {
   position: absolute;
   left: 1.5rem;
@@ -200,11 +198,6 @@
   overflow: visible;
 }
 
-/* Каждый ряд состоит из левой половины (папина линия), фиксированного
-   центра (ровно по оси "это вы") и правой половины (мамина линия).
-   Левая/правая половины flex:1 — какой бы ширины ни было их содержимое,
-   их граница (= середина центра) всегда ровно посередине канваса, поэтому
-   ось "я — мама/папа — бабушки/дедушки" не сдвигается от количества родни. */
 .FamilyTreeRow {
   display: flex;
   align-items: flex-start;
@@ -272,9 +265,6 @@
   cursor: pointer;
 }
 
-/* Невидимый полноэкранный слой — клик в любом другом месте страницы
-   закрывает карточку (тот же чекбокс-паттерн, что у AddRelationOverlay,
-   но без затемнения фона). */
 .TreeNodeCardOverlay {
   display: none;
   position: fixed;
@@ -389,8 +379,7 @@
   border: 3px solid var(--Beige);
 }
 
-.FamilyTreeRow--grandparents .TreeNodeAvatar,
-.FamilyTreeRow--great-grandparents .TreeNodeAvatar {
+.TreeNode--deceased .TreeNodeAvatar {
   filter: grayscale(1);
 }
 

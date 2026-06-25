@@ -64,7 +64,9 @@ class FamilyMembersController < ApplicationController
       relation_type: params[:relation_type],
       name: params[:name],
       gender: params[:gender].presence,
-      existing_member: existing_member
+      existing_member: existing_member,
+      birth_date: params[:birth_date].presence,
+      death_date: params[:death_date].presence
     )
 
     if builder.call
@@ -97,7 +99,9 @@ class FamilyMembersController < ApplicationController
         :gender,
         :mother_id,
         :father_id,
-        :spouse_id
+        :spouse_id,
+        :birth_date,
+        :death_date
       )
     end
 end

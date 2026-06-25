@@ -14,7 +14,13 @@ document.addEventListener('turbo:load', () => {
   if (!menu) return
 
   const cover = document.querySelector('.Cover')
-  const getThreshold = () => (cover ? cover.offsetHeight : 10)
+
+  if (!cover) {
+    menu.classList.add('scrolled')
+    return
+  }
+
+  const getThreshold = () => cover.offsetHeight
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > getThreshold()) {

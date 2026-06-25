@@ -1,13 +1,12 @@
 # Создаёт нового FamilyMember (или связывает уже существующего, если он
 # передан) и проставляет mother_id/father_id/spouse_id исходя из того,
-# кем человек приходится уже существующему узлу (source), а не наоборот —
-# пользователь думает "кем он мне приходится", а не "что записать в mother_id".
+# кем человек приходится уже существующему узлу (source), а не наоборот.
 class FamilyRelationBuilder
   include ActiveModel::Model
 
   RELATION_TYPES = %w[mother father spouse child sibling].freeze
 
-  attr_accessor :source, :relation_type, :name, :gender, :existing_member
+  attr_accessor :source, :relation_type, :name, :gender, :existing_member, :birth_date, :death_date
   attr_reader :member
 
   validates :source, presence: true
@@ -104,7 +103,7 @@ class FamilyRelationBuilder
   end
 
   def build_member
-    existing_member || FamilyMember.create!(name: name, gender: gender, family: source.family)
+    existing_member || FamilyMember.create!(name: name, gender: gender, family: source.family, birth_date: birth_date, death_date: death_date)
   end
 
   def add_parent(role)

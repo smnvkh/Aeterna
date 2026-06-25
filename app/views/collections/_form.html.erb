@@ -57,15 +57,18 @@
       <% end %>
       <% @memories.each do |memory| %>
         <label class="CollectionMemoryOption">
-          <input type="checkbox"
-                 name="collection[memory_ids][]"
-                 value="<%= memory.id %>"
-                 <%= "checked" if collection.memory_ids.include?(memory.id) %>>
-          <% if memory.image.present? %>
-            <%= image_tag memory.image.preview.url, class: "CollectionMemoryOptionImg" %>
-          <% else %>
-            <div class="CollectionMemoryOptionImg CollectionMemoryOptionImgPlaceholder"><%= memory.body %></div>
-          <% end %>
+          <span class="CollectionMemoryOptionThumb">
+            <% if memory.image.present? %>
+              <%= image_tag memory.image.preview.url, class: "CollectionMemoryOptionImg" %>
+            <% else %>
+              <div class="CollectionMemoryOptionImg CollectionMemoryOptionImgPlaceholder"><%= memory.body %></div>
+            <% end %>
+            <input type="checkbox"
+                   class="CollectionMemoryOptionCheckbox"
+                   name="collection[memory_ids][]"
+                   value="<%= memory.id %>"
+                   <%= "checked" if collection.memory_ids.include?(memory.id) %>>
+          </span>
           <span class="CollectionMemoryOptionInfo">
             <span class="CollectionMemoryOptionTitle"><%= memory.title %></span>
             <span class="CollectionMemoryOptionDate"><%= l(memory.date, format: "%-d %B, %Y") if memory.date %></span>
@@ -76,6 +79,6 @@
   </div>
 
   <%# ── Отправить ── %>
-  <%= f.submit collection.persisted? ? "Сохранить подборку" : "Создать подборку", class: "MemoryFormSubmit" %>
+  <%= f.submit collection.persisted? ? "Сохранить подборку" : "Опубликовать", class: "MemoryFormSubmit" %>
 
 <% end %>
