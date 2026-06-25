@@ -103,7 +103,7 @@ h3.SignInTitle {
 }
 
 .field input::placeholder {
-  color: var(--Grey);
+  color: var(--Light-Grey);
 }
 
 .field input:focus {
@@ -134,7 +134,7 @@ h3.SignInTitle {
 .SignInRegister {
   font-family: 'Neue Montreal';
   font-size: 0.875rem;
-  color: var(--System-Grey);
+  color: var(--Grey);
   text-align: center;
   margin-top: 1rem;
 }
@@ -263,6 +263,10 @@ h3.SignInTitle {
   box-sizing: border-box;
 }
 
+.field input[type='date']::placeholder {
+  color: var(--Light-Grey);
+}
+
 .FamilyCodeCard {
   width: 100%;
   background: var(--Light-Beige);
@@ -287,4 +291,112 @@ h3.SignInTitle {
   font-size: 1.25rem;
   letter-spacing: 0.25rem;
   color: var(--Dark-Grey);
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1123px) {
+  .SignIn .SignInDecor,
+  .SignIn .TextMemory {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .SignIn .SignInDecor,
+  .SignIn .TextMemory {
+    display: none;
+  }
+
+  .SignIn {
+    min-height: 100vh;
+    width: 100%;
+    padding: 4.45vw;
+  }
+
+  .SignInWrap {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  h3.SignInTitle {
+    font-size: 7.775vw;
+    margin-bottom: 6.65vw;
+  }
+
+  .field label {
+    font-size: 4.45vw;
+  }
+
+  .field {
+    gap: 2.25vw;
+  }
+
+  .field input {
+    padding: 5vw 4.45vw;
+    font-size: 4.45vw;
+  }
+
+  .actions > input,
+  .SubmitBtn {
+    margin-top: 0;
+    padding: 2.8vw 3.35vw;
+    font-size: 4.45vw;
+  }
+
+  .SignInRegister {
+    font-size: 3.9vw;
+    margin-top: 4.45vw;
+  }
+
+  .field input[type='date'] {
+    padding: 5vw 4.45vw;
+    font-size: 4.45vw;
+  }
+
+  .OnboardingCheckbox input[type='checkbox'] {
+    width: 4.45vw;
+    height: 4.45vw;
+  }
+
+  .OnboardingCheckbox {
+    gap: 2.25vw;
+    font-size: 3.9vw;
+  }
+
+  .AvatarUploadArea {
+    height: 83.4vw;
+    padding: 4.45vw;
+    gap: 2.25vw;
+  }
+
+  .SignInForm {
+    gap: 6.65vw;
+  }
+
+  .AvatarUploadIcon {
+    width: 11.12vw;
+    height: 11.12vw;
+  }
+
+  .OnboardingWelcomeText {
+    font-size: 5.56vw;
+    margin-bottom: 20vw;
+  }
+
+  .FamilyCodeCard {
+    padding: 4.45vw;
+    gap: 2.25vw;
+  }
+
+  .FamilyCodeHint {
+    font-size: 3.35vw;
+  }
+
+  .FamilyCodeValue {
+    font-size: 5.56vw;
+    letter-spacing: 1.12vw;
+  }
+
+  .actions {
+    margin-top: 6.65vw;
+  }
 }

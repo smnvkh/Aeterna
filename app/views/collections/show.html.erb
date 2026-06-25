@@ -8,15 +8,14 @@
   tag_colors     = ["#6795d6", "#e19593", "#f2de97", "#6d8e6a"]
 %>
 
-<section class="MemoryShow">
+<section class="MemoryShow Collection">
 
   <div class="MemoryHead">
     <div class="breadcrumbs">
-      <% if author_profile %>
-        <%= link_to 'Профиль', profile_path(author_profile) %>
-        <%= link_to 'Подборки', profile_path(author_profile) %>
+      <% origin_breadcrumb.each do |crumb| %>
+        <%= link_to crumb[:label], crumb[:path] %>
       <% end %>
-      <%= truncate(@collection.title, length: 40) %>
+      <%= truncate_clean(@collection.title, length: 40) %>
     </div>
 
     <% if author_profile %>
@@ -94,8 +93,25 @@
           <h3 class="CollectionMemoryTitle"><%= memory.title %></h3>
 
           <% if memory.body.present? %>
-            <p class="CollectionMemoryDescription"><%= truncate(memory.body, length: 140, separator: " ") %></p>
+            <p class="CollectionMemoryDescription"><%= truncate_clean(memory.body, length: 140) %></p>
           <% end %>
+
+          <div class="CollectionMemoryMetaMobile">
+              <% if memory.date %>
+                <p class="AuthorInfoDate"><%= l(memory.date, format: "%-d %B, %Y") %></p>
+              <% end %>
+              <% if memory.tags.any? %>
+                <div class="Tags">
+                  <% memory.tags.each do |tag| %>
+                    <% color = tag_colors[tag.id % tag_colors.length] %>
+                    <span class="tag">
+                      <span class="tag-circle" style="background-color: <%= color %>;"></span>
+                      <%= tag.name %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
 
           <div class="CollectionMemoryCTA">
             <%= link_to memory_path(memory) do %>

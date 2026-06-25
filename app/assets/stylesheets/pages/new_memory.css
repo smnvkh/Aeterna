@@ -483,4 +483,49 @@ h3.NewMemoryTitle {
   .CollectionMemoryOptionDate {
     font-size: 3.35vw;
   }
+
+  .MemoryFormSelect {
+    background-position: right 4.45vw center;
+  }
+
+  .MemoryFormHint {
+    font-size: 3.35vw;
+  }
+
+  .AddRelationCreateNewToggle {
+    gap: 2.25vw;
+    font-size: 4.45vw;
+  }
+
+  .AddRelationCreateNewCheck {
+    width: 4.45vw;
+    height: 4.45vw;
+  }
+
+  .AddRelationNewPersonFields {
+    gap: 6.65vw;
+  }
+
+  .AddRelationLifeYears {
+    gap: 3.35vw;
+  }
+
+  .MemoryFormTags {
+    gap: 0.56vw 0;
+  }
+  .MemoryFormSubmit {
+    font-size: 4.45vw;
+    padding: 0;
+    margin-top: 4.45vw;
+    height: 10vw;
+  }
+
+  .tag.MemoryFormTag > input {
+    width: 3.62vw;
+    height: 3.62vw;
+    margin: 0;
+  }
+  .tag.MemoryFormTag {
+    align-items: center;
+  }
 }

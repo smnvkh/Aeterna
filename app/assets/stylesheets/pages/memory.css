@@ -336,3 +336,177 @@ a.EditButton.DeleteLink {
   gap: 0.25rem 0.75rem;
   margin-top: 1rem;
 }
+
+.CollectionMemoryMetaMobile {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .MemoryHead {
+    max-width: 80%;
+  }
+
+  .MemoryBody {
+    gap: 1.5rem;
+  }
+
+  .MemoryMainPart {
+    max-width: 28rem;
+  }
+
+  .MemoryImage,
+  .MemoryBodyText {
+    width: 100%;
+  }
+
+  .MemoryImage img {
+    height: 24rem;
+  }
+
+  .AuthorInfo,
+  .AuthorInfoSpacer {
+    width: 8rem;
+  }
+
+  .MemoryBodyText p {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .MemoryShow {
+    padding-top: 33.36vw;
+    padding-bottom: 16.8vw;
+  }
+
+  .MemoryHead {
+    max-width: 100%;
+    margin: 0 4.45vw 8.9vw;
+  }
+
+  .breadcrumbs {
+    gap: 2.25vw;
+    margin-bottom: 6.65vw;
+    font-size: 3.35vw;
+  }
+
+  .MemoryTitle {
+    margin: 0;
+    font-size: 5.56vw;
+  }
+
+  .MemoryDivider {
+    width: calc(100% - 8.9vw);
+    height: 0.5vw;
+    margin-bottom: 8.9vw;
+    object-fit: cover;
+    object-position: left;
+  }
+
+  .MemoryBody {
+    gap: 8.9vw;
+    padding: 0 4.45vw;
+    flex-direction: column;
+  }
+
+  .MemoryMainPart {
+    max-width: 100%;
+  }
+
+  .MemoryImage {
+    width: 100%;
+  }
+
+  .MemoryImage img {
+    width: 100%;
+    height: 75vw;
+  }
+
+  .MemoryBodyText {
+    width: 100%;
+    margin: 6.65vw auto 0;
+  }
+
+  .MemoryBodyText p {
+    font-size: 5vw;
+    line-height: 125%;
+  }
+
+  .EditButtons {
+    width: 61.4vw;
+    gap: 2.25vw;
+    margin: 16.7vw 0 0;
+  }
+
+  .AddToCollectionMenu > .EditButton {
+    padding: 2.8vw 3.35vw;
+    width: max-content;
+  }
+
+  .AddToCollectionDropdown,
+  .MoreMenu:hover .MoreMenuDropdown {
+    margin-top: 2.25vw;
+    width: 63vw;
+  }
+
+  .AddToCollectionList {
+    max-height: 37.81vw;
+  }
+
+  .MoreMenuItem {
+    gap: 2.25vw;
+    padding: 2.8vw 3.35vw;
+    font-size: 3.9vw;
+  }
+
+  .AddToCollectionMenu::after,
+  .MoreMenu::after {
+    height: 2.25vw;
+  }
+
+  .MoreMenuItem .EditIcon {
+    width: 3.9vw;
+    height: 3.9vw;
+  }
+
+  .AuthorInfo {
+    position: static;
+    top: unset;
+    width: 60%;
+  }
+
+  .AuthorCard {
+    gap: 2.25vw;
+  }
+
+  .AuthorAvatar {
+    width: 11.12vw;
+    height: 11.12vw;
+  }
+
+  .AuthorInfoName {
+    font-size: 3.9vw;
+  }
+
+  .AuthorInfoDate {
+    margin-top: 6.65vw;
+    margin-bottom: 3.35vw;
+    font-size: 3.35vw;
+  }
+
+  .AuthorInfo > .Tags,
+  .CollectionMemoryMeta > .Tags {
+    gap: 1.12vw 3.35vw;
+    margin-top: 3.35vw;
+  }
+
+  .AuthorInfoSpacer {
+    display: none;
+  }
+
+  .MoreMenuItem {
+    gap: 2.25vw;
+    padding: 2.8vw 3.35vw;
+    font-size: 3.9vw;
+  }
+}

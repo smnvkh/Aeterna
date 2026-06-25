@@ -359,11 +359,16 @@
   }
 
   .TimelineMemoriesGrid {
-    grid-template-columns: 1fr !important;
+    display: flex;
+    flex-direction: column;
   }
 
   .TimelineMemoriesGrid .MemoryItem {
-    grid-column: 1 / -1 !important;
+    width: 100%;
+  }
+
+  .TimelineMemoriesGrid .MemoryItem:not(:last-child) {
+    margin-bottom: 6.65vw;
   }
 
   .TimelinePage {
@@ -418,5 +423,34 @@
   .tag-circle {
     width: 1.68vw;
     height: 1.68vw;
+  }
+
+  .TimelineAuthorChipRow {
+    padding: 0 4.45vw;
+    margin-top: 4.45vw;
+    margin-bottom: 6.65vw;
+  }
+
+  .TimelineAuthorChip {
+    padding: 1.68vw 2.25vw;
+    gap: 2.25vw;
+    border-radius: 1.12vw;
+    font-size: 3.9vw;
+    height: 7.77vw;
+  }
+
+  .CrossIcon {
+    width: 2.8vw;
+    height: 2.8vw;
+  }
+
+  .TimelineFilters > form > div:nth-child(4) > div {
+    right: 0;
+    left: unset;
+  }
+
+  .TimelineFilters > form > div:nth-child(3) > div {
+    left: 0;
+    right: unset;
   }
 }

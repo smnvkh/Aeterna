@@ -15,11 +15,10 @@
 
   <div class="MemoryHead">
     <div class="breadcrumbs">
-      <% if @profile %>
-        <%= link_to 'Профиль', profile_path(@profile) %>
+      <% origin_breadcrumb.each do |crumb| %>
+        <%= link_to crumb[:label], crumb[:path] %>
       <% end %>
-      <%= link_to 'Воспоминания', profile_path(@profile) %>
-      <%= truncate(@memory.title, length: 40) %>
+      <%= truncate_clean(@memory.title, length: 40) %>
     </div>
     <h1 class="MemoryTitle"><%= @memory.title %></h1>
   </div>

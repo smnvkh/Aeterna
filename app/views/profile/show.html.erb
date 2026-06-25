@@ -190,7 +190,7 @@
               <% if cover_memory&.image.present? %>
                 <%= image_tag cover_memory.image.preview.url, class: "CollectionCardImg" %>
               <% elsif cover_memory&.body.present? %>
-                <div class="CollectionCardImg CollectionCardTextPreview"><%= truncate(cover_memory.body, length: 90, separator: " ") %></div>
+                <div class="CollectionCardImg CollectionCardTextPreview"><%= truncate_clean(cover_memory.body, length: 90) %></div>
               <% else %>
                 <div class="CollectionCardImg CollectionCardImgPlaceholder"></div>
               <% end %>
