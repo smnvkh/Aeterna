@@ -175,7 +175,8 @@
   width: 14rem;
 }
 
-.AddToCollectionMenu:hover .AddToCollectionDropdown {
+.AddToCollectionMenu:hover .AddToCollectionDropdown,
+.AddToCollectionMenu.open .AddToCollectionDropdown {
   display: flex;
 }
 
@@ -247,7 +248,8 @@
   width: 14rem;
 }
 
-.MoreMenu:hover .MoreMenuDropdown {
+.MoreMenu:hover .MoreMenuDropdown,
+.MoreMenu.open .MoreMenuDropdown {
   display: flex;
 }
 
@@ -411,6 +413,8 @@ a.EditButton.DeleteLink {
 
   .MemoryMainPart {
     max-width: 100%;
+    width: 100%;
+    margin: 0;
   }
 
   .MemoryImage {
@@ -419,7 +423,7 @@ a.EditButton.DeleteLink {
 
   .MemoryImage img {
     width: 100%;
-    height: 75vw;
+    height: 90vw;
   }
 
   .MemoryBodyText {

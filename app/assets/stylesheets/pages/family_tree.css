@@ -242,6 +242,10 @@
   overflow: visible;
 }
 
+.MemoryForm:has(.AddRelationCreateNewCheck:checked) .AddRelationExistingGender {
+  display: none;
+}
+
 .FamilyTreeRow {
   display: flex;
   align-items: flex-start;

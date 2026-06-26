@@ -46,7 +46,7 @@ class FamilyMember < ApplicationRecord
   end
 
   def to_s
-    "#{relation.to_s.capitalize} #{name}"
+    "#{name}"
   end
 
   private

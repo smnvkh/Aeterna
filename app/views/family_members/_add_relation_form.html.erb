@@ -45,6 +45,20 @@
         <p class="MemoryFormHint">Проверьте имя — выбор человека, уже зарегистрированного в Aeterna, сразу меняет дерево для всей семьи.</p>
       </div>
 
+      <div class="AddRelationExistingGender MemoryFormField">
+        <span class="MemoryFormLabel">Пол</span>
+        <div class="MemoryFormTags">
+          <label class="tag MemoryFormTag">
+            <input type="radio" name="gender" value="f" checked>
+            Женский
+          </label>
+          <label class="tag MemoryFormTag">
+            <input type="radio" name="gender" value="m">
+            Мужской
+          </label>
+        </div>
+      </div>
+
       <label class="AddRelationCreateNewToggle">
         <input type="checkbox" name="create_new_person" value="1" class="AddRelationCreateNewCheck">
         Создать нового
@@ -64,19 +78,6 @@
           </div>
         </div>
 
-        <div class="MemoryFormField">
-          <span class="MemoryFormLabel">Пол</span>
-          <div class="MemoryFormTags">
-            <label class="tag MemoryFormTag">
-              <input type="radio" name="gender" value="f" checked>
-              Женский
-            </label>
-            <label class="tag MemoryFormTag">
-              <input type="radio" name="gender" value="m">
-              Мужской
-            </label>
-          </div>
-        </div>
       </div>
 
       <%= submit_tag "Добавить", class: "MemoryFormSubmit" %>

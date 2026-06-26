@@ -136,7 +136,7 @@
     <% if can?(:manage, @collection) %>
       <div class="EditButtons">
         <%= link_to "Редактировать", edit_collection_path(@collection), class: "EditButton" %>
-        <%= link_to "Удалить", @collection, data: { turbo_method: :delete, turbo_confirm: "Удалить подборку?" }, class: "EditButton DeleteLink" %>
+        <%= button_to "Удалить", @collection, method: :delete, data: { turbo_confirm: "Удалить подборку?" }, class: "EditButton DeleteLink", form: { data: { turbo: false } } %>
       </div>
     <% end %>
   </div>

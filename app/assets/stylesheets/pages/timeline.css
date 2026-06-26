@@ -138,7 +138,8 @@
   cursor: pointer;
 }
 
-.TimelineFilterDropdown:hover .TimelineFilterSelect {
+.TimelineFilterDropdown:hover .TimelineFilterSelect,
+.TimelineFilterDropdown.open .TimelineFilterSelect {
   border-bottom-color: transparent;
 }
 
@@ -167,7 +168,8 @@
   z-index: 20;
 }
 
-.TimelineFilterDropdown:hover .TimelineFilterMenu {
+.TimelineFilterDropdown:hover .TimelineFilterMenu,
+.TimelineFilterDropdown.open .TimelineFilterMenu {
   display: flex;
 }
 

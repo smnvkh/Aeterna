@@ -6,7 +6,7 @@
                 <p>Aeterna сохраняет голоса, фото и истории семьи — чтобы память жила дольше</p>
             </div>
             <div class="CTA">
-            <%= link_to root_url do %>
+            <%= link_to (user_signed_in? ? new_memory_path : new_user_session_path) do %>
                 Начать сохранять
                 <span class="ArrowBox"></span>
             <% end %>
@@ -84,7 +84,7 @@
         <h2>Сохраняйте память</h2>
         <div class="CTA">
             <p>Пополняйте архив и возвращайтесь к важным моментам в любое время</p>
-            <%= link_to root_url do %>
+            <%= link_to (user_signed_in? ? new_memory_path : new_user_session_path) do %>
                 Начать сохранять
                 <span class="ArrowBox"></span>
             <% end %>

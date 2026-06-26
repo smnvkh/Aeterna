@@ -50,7 +50,7 @@
         <% if user_signed_in? %>
             <%#= link_to current_user.email, edit_user_registration_path %>
             <%#= link_to "Мои воспоминания", my_memories_path %>
-            <div class="AddMemoryMenu">
+            <div class="AddMemoryMenu dropdown-trigger" data-controller="dropdown" data-action="click->dropdown#toggle">
                 <span class="AddMemoryButton">
                     Добавить
                     <span class="PlusIcon"></span>

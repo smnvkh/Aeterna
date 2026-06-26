@@ -41,7 +41,7 @@
       <% end %>
 
       <div class="EditButtons">
-        <div class="AddToCollectionMenu">
+        <div class="AddToCollectionMenu dropdown-trigger" data-controller="dropdown" data-action="click->dropdown#toggle">
           <button type="button" class="EditButton">
             Добавить в подборку
           </button>
@@ -49,7 +49,7 @@
             <% if @collections.any? %>
               <div class="AddToCollectionList">
                 <% @collections.each do |collection| %>
-                  <%= link_to collection.title, add_to_collection_memory_path(@memory, collection_id: collection.id), data: { turbo_method: :post }, class: "MoreMenuItem" %>
+                  <%= button_to collection.title, add_to_collection_memory_path(@memory, collection_id: collection.id), method: :post, class: "MoreMenuItem", form: { data: { turbo: false } } %>
                 <% end %>
               </div>
               <div class="AddToCollectionDivider"></div>
@@ -58,7 +58,7 @@
           </div>
         </div>
         <% if @memory.family_member == current_user.family_member %>
-          <div class="MoreMenu">
+          <div class="MoreMenu dropdown-trigger" data-controller="dropdown" data-action="click->dropdown#toggle">
             <button type="button" class="MoreButton">
               <span class="Dot"></span>
               <span class="Dot"></span>
@@ -69,7 +69,7 @@
                 Редактировать
                 <%= image_tag 'icons/EditIcon.svg', class: 'EditIcon' %>
               <% end %>
-              <%= link_to "Удалить", @memory, data: { turbo_stream: false, turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'MoreMenuItem DeleteLink' %>
+              <%= button_to "Удалить", @memory, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'MoreMenuItem DeleteLink', form: { data: { turbo: false } } %>
             </div>
           </div>
         <% end %>

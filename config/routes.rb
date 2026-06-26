@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   # API
   namespace :api, format: "json" do
     namespace :v1 do
-      resources :memories, only: [ :create, :index, :show ]
+      resources :memories, only: [ :create, :index, :show, :update ]
       resources :subscriptions
       resources :family_members, only: [ :index ]
 

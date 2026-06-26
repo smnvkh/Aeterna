@@ -103,7 +103,12 @@ class FamilyRelationBuilder
   end
 
   def build_member
-    existing_member || FamilyMember.create!(name: name, gender: gender, family: source.family, birth_date: birth_date, death_date: death_date)
+    if existing_member
+      existing_member.update!(gender: gender) if gender.present?
+      existing_member
+    else
+      FamilyMember.create!(name: name, gender: gender, family: source.family, birth_date: birth_date, death_date: death_date)
+    end
   end
 
   def add_parent(role)

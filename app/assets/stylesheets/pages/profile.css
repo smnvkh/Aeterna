@@ -358,7 +358,8 @@
   z-index: 10;
 }
 
-.MoreMenu:hover .MoreMenuDropdown {
+.MoreMenu:hover .MoreMenuDropdown,
+.MoreMenu.open .MoreMenuDropdown {
   display: flex;
 }
 

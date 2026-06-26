@@ -24,6 +24,7 @@ class OnboardingController < ApplicationController
         return redirect_to onboarding_profile_info_path
       end
       current_user.update!(family: family)
+      current_user.family_member&.update!(family: family)
     end
 
     profile = current_user.profile || current_user.build_profile

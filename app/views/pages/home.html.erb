@@ -6,7 +6,7 @@
                 <p>Соберите фотографии, истории и важные моменты в одном месте — вместе с близкими</p>
             </div>
             <div class="CTA">
-            <%= link_to root_url do %>
+            <%= link_to (user_signed_in? ? new_memory_path : new_user_session_path) do %>
                 Добавить воспоминание
                 <span class="ArrowBox"></span>
             <% end %>

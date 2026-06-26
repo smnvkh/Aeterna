@@ -264,7 +264,8 @@ p.Subtitle {
   width: 10rem;
 }
 
-.AddMemoryMenu:hover .AddMemoryDropdown {
+.AddMemoryMenu:hover .AddMemoryDropdown,
+.AddMemoryMenu.open .AddMemoryDropdown {
   display: flex;
 }
 
